@@ -1,12 +1,22 @@
+:root {
+  --font: "Open Sans", sans-serif;
+  --light-color: #ece5f0;
+  --light-green: #a0af84;
+  --light-dark-green: #668f80;
+  --dark-green: #003b36;
+  --deep-dark-green: #012622;
+}
+
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ECE5F0;
+  background-color: var(--light-color);
+  color: var(--deep-dark-green);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
