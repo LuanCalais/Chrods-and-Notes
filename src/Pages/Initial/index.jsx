@@ -4,7 +4,9 @@ import Header from "../../Components/Header";
 const Initial = () => {
   return (
     <main>
-      <Header />
+      <header>
+        <Header isLoged={false} />
+      </header>
     </main>
   );
 };
