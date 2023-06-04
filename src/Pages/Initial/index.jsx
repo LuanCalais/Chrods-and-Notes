@@ -1,5 +1,12 @@
+import "./Initial.module.css";
+import Header from "../../Components/Header";
+
 const Initial = () => {
-  return <h1>Initial page works!</h1>;
+  return (
+    <main>
+      <Header />
+    </main>
+  );
 };
 
 export default Initial;
