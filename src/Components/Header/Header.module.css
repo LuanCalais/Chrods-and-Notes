@@ -1,0 +1,20 @@
+nav {
+  min-height: 39px;
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 8px 24px;
+  column-gap: 20px;
+}
+
+nav .container a {
+  text-decoration: none;
+}
+
+nav .container i {
+  font-size: 39px;
+  color: #436b5f;
+}
