@@ -29,7 +29,7 @@ const Header = ({ isLoged }) => {
 
         <Button
           label="Sign in"
-          color="var(--light-color)"
+          color="var(--light-dark-green)"
           background="var(--light-slim-green)"
         />
       </div>
