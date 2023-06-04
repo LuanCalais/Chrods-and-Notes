@@ -1,3 +1,4 @@
+import Button from "../Common/Button";
 import styles from "./Header.module.css";
 
 const Header = ({ isLoged }) => {
@@ -25,6 +26,12 @@ const Header = ({ isLoged }) => {
         >
           <i className="bx bxl-linkedin-square"></i>
         </a>
+
+        <Button
+          label="Sign in"
+          color="var(--light-color)"
+          background="var(--light-slim-green)"
+        />
       </div>
     </nav>
   );
