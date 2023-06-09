@@ -1,5 +1,6 @@
 import "./Initial.module.css";
 import Header from "../../Components/Header";
+import CenterContent from "../../Components/CenterContent";
 
 const Initial = () => {
   return (
@@ -7,6 +8,7 @@ const Initial = () => {
       <header>
         <Header isLoged={false} />
       </header>
+      <CenterContent isLoged={false} />
     </main>
   );
 };
