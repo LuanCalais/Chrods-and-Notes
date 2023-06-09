@@ -1,0 +1,38 @@
+.centerContentContainer {
+  position: absolute;
+  height: calc(100vh - 170px);
+  width: calc(100% - 120px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.titleContainer {
+  text-align: center;
+}
+
+.titleContainer::after {
+  content: "";
+  background-color: #ece5f0;
+  display: block;
+  width: 242px;
+  height: 1px;
+  margin: 30px auto;
+}
+
+.titleContainer h1 {
+  font-weight: 800;
+  font-size: 80px;
+  color: #a0af84;
+}
+
+.titleContainer h1 span {
+  color: #ece5f0;
+}
+
+.titleContainer h2 {
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 61px;
+  color: #ece5f0;
+}
