@@ -16,7 +16,7 @@
 
 .titleContainer::after {
   content: "";
-  background-color: #ece5f0;
+  background-color: var(--light-color);
   display: block;
   width: 242px;
   height: 1px;
@@ -26,16 +26,67 @@
 .titleContainer h1 {
   font-weight: 800;
   font-size: 80px;
-  color: #a0af84;
+  color: var(--light-green);
 }
 
 .titleContainer h1 span {
-  color: #ece5f0;
+  color: var(--light-color);
 }
 
 .titleContainer h2 {
   font-weight: 600;
   font-size: 45px;
   line-height: 61px;
-  color: #ece5f0;
+  color: var(--light-color);
+}
+
+.infoContainer {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  height: 410px;
+  width: 100%;
+  margin-top: 50px;
+  border-radius: 16px;
+  box-shadow: 2px 3px 27px 19px rgba(0, 0, 0, 0.25);
+  background-color: var(--light-color);
+}
+
+.infoContainer .infoBox {
+  border-radius: 16px 0 0 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoContainer .infoBox h3 {
+  font-weight: 800;
+  font-size: 40px;
+}
+
+.infoContainer .infoBox h3 span {
+  color: var(--light-green);
+}
+
+.infoContainer .infoBox h3::after {
+  content: "";
+  background-color: currentColor;
+  display: block;
+  width: 90px;
+  height: 1px;
+  margin: 8px 0;
+}
+
+.infoContainer .infoBox p {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.infoContainer .imgBox {
+  border-radius: 0 16px 16px 0;
+  background-image: url(./band.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }

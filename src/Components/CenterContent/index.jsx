@@ -14,7 +14,7 @@ const CenterContent = ({ isLoged }) => {
         </h1>
         <h2>Manage your classes </h2>
       </div>
-      <Button 
+      <Button
         label="Sing up"
         color="var(--light-slim-green)"
         background="var(--light-color)"
@@ -22,6 +22,24 @@ const CenterContent = ({ isLoged }) => {
         height="65px"
         fontSize="24px"
       />
+      <div className={styles.infoContainer}>
+        <div className={styles.infoBox}>
+          <h3><span>Chords</span> and Notes</h3>
+          <p>
+            Um sistema facilitado e inovador para que você consiga gerenciar
+            suas aulas e evoluções no mundo da música.
+          </p>
+          <Button
+            label="Start now"
+            color="var(--light-color)"
+            background="var(--deep-dark-green)"
+            width="100%"
+            height="41px"
+            fontSize="14px"
+          />
+        </div>
+        <div className={styles.imgBox}></div>
+      </div>
     </section>
   );
 };
