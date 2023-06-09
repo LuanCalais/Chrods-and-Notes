@@ -1,4 +1,5 @@
 import styles from "./CenterContent.module.css";
+import Button from "../Common/Button";
 
 const CenterContent = ({ isLoged }) => {
   if (isLoged) {
@@ -13,6 +14,14 @@ const CenterContent = ({ isLoged }) => {
         </h1>
         <h2>Manage your classes </h2>
       </div>
+      <Button 
+        label="Sing up"
+        color="var(--light-slim-green)"
+        background="var(--light-color)"
+        width="242px"
+        height="65px"
+        fontSize="24px"
+      />
     </section>
   );
 };
