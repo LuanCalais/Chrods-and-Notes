@@ -1,7 +1,7 @@
 import './Modal.module.css'
 
 const Modal = () => {
-  return <h1>Modal works</h1>;
+  return;
 };
 
 export default Modal;

@@ -3,6 +3,11 @@ import Button from "../Common/Button";
 import Modal from "../Common/Modal";
 
 const CenterContent = ({ isLoged }) => {
+
+  const openModal = () =>   {
+    alert('TODO: Open singup modal')
+  }
+
   if (isLoged) {
     return <h1>Usuário logado</h1>;
   }
@@ -35,6 +40,7 @@ const CenterContent = ({ isLoged }) => {
             </p>
             <Button
               label="Start now"
+              actionFunction={openModal}
               color="var(--light-color)"
               background="var(--deep-dark-green)"
               width="100%"
