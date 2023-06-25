@@ -10,23 +10,14 @@ const CenterContent = ({ isLoged }) => {
 
   const [user, setUser] = useState(new UserModel());
 
+  const newUser = new UserModel();
+
   const handleModal = () => {
     setShow(!show);
   };
 
-  const handleName = (value) => {
-    setUser({ name: value });
-  };
-  const handleEmail = (value) => {
-    setUser({ email: value });
-  };
-  const handlePassword = (value) => {
-    setUser({ password: value });
-  };
-
   const createUser = () => {
-    // TODO: Integrate when endpoint is done
-    console.log(user);
+    setUser(newUser);
   };
 
   if (isLoged) {
@@ -74,11 +65,18 @@ const CenterContent = ({ isLoged }) => {
         </div>
       </section>
       <Modal title="Sing up" show={show} handleModal={handleModal}>
-        <Input placeholder="Nome" handleValue={handleName} />
-        <Input placeholder="E-mail" handleValue={handleEmail} type="email" />
+        <Input
+          placeholder="Nome"
+          handleValue={(value) => (newUser.name = value)}
+        />
+        <Input
+          placeholder="E-mail"
+          handleValue={(value) => (newUser.email = value)}
+          type="email"
+        />
         <Input
           placeholder="Password"
-          handleValue={handlePassword}
+          handleValue={(value) => (newUser.password = value)}
           type="password"
         />
         <Button
