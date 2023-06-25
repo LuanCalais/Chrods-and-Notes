@@ -1,6 +1,6 @@
 import styles from "./CenterContent.module.css";
 import Button from "../Common/Button";
-import Modal from "../Common/Modal";
+import Modal from "../Common/CommonModal";
 
 const CenterContent = ({ isLoged }) => {
 
@@ -51,7 +51,9 @@ const CenterContent = ({ isLoged }) => {
           <div className={styles.imgBox}></div>
         </div>
       </section>
-      <Modal/>
+      <Modal>
+        oi
+      </Modal>
     </>
   );
 };
