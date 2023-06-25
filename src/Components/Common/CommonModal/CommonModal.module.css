@@ -3,11 +3,11 @@
 }
 
 .modalHeader {
-  color: #ece5f0;
+  color: var(--light-color);
   font-size: 45px;
   font-weight: 300;
   height: 130px;
-  background: linear-gradient(270deg, #012622 0%, rgba(1, 38, 34, 0.63) 100%);
+  background: linear-gradient(270deg, var(--deep-dark-green) 0%, rgba(1, 38, 34, 0.63) 100%);
   display: flex;
   justify-content: center;
 }
@@ -15,5 +15,8 @@
 .modalBody {
   background: #ece5f0;
   border-radius: 0px 0px 12px 12px;
-  padding: 14px 34px;
+  padding: 16px 54px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
 }
