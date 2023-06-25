@@ -14,8 +14,19 @@ const CenterContent = ({ isLoged }) => {
     setShow(!show);
   };
 
-  const handleValue = (value) => {
+  const handleName = (value) => {
     setUser({ name: value });
+  };
+  const handleEmail = (value) => {
+    setUser({ email: value });
+  };
+  const handlePassword = (value) => {
+    setUser({ password: value });
+  };
+
+  const createUser = () => {
+    // TODO: Integrate when endpoint is done
+    console.log(user);
   };
 
   if (isLoged) {
@@ -63,9 +74,13 @@ const CenterContent = ({ isLoged }) => {
         </div>
       </section>
       <Modal title="Sing up" show={show} handleModal={handleModal}>
-        <Input placeholder="Nome" handleValue={handleValue} />
-        <Input placeholder="E-mail" />
-        <Input placeholder="Password" />
+        <Input placeholder="Nome" handleValue={handleName} />
+        <Input placeholder="E-mail" handleValue={handleEmail} type="email" />
+        <Input
+          placeholder="Password"
+          handleValue={handlePassword}
+          type="password"
+        />
         <Button
           label="Sing up"
           color="var(--light-color)"
@@ -73,6 +88,7 @@ const CenterContent = ({ isLoged }) => {
           width="100%"
           height="41px"
           fontSize="14px"
+          actionFunction={createUser}
         />
       </Modal>
     </>
