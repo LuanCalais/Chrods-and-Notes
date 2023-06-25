@@ -1,7 +1,7 @@
 import "./Button.module.css";
 
 const Button = ({
-  actionFunction,
+  actionFunction = () => {},
   label,
   color,
   background,

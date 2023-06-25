@@ -1,12 +1,14 @@
 import styles from "./CenterContent.module.css";
 import Button from "../Common/Button";
 import Modal from "../Common/CommonModal";
+import { useState } from "react";
 
 const CenterContent = ({ isLoged }) => {
+  const [show, setShow] = useState(false);
 
-  const openModal = () =>   {
-    alert('TODO: Open singup modal')
-  }
+  const handleModal = () => {
+    setShow(!show);
+  };
 
   if (isLoged) {
     return <h1>Usuário logado</h1>;
@@ -23,6 +25,7 @@ const CenterContent = ({ isLoged }) => {
         </div>
         <Button
           label="Sing up"
+          actionFunction={handleModal}
           color="var(--light-slim-green)"
           background="var(--light-color)"
           width="242px"
@@ -40,7 +43,7 @@ const CenterContent = ({ isLoged }) => {
             </p>
             <Button
               label="Start now"
-              actionFunction={openModal}
+              actionFunction={handleModal}
               color="var(--light-color)"
               background="var(--deep-dark-green)"
               width="100%"
@@ -51,8 +54,8 @@ const CenterContent = ({ isLoged }) => {
           <div className={styles.imgBox}></div>
         </div>
       </section>
-      <Modal>
-        oi
+      <Modal title="Sing up" show={show} handleModal={handleModal}>
+        Conteúdo filho
       </Modal>
     </>
   );
