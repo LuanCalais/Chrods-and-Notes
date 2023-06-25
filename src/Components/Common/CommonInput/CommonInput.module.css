@@ -1,0 +1,13 @@
+.commonInput {
+  height: 45px;
+  border-radius: 4px;
+  background: #d9d9d9;
+  color: #929292;
+  font-size: 16px;
+}
+
+.commonInput:focus {
+  background: #d9d9d9;
+  border-color: #a3a3a3;
+  box-shadow: none;
+}
