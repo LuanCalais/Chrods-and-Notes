@@ -3,12 +3,19 @@ import Button from "../Common/Button";
 import Modal from "../Common/CommonModal";
 import Input from "../Common/CommonInput";
 import { useState } from "react";
+import { UserModel } from "../../Model";
 
 const CenterContent = ({ isLoged }) => {
   const [show, setShow] = useState(false);
 
+  const [user, setUser] = useState(new UserModel());
+
   const handleModal = () => {
     setShow(!show);
+  };
+
+  const handleValue = (value) => {
+    setUser({ name: value });
   };
 
   if (isLoged) {
@@ -56,9 +63,9 @@ const CenterContent = ({ isLoged }) => {
         </div>
       </section>
       <Modal title="Sing up" show={show} handleModal={handleModal}>
-        <Input placeholder="Nome"/>
-        <Input placeholder="E-mail"/>
-        <Input placeholder="Password"/>
+        <Input placeholder="Nome" handleValue={handleValue} />
+        <Input placeholder="E-mail" />
+        <Input placeholder="Password" />
         <Button
           label="Sing up"
           color="var(--light-color)"
