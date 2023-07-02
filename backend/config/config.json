@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Luan.125678943",
+    "database": "chords_and_notes",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
