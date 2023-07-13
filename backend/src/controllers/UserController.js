@@ -1,15 +1,13 @@
-// TODO: fix error in this import
-import database from "../models";
-
-class UserController {
-  static async getAllUsers(req, res) {
-    try {
-      const allUsers = await database.Users.findeAll();
-      return res.status(200).json(allUsers);
-    } catch (err) {
-      return res.status(500).json(err.message);
+import UserModel from "../models/UserModel.js"
+class UsersController {
+    static getAllUsers = async (req, res) => {
+        try {
+            const users = await UserModel.find()
+            res.status(200).send(users)
+        } catch (err) {
+            res.status(400).send({message: `${err.message} - We sorry :(`})
+        }
     }
-  }
 }
 
-export default UserController;
+export default UsersController

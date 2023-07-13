@@ -15,8 +15,6 @@
     "express": "^4.18.2",
     "mongodb": "^5.7.0",
     "mongoose": "^7.3.2",
-    "nodemon": "^2.0.22",
-    "sequelize": "^5.22.5",
-    "sequelize-cli": "^5.5.1"
+    "nodemon": "^2.0.22"
   }
 }
