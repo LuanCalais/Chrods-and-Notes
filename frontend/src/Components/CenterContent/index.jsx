@@ -4,6 +4,7 @@ import Modal from "../Common/CommonModal";
 import Input from "../Common/CommonInput";
 import { useState } from "react";
 import { UserModel } from "../../Model";
+import UserService from "../../Services/UserService";
 
 const CenterContent = ({ isLoged }) => {
   const [show, setShow] = useState(false);
@@ -18,6 +19,7 @@ const CenterContent = ({ isLoged }) => {
 
   const createUser = () => {
     setUser(newUser);
+    UserService.createUser(newUser);
   };
 
   if (isLoged) {
