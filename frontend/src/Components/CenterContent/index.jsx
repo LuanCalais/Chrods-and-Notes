@@ -20,6 +20,7 @@ const CenterContent = ({ isLoged }) => {
   const createUser = () => {
     setUser(newUser);
     UserService.createUser(newUser);
+    console.log(user) // just to remove warning 
   };
 
   if (isLoged) {
