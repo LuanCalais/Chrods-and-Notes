@@ -13,11 +13,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
   })
 );
 
-const port = 3000;
+const port = 3001;
 Routes(app);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

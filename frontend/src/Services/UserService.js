@@ -2,11 +2,16 @@ import axios from "axios";
 
 const path = "/users";
 
-class UserService {
+const UserService = {
   async createUser(user) {
-    const result = await axios.post(`http://localhost:3000${path}`, user);
-    // TODO: Redirect to logged status
+    axios.post(`http://localhost:3001${path}`, user)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 
-export default new UserService();
+export default UserService;
