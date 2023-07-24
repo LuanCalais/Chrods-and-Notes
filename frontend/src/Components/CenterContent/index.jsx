@@ -17,10 +17,10 @@ const CenterContent = ({ isLoged }) => {
     setShow(!show);
   };
 
-  const createUser = () => {
+  const createUser = async () => {
     setUser(newUser);
-    UserService.createUser(newUser);
-    console.log(user) // just to remove warning 
+    const res = await UserService.createUser(newUser);
+    setUser(res);
   };
 
   if (isLoged) {
@@ -45,6 +45,7 @@ const CenterContent = ({ isLoged }) => {
           height="65px"
           fontSize="24px"
         />
+
         <div className={styles.infoContainer}>
           <div className={styles.infoBox}>
             <h3>
@@ -54,6 +55,7 @@ const CenterContent = ({ isLoged }) => {
               Um sistema facilitado e inovador para que você consiga gerenciar
               suas aulas e evoluções no mundo da música.
             </p>
+            
             <Button
               label="Start now"
               actionFunction={handleModal}
