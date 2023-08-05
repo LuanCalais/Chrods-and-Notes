@@ -18,7 +18,11 @@ const CenterContent = ({ isLoged }) => {
   };
 
   const createUser = async () => {
-    setUser(newUser);
+    if (!user.name.trim() || !user.email.trim() || !user.password.trim()){
+      alert(`Insira todos os dados necessarios`)
+      return;
+    }
+    alert(`Boa`)
     const res = await UserService.createUser(newUser);
     setUser(res);
   };
@@ -55,7 +59,7 @@ const CenterContent = ({ isLoged }) => {
               Um sistema facilitado e inovador para que você consiga gerenciar
               suas aulas e evoluções no mundo da música.
             </p>
-            
+
             <Button
               label="Start now"
               actionFunction={handleModal}
@@ -72,16 +76,16 @@ const CenterContent = ({ isLoged }) => {
       <Modal title="Sing up" show={show} handleModal={handleModal}>
         <Input
           placeholder="Nome"
-          handleValue={(value) => (newUser.name = value)}
+          handleValue={(value) => (user.name = value)}
         />
         <Input
           placeholder="E-mail"
-          handleValue={(value) => (newUser.email = value)}
+          handleValue={(value) => (user.email = value)}
           type="email"
         />
         <Input
           placeholder="Password"
-          handleValue={(value) => (newUser.password = value)}
+          handleValue={(value) => (user.password = value)}
           type="password"
         />
         <Button
