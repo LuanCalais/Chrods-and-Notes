@@ -5,6 +5,8 @@ import Input from "../Common/CommonInput";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
+import { responseRequest } from "../../utils";
+import { ToastContainer } from "react-toastify";
 
 const CenterContent = ({ isLoged }) => {
   const [show, setShow] = useState(false);
@@ -17,15 +19,19 @@ const CenterContent = ({ isLoged }) => {
     setShow(!show);
   };
 
-  const createUser = async () => {
-    if (!user.name.trim() || !user.email.trim() || !user.password.trim()){
-      alert(`Insira todos os dados necessarios`)
+  async function createUser() {
+    if (!user.name.trim() || !user.email.trim() || !user.password.trim()) {
+      alert(`Insira todos os dados necessarios`);
       return;
     }
-    alert(`Boa`)
     const res = await UserService.createUser(newUser);
-    setUser(res);
-  };
+
+    const responseResult = responseRequest(res.response.status);
+
+    if (responseResult) {
+      console.log(responseResult);
+    }
+  }
 
   if (isLoged) {
     return <h1>Usuário logado</h1>;
@@ -98,6 +104,7 @@ const CenterContent = ({ isLoged }) => {
           actionFunction={createUser}
         />
       </Modal>
+      <ToastContainer />
     </>
   );
 };
