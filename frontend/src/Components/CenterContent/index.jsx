@@ -13,7 +13,7 @@ const CenterContent = ({ isLoged }) => {
 
   const [user, setUser] = useState(new UserModel());
 
-  const newUser = new UserModel();
+  
 
   const handleModal = () => {
     setShow(!show);
@@ -24,7 +24,8 @@ const CenterContent = ({ isLoged }) => {
       alert(`Insira todos os dados necessarios`);
       return;
     }
-    const res = await UserService.createUser(newUser);
+
+    const res = await UserService.createUser(user);
 
     const responseResult = responseRequest(res.response.status);
 
