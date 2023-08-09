@@ -5,6 +5,8 @@ import Input from "../Common/CommonInput";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
+import { responseRequest } from "../../utils";
+import { ToastContainer } from "react-toastify";
 
 const CenterContent = ({ isLoged }) => {
   const [show, setShow] = useState(false);
@@ -17,11 +19,19 @@ const CenterContent = ({ isLoged }) => {
     setShow(!show);
   };
 
-  const createUser = async () => {
-    setUser(newUser);
+  async function createUser() {
+    if (!user.name.trim() || !user.email.trim() || !user.password.trim()) {
+      alert(`Insira todos os dados necessarios`);
+      return;
+    }
     const res = await UserService.createUser(newUser);
-    setUser(res);
-  };
+
+    const responseResult = responseRequest(res.response.status);
+
+    if (responseResult) {
+      console.log(responseResult);
+    }
+  }
 
   if (isLoged) {
     return <h1>Usuário logado</h1>;
@@ -55,7 +65,7 @@ const CenterContent = ({ isLoged }) => {
               Um sistema facilitado e inovador para que você consiga gerenciar
               suas aulas e evoluções no mundo da música.
             </p>
-            
+
             <Button
               label="Start now"
               actionFunction={handleModal}
@@ -72,16 +82,16 @@ const CenterContent = ({ isLoged }) => {
       <Modal title="Sing up" show={show} handleModal={handleModal}>
         <Input
           placeholder="Nome"
-          handleValue={(value) => (newUser.name = value)}
+          handleValue={(value) => (user.name = value)}
         />
         <Input
           placeholder="E-mail"
-          handleValue={(value) => (newUser.email = value)}
+          handleValue={(value) => (user.email = value)}
           type="email"
         />
         <Input
           placeholder="Password"
-          handleValue={(value) => (newUser.password = value)}
+          handleValue={(value) => (user.password = value)}
           type="password"
         />
         <Button
@@ -94,6 +104,7 @@ const CenterContent = ({ isLoged }) => {
           actionFunction={createUser}
         />
       </Modal>
+      <ToastContainer />
     </>
   );
 };
