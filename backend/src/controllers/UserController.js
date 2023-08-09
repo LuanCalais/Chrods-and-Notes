@@ -5,10 +5,26 @@ import { verifyObject } from "../utils/index.js";
 class UsersController {
   static createUser = async (req, res) => {
     try {
-      const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(req.body.password, salt);
-
+      // this utils method verify if all the information exists
       if (verifyObject(req.body)) {
+        const { name, email } = req.body;
+
+        // verify name and e-mail existence
+        const queryName = { name: name };
+        const queryEmail = { email: email };
+        const nameExistence = await UserModel.findOne(queryName);
+        const emailExistence = await UserModel.findOne(queryEmail);
+
+        if (nameExistence || emailExistence) {
+          res.status(500).send({
+            message: "We sorry, some information already registred :(",
+          });
+          return;
+        }
+        // this create a hash to sended password
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+
         let user = UserModel(req.body);
         user.password = hash;
         user.save();
@@ -17,7 +33,7 @@ class UsersController {
         return;
       }
       res.status(500).send({
-        message: "We sorry, please inserta all the required informations >:(",
+        message: "We sorry, please insert all the required informations >:(",
       });
     } catch (err) {
       res.status(500).send({
