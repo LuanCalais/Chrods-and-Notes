@@ -13,8 +13,6 @@ const CenterContent = ({ isLoged }) => {
 
   const [user, setUser] = useState(new UserModel());
 
-  
-
   const handleModal = () => {
     setShow(!show);
   };
@@ -25,12 +23,13 @@ const CenterContent = ({ isLoged }) => {
       return;
     }
 
-    const res = await UserService.createUser(user);
+    const { response } = await UserService.createUser(user);
 
-    const responseResult = responseRequest(res.response.status);
+    const responseResult = responseRequest(response);
 
     if (responseResult) {
-      console.log(responseResult);
+      setShow(false);
+      setUser(new UserModel());
     }
   }
 
