@@ -11,6 +11,7 @@ const Button = ({
   boxShadow = "0px 4px 4px rgba(0, 0, 0, 0.25)",
   borderRadius = "4px",
   propsClasses = [],
+  disabledButton = false,
 }) => {
   const cssStyle = {
     color: color,
@@ -29,6 +30,7 @@ const Button = ({
       className={classes}
       style={cssStyle}
       onClick={() => actionFunction()}
+      disabled={disabledButton}
     >
       {label}
     </button>

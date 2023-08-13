@@ -38,3 +38,30 @@ export const responseRequest = (responseErrorStatus) => {
   );
   return false;
 };
+
+export const validateEmail = (input) => {
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const isValid = emailRegex.test(input);
+
+  if (!isValid) {
+    toast.error("Inisira um e-mail válido");
+  }
+
+  return isValid;
+};
+
+export const validateObject = (object) => {
+  for (const key in object) {
+    if (key !== "id") {
+      if (
+        object[key] === null ||
+        object[key] === undefined ||
+        object[key] === ""
+      ) {
+        toast.error("Insira todas as informações");
+        return false;
+      }
+    }
+  }
+  return true;
+};
