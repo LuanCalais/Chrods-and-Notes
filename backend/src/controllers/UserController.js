@@ -21,12 +21,14 @@ class UsersController {
           });
           return;
         }
-        
+
         // this create a hash to sended password
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
         let user = UserModel(req.body);
+
+        user.isLogged = true;
         user.password = hash;
         user.save();
 

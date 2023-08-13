@@ -5,32 +5,33 @@ import Input from "../Common/CommonInput";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
-import { responseRequest } from "../../utils";
+import { responseRequest, validateEmail, validateObject } from "../../utils";
 import { ToastContainer } from "react-toastify";
 
 const CenterContent = ({ isLoged }) => {
   const [show, setShow] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
 
   const handleModal = () => {
+    setIsLoading(false);
     setShow(!show);
   };
 
   async function createUser() {
-    if (!user.name.trim() || !user.email.trim() || !user.password.trim()) {
-      alert(`Insira todos os dados necessarios`);
-      return;
-    }
+    if (!validateObject(user) || !validateEmail(user.email)) return;
+
+    setIsLoading(true);
 
     const { response } = await UserService.createUser(user);
 
     const responseResult = responseRequest(response);
 
     if (responseResult) {
-      setShow(false);
       setUser(new UserModel());
     }
+    setIsLoading(false);
+    setShow(false);
   }
 
   if (isLoged) {
@@ -102,6 +103,7 @@ const CenterContent = ({ isLoged }) => {
           height="41px"
           fontSize="14px"
           actionFunction={createUser}
+          disabledButton={isLoading}
         />
       </Modal>
       <ToastContainer />
