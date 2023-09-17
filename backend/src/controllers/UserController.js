@@ -1,12 +1,12 @@
 import UserModel from "../models/UserModel.js";
 import bcrypt from "bcrypt";
-import { verifyObject } from "../utils/index.js";
+import { verifyUserObject } from "../utils/index.js";
 
 class UsersController {
   static createUser = async (req, res) => {
     try {
       // this utils method verify if all the information exists
-      if (verifyObject(req.body)) {
+      if (verifyUserObject(req.body)) {
         const { name, email } = req.body;
 
         // verify name and e-mail existence
@@ -30,7 +30,10 @@ class UsersController {
 
         user.isLogged = true;
         user.password = hash;
-        user.save();
+        user.save().then((savedUser) => {
+          savedUser.id = savedUser._id.toString();
+          return savedUser.save();
+        });
 
         res.status(200).json(user);
         return;
