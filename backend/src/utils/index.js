@@ -13,11 +13,9 @@ export const verifyUserObject = (obj = {}) => {
 
 export const verifyObject = (obj = {}) => {
   for (const prop in obj) {
-    if (obj.hasOwnProperty(prop)) {
-      if (prop !== "id") {
-        if (obj[prop] === null || obj[prop] === undefined) {
-          return false;
-        }
+    if (prop !== "id") {
+      if (obj[prop] === null || obj[prop] === undefined || !obj[prop]) {
+        return false;
       }
     }
   }
