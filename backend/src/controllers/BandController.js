@@ -31,10 +31,15 @@ class BandController {
   static getBands = async (req, res) => {
     BandModel.find({})
       .then((bands) => {
-        res.status(200).json(bands);
+        BandModel.countDocuments({}).then((count) => {
+          res.status(200).json({
+            data: bands,
+            count: count,
+          });
+        });
       })
       .catch((err) => {
-        res.status(500).send({  
+        res.status(500).send({
           message: `${err.message} We sorry, something wrong happend`,
         });
       });
