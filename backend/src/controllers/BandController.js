@@ -23,9 +23,34 @@ class BandController {
       });
     } catch (err) {
       res.status(500).send({
-        message: `${err.message} We sorry, somthing wrong happend`,
+        message: `${err.message} We sorry, something wrong happend`,
       });
     }
+  };
+
+  static getBands = async (req, res) => {
+    BandModel.find({})
+      .then((bands) => {
+        res.status(200).json(bands);
+      })
+      .catch((err) => {
+        res.status(500).send({  
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
+  };
+
+  static getBandById = async (req, res) => {
+    const id = req.params.id;
+    BandModel.findById(id)
+      .then((band) => {
+        res.status(200).json(band);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
   };
 }
 
