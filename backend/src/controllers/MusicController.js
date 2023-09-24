@@ -73,6 +73,28 @@ class MusicController {
         });
       });
   };
+
+  static editMusicById = async (req, res) => {
+    req.body.updatedAt = new Date();
+
+    const id = req.params.id;
+    const body = req.body;
+
+    try {
+      const updated = await MusicModel.findByIdAndUpdate(
+        id,
+        { $set: body },
+        { new: true }
+      );
+      res.status(200).send({
+        message: `The operation was a success :), ${updated.name} has changed`,
+      });
+    } catch (err) {
+      res.status(500).send({
+        message: `${err.message} We sorry, something wrong happend`,
+      });
+    }
+  };
 }
 
 export default MusicController;
