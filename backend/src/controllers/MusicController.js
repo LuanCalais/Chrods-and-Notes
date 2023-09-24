@@ -44,6 +44,19 @@ class MusicController {
         });
       });
   };
+
+  static getMusicById = async (req, res) => {
+    const id = req.params.id;
+    MusicModel.findById(id)
+      .then((music) => {
+        res.status(200).json(music);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
+  };
 }
 
 export default MusicController;
