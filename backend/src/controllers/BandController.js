@@ -75,6 +75,8 @@ class BandController {
   };
 
   static editBandById = async (req, res) => {
+    req.body.updatedAt = new Date();
+
     const id = req.params.id;
     const body = req.body;
 
