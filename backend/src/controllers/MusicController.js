@@ -33,7 +33,7 @@ class MusicController {
       .populate("artist", "name")
       .then((musics) => {
         MusicModel.countDocuments({}).then((count) => {
-          res.status(500).json({
+          res.status(200).json({
             data: musics,
             count: count,
           });
@@ -46,9 +46,32 @@ class MusicController {
       });
   };
 
+  static getMusicByArtist = async (req, res) => {
+    const composer = req.params.composer;
+
+    MusicModel.find({})
+      .populate({
+        path: "artist",
+        match: { name: composer },
+      })
+      .then((musics) => {
+        const musicFiltered = musics.filter((music) => music.artist !== null);
+        res.status(200).json({
+          data: musicFiltered,
+          count: musicFiltered.length,
+        });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
+  };
+
   static getMusicById = async (req, res) => {
     const id = req.params.id;
     MusicModel.findById(id)
+      .populate("artist", "name")
       .then((music) => {
         res.status(200).json(music);
       })
