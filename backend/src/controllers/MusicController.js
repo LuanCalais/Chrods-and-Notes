@@ -6,6 +6,7 @@ class MusicController {
     try {
       req.body.createdAt = new Date();
       req.body.updatedAt = new Date();
+      req.body.name = req.body.name.toLowerCase();
 
       if (verifyObject(req.body)) {
         const music = new MusicModel(req.body);
@@ -100,6 +101,7 @@ class MusicController {
 
   static editMusicById = async (req, res) => {
     req.body.updatedAt = new Date();
+    req.body.name = req.body.name.toLowerCase();
 
     const id = req.params.id;
     const body = req.body;

@@ -6,6 +6,7 @@ class BandController {
     try {
       req.body.createdAt = new Date();
       req.body.updatedAt = new Date();
+      req.body.name = req.body.name.toLowerCase();
 
       if (verifyObject(req.body)) {
         let band = new BandModel(req.body);
@@ -76,6 +77,7 @@ class BandController {
 
   static editBandById = async (req, res) => {
     req.body.updatedAt = new Date();
+    req.body.name = req.body.name.toLowerCase();
 
     const id = req.params.id;
     const body = req.body;
