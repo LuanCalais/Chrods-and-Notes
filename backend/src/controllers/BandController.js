@@ -63,7 +63,7 @@ class BandController {
 
     BandModel.deleteOne({ id: id })
       .then(() => {
-        res.status(500).send({
+        res.status(200).send({
           message: "The operation was a success :)",
         });
       })
@@ -72,6 +72,26 @@ class BandController {
           message: `${err.message} We sorry, something wrong happend`,
         });
       });
+  };
+
+  static editBandById = async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    try {
+      const updated = await BandModel.findByIdAndUpdate(
+        id,
+        { $set: body },
+        { new: true }
+      );
+      res.status(200).send({
+        message: `The operation was a success :), ${updated.name} has changed`,
+      });
+    } catch (err) {
+      res.status(500).send({
+        message: `${err.message} We sorry, something wrong happend`,
+      });
+    }
   };
 }
 
