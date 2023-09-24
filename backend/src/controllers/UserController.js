@@ -5,6 +5,8 @@ import { verifyUserObject } from "../utils/index.js";
 class UsersController {
   static createUser = async (req, res) => {
     try {
+      req.body.name = req.body.name.toLowerCase();
+
       // this utils method verify if all the information exists
       if (verifyUserObject(req.body)) {
         const { name, email } = req.body;

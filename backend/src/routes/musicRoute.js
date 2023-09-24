@@ -4,6 +4,7 @@ import MusicController from "../controllers/MusicController.js";
 const router = Router()
   .get("/musics", MusicController.getMusics)
   .get("/musics/:id", MusicController.getMusicById)
+  .get("/musics/composer/:composer", MusicController.getMusicByArtist)
   .post("/musics", MusicController.creatMusic)
   .delete("/musics/:id", MusicController.deleteMusicById)
   .put("/musics/:id", MusicController.editMusicById);
