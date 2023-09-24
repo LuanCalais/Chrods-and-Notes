@@ -30,6 +30,7 @@ class MusicController {
 
   static getMusics = async (req, res) => {
     MusicModel.find({})
+      .populate("artist", "name")
       .then((musics) => {
         MusicModel.countDocuments({}).then((count) => {
           res.status(500).json({
