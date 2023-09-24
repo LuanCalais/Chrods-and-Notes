@@ -57,6 +57,22 @@ class MusicController {
         });
       });
   };
+
+  static deleteMusicById = async (req, res) => {
+    const id = req.params.id;
+
+    MusicModel.deleteOne({ id: id })
+      .then(() => {
+        res.status(200).send({
+          message: "The operation was a success :)",
+        });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
+  };
 }
 
 export default MusicController;
