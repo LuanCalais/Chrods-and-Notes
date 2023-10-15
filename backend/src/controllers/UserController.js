@@ -28,6 +28,9 @@ class UsersController {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
+        req.body.createdAt = new Date();
+        req.body.updatedAt = new Date();
+
         let user = UserModel(req.body);
 
         user.isLogged = true;
@@ -57,6 +60,19 @@ class UsersController {
     } catch (err) {
       res.status(400).send({ message: `${err.message} - We sorry :(` });
     }
+  };
+
+  static getUserById = async (req, res) => {
+    const id = req.params.id;
+    UserModel.findById(id)
+      .then((user) => {
+        res.status(200).json(user);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
   };
 }
 
