@@ -31,12 +31,36 @@ class BandController {
 
   static getBands = async (req, res) => {
     BandModel.find({})
+      .populate("user")
       .then((bands) => {
         BandModel.countDocuments({}).then((count) => {
           res.status(200).json({
             data: bands,
             count: count,
           });
+        });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        });
+      });
+  };
+
+  static getBandByUserId = async (req, res) => {
+    const id = req.params.id;
+    
+    BandModel.find({})
+      .populate({
+        path: "user",
+        match: { id: id },
+      })
+      .then((bands) => {
+        const bandsFiltered = bands.filter((band) => band.user !== null);
+
+        res.status(200).json({
+          data: bandsFiltered,
+          count: bandsFiltered.length,
         });
       })
       .catch((err) => {

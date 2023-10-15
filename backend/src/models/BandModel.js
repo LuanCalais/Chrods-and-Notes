@@ -5,6 +5,11 @@ const bandSchema = new mongoose.Schema({
   name: { type: String, required: true },
   gender: { type: String, required: true },
   bandCreatedAt: { type: String, required: true },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
 });
