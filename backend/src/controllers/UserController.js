@@ -74,6 +74,23 @@ class UsersController {
         });
       });
   };
+
+  static deleteUserById = async (req, res) => {
+    const id = req.params.id;
+
+    UserModel.deleteOne({ id: id }).then(() => {
+      res
+        .status(200)
+        .send({
+          message: "The operation was a success :)",
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message: `${err.message} We sorry, something wrong happend`,
+          });
+        });
+    });
+  };
 }
 
 export default UsersController;
