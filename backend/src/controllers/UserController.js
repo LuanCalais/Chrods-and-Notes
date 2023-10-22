@@ -113,6 +113,36 @@ class UsersController {
       });
     }
   };
+
+  static getUserByEmail = async (email) => {
+    try {
+      const queryEmail = { email: email };
+      const emailExistence = await UserModel.findOne(queryEmail);
+      return emailExistence;
+    } catch (err) {
+      return `${err.message} We sorry, something wrong happend`;
+    }
+  };
+
+  static userLogin = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const user = await this.getUserByEmail(email);
+      
+      if (!user) {
+        res.status(500).send({
+          message: `We sorry, user doesent exist`,
+        });
+        return;
+      }
+
+    } catch (err) {
+      res.status(500).send({
+        message: `${err.message} `,
+      });
+    }
+  };
 }
 
 export default UsersController;
