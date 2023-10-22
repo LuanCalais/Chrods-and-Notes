@@ -8,5 +8,6 @@ const router = Router()
   .delete("/users/:id", UserController.deleteUserById)
   .put("/users/:id", UserController.editUserById)
   .put("/login/users", UserController.userLogin)
+  .put("/logoff/users", UserController.userLogin)
 
 export default router;
