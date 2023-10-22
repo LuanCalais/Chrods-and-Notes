@@ -126,7 +126,7 @@ class UsersController {
 
   static userLogin = async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { email, password, state } = req.body;
 
       const user = await this.getUserByEmail(email);
 
@@ -142,11 +142,12 @@ class UsersController {
         if (result) {
           const updated = await UserModel.findOneAndUpdate(
             { email: email },
-            { isLogged: true },
+            { isLogged: state },
             { new: true }
           );
           res.status(200).send({
             message: `Welcome :), ${updated.name}`,
+            data: updated,
           });
         } else {
           res.status(500).send({
