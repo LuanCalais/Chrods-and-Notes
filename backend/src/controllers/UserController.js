@@ -33,7 +33,7 @@ class UsersController {
 
         let user = UserModel(req.body);
 
-        user.isLogged = true;
+        user.isLogged = false;
         user.password = hash;
         user.save().then((savedUser) => {
           savedUser.id = savedUser._id.toString();
@@ -126,17 +126,34 @@ class UsersController {
 
   static userLogin = async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email, password } = req.body;
 
       const user = await this.getUserByEmail(email);
-      
+
       if (!user) {
         res.status(500).send({
           message: `We sorry, user doesent exist`,
         });
         return;
-      }
+      } else {
+        const cryptPassword = user.password;
+        const result = await bcrypt.compare(password, cryptPassword);
 
+        if (result) {
+          const updated = await UserModel.findOneAndUpdate(
+            { email: email },
+            { isLogged: true },
+            { new: true }
+          );
+          res.status(200).send({
+            message: `Welcome :), ${updated.name}`,
+          });
+        } else {
+          res.status(500).send({
+            message: `Hey >:( Passwords do not match! Who are you?`,
+          });
+        }
+      }
     } catch (err) {
       res.status(500).send({
         message: `${err.message} `,
