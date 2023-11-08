@@ -12,18 +12,27 @@ const CenterContent = ({ isLoged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleModal = () => {
     setIsLoading(false);
     setShow(!show);
   };
 
-  async function createUser() {
+  async function handleUser() {
     if (!validateObject(user) || !validateEmail(user.email)) return;
 
     setIsLoading(true);
 
-    const { response } = await UserService.createUser(user);
+    let response;
+
+    if (isLogin) {
+      response = await UserService.loginUser(user);
+    } else {
+      response = await UserService.createUser(user);
+    }
+
+    console.log(response);
 
     const responseResult = responseRequest(response);
 
@@ -81,10 +90,13 @@ const CenterContent = ({ isLoged }) => {
         </div>
       </section>
       <Modal title="Sing up" show={show} handleModal={handleModal}>
-        <Input
-          placeholder="Nome"
-          handleValue={(value) => (user.name = value)}
-        />
+        {!isLogin && (
+          <Input
+            placeholder="Nome"
+            handleValue={(value) => (user.name = value)}
+          />
+        )}
+
         <Input
           placeholder="E-mail"
           handleValue={(value) => (user.email = value)}
@@ -96,14 +108,25 @@ const CenterContent = ({ isLoged }) => {
           type="password"
         />
         <Button
-          label="Sing up"
+          label={isLogin ? "Login" : "Sing up"}
           color="var(--light-color)"
           background="var(--deep-dark-green)"
           width="100%"
           height="41px"
           fontSize="14px"
-          actionFunction={createUser}
+          actionFunction={handleUser}
           disabledButton={isLoading}
+        />
+
+        <Button
+          label={isLogin ? "I don't have a account" : "Already have a account "}
+          color="var(--deep-dark-green)"
+          background="var(--light-color)  "
+          borderColor="var(--deep-dark-green)"
+          width="100%"
+          height="41px"
+          fontSize="14px"
+          actionFunction={() => setIsLogin(!isLogin)}
         />
       </Modal>
       <ToastContainer />
