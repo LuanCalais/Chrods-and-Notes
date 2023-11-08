@@ -5,6 +5,7 @@ const Button = ({
   label,
   color,
   background,
+  borderColor,
   height = "33px",
   width = "97px",
   fontSize = "12px",
@@ -16,6 +17,7 @@ const Button = ({
   const cssStyle = {
     color: color,
     backgroundColor: background,
+    border: `1px solid ${borderColor}`,
     width,
     height,
     fontSize,
