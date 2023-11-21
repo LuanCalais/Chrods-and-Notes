@@ -2,12 +2,13 @@ import { toast } from "react-toastify";
 import {
   HTTP_CLIENT_ERROR_STATUS,
   HTTP_SERVER_ERROR_STATUS,
+  HTTP_SUCCESS_STATUS,
 } from "../constants";
 import "react-toastify/dist/ReactToastify.css";
 
 export const responseRequest = (responseErrorStatus) => {
-  if (!responseErrorStatus) {
-    toast.success("Cadastrado com sucesso!", {
+  if (HTTP_SUCCESS_STATUS.includes(Number(responseErrorStatus.status))) {
+    toast.success("A operação foi um sucesso!", {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
     return true;
@@ -31,7 +32,7 @@ export const responseRequest = (responseErrorStatus) => {
     return false;
   }
   toast.error(
-    `Cadastro infelizmente não pôde ser concluído :( - ${responseErrorStatus.data.message}`,
+    `Operação infelizmente não pôde ser concluída :( - ${responseErrorStatus.data.message}`,
     {
       position: toast.POSITION.BOTTOM_RIGHT,
     }
@@ -64,4 +65,13 @@ export const validateObject = (object) => {
     }
   }
   return true;
+};
+
+export const setLogin = (object) => {
+  const userState = {
+    id: object.id,
+    email: object.email,
+    isLogged: object.isLogged,
+  };
+  localStorage.setItem("userState", JSON.stringify(userState));
 };

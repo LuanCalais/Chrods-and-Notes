@@ -5,10 +5,16 @@ import Input from "../Common/CommonInput";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
-import { responseRequest, validateEmail, validateObject } from "../../utils";
+import {
+  responseRequest,
+  validateEmail,
+  validateObject,
+  setLogin,
+} from "../../utils";
 import { ToastContainer } from "react-toastify";
+import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
-const CenterContent = ({ isLoged }) => {
+const CenterContent = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
@@ -20,30 +26,42 @@ const CenterContent = ({ isLoged }) => {
   };
 
   async function handleUser() {
-    if (!validateObject(user) || !validateEmail(user.email)) return;
+    if (!isLogin) {
+      if (!validateObject(user) || !validateEmail(user.email)) return;
+    } else {
+      if (
+        !validateObject({ email: user.email, password: user.password }) ||
+        !validateEmail(user.email)
+      )
+        return;
+    }
 
     setIsLoading(true);
 
-    let response;
+    let res;
 
     if (isLogin) {
-      response = await UserService.loginUser(user);
+      res = await UserService.loginUser({ ...user, state: true });
+      setLogin(res.data.data);
+      changeState(res.data.data);
     } else {
-      response = await UserService.createUser(user);
+      res = await UserService.createUser(user);
     }
 
-    console.log(response);
-
-    const responseResult = responseRequest(response);
+    const responseResult = responseRequest(res);
 
     if (responseResult) {
       setUser(new UserModel());
     }
     setIsLoading(false);
-    setShow(false);
+
+    if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
+      setShow(false);
+      setIsLogin(false);
+    }
   }
 
-  if (isLoged) {
+  if (isLogged) {
     return <h1>Usuário logado</h1>;
   }
 
@@ -89,7 +107,11 @@ const CenterContent = ({ isLoged }) => {
           <div className={styles.imgBox}></div>
         </div>
       </section>
-      <Modal title="Sing up" show={show} handleModal={handleModal}>
+      <Modal
+        title={isLogin ? "Sing in" : "Sing up"}
+        show={show}
+        handleModal={handleModal}
+      >
         {!isLogin && (
           <Input
             placeholder="Nome"

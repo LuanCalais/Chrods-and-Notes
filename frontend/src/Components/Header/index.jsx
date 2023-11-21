@@ -5,9 +5,15 @@ import Input from "../Common/CommonInput";
 import UserService from "../../Services/UserService";
 import { useState } from "react";
 import { UserModel } from "../../Model";
-import { responseRequest, validateEmail, validateObject } from "../../utils";
+import {
+  responseRequest,
+  validateEmail,
+  validateObject,
+  setLogin,
+} from "../../utils";
+import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
-const Header = ({ isLoged }) => {
+const Header = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
@@ -18,27 +24,40 @@ const Header = ({ isLoged }) => {
   };
 
   async function handleUser() {
-    if (!validateObject(user) || !validateEmail(user.email)) return;
+    if (!isLogin) {
+      if (!validateObject(user) || !validateEmail(user.email)) return;
+    } else {
+      if (
+        !validateObject({ email: user.email, password: user.password }) ||
+        !validateEmail(user.email)
+      )
+        return;
+    }
 
     setIsLoading(true);
 
-    let response;
-
+    let res;
     if (isLogin) {
-      response = await UserService.loginUser(user);
+      res = await UserService.loginUser({ ...user, state: true });
+      setLogin(res.data.data);
+      changeState(res.data.data);
     } else {
-      response = await UserService.createUser(user);
+      res = await UserService.createUser(user);
     }
 
-    const responseResult = responseRequest(response);
+    const responseResult = responseRequest(res);
     if (responseResult) {
       setUser(new UserModel());
     }
     setIsLoading(false);
-    setShow(false);
+
+    if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
+      setShow(false);
+      setIsLogin(false);
+    }
   }
 
-  if (isLoged) {
+  if (isLogged) {
     return <h1>Usuário logado</h1>;
   }
   return (
@@ -69,8 +88,12 @@ const Header = ({ isLoged }) => {
           color="var(--light-dark-green)"
           background="var(--light-slim-green)"
         />
-        <Modal title="Sing up" show={show} handleModal={handleModal}>
-          {isLogin && (
+        <Modal
+          title={isLogin ? "Sing in" : "Sing up"}
+          show={show}
+          handleModal={handleModal}
+        >
+          {!isLogin && (
             <Input
               placeholder="Nome"
               handleValue={(value) => (user.name = value)}
