@@ -5,7 +5,12 @@ import Input from "../Common/CommonInput";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
-import { responseRequest, validateEmail, validateObject } from "../../utils";
+import {
+  responseRequest,
+  validateEmail,
+  validateObject,
+  setLogin,
+} from "../../utils";
 import { ToastContainer } from "react-toastify";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
@@ -36,11 +41,12 @@ const CenterContent = ({ isLoged }) => {
     let res;
 
     if (isLogin) {
-      res = await UserService.loginUser(user);
+      res = await UserService.loginUser({ ...user, state: true });
+      setLogin(res.data.data);
     } else {
       res = await UserService.createUser(user);
     }
-    
+
     const responseResult = responseRequest(res);
 
     if (responseResult) {

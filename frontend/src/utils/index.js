@@ -66,3 +66,12 @@ export const validateObject = (object) => {
   }
   return true;
 };
+
+export const setLogin = (object) => {
+  const userState = {
+    id: object.id,
+    email: object.email,
+    isLogged: object.isLogged,
+  };
+  localStorage.setItem("userState", JSON.stringify(userState));
+};

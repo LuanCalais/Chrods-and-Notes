@@ -5,7 +5,7 @@ import Input from "../Common/CommonInput";
 import UserService from "../../Services/UserService";
 import { useState } from "react";
 import { UserModel } from "../../Model";
-import { responseRequest, validateEmail, validateObject } from "../../utils";
+import { responseRequest, validateEmail, validateObject, setLogin } from "../../utils";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
 const Header = ({ isLoged }) => {
@@ -33,7 +33,8 @@ const Header = ({ isLoged }) => {
 
     let res;
     if (isLogin) {
-      res = await UserService.loginUser(user);
+      res = await UserService.loginUser({ ...user, state: true });
+      setLogin(res.data.data);
     } else {
       res = await UserService.createUser(user);
     }
@@ -81,7 +82,11 @@ const Header = ({ isLoged }) => {
           color="var(--light-dark-green)"
           background="var(--light-slim-green)"
         />
-        <Modal title={isLogin ? "Sing in" : "Sing up"} show={show} handleModal={handleModal}>
+        <Modal
+          title={isLogin ? "Sing in" : "Sing up"}
+          show={show}
+          handleModal={handleModal}
+        >
           {!isLogin && (
             <Input
               placeholder="Nome"
