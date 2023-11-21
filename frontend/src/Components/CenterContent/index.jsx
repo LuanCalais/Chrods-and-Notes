@@ -14,7 +14,7 @@ import {
 import { ToastContainer } from "react-toastify";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
-const CenterContent = ({ isLoged }) => {
+const CenterContent = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
@@ -43,6 +43,7 @@ const CenterContent = ({ isLoged }) => {
     if (isLogin) {
       res = await UserService.loginUser({ ...user, state: true });
       setLogin(res.data.data);
+      changeState(res.data.data);
     } else {
       res = await UserService.createUser(user);
     }
@@ -60,7 +61,7 @@ const CenterContent = ({ isLoged }) => {
     }
   }
 
-  if (isLoged) {
+  if (isLogged) {
     return <h1>Usuário logado</h1>;
   }
 

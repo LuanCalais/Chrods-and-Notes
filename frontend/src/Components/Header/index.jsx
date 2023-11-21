@@ -5,10 +5,15 @@ import Input from "../Common/CommonInput";
 import UserService from "../../Services/UserService";
 import { useState } from "react";
 import { UserModel } from "../../Model";
-import { responseRequest, validateEmail, validateObject, setLogin } from "../../utils";
+import {
+  responseRequest,
+  validateEmail,
+  validateObject,
+  setLogin,
+} from "../../utils";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
-const Header = ({ isLoged }) => {
+const Header = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
@@ -35,6 +40,7 @@ const Header = ({ isLoged }) => {
     if (isLogin) {
       res = await UserService.loginUser({ ...user, state: true });
       setLogin(res.data.data);
+      changeState(res.data.data);
     } else {
       res = await UserService.createUser(user);
     }
@@ -51,7 +57,7 @@ const Header = ({ isLoged }) => {
     }
   }
 
-  if (isLoged) {
+  if (isLogged) {
     return <h1>Usuário logado</h1>;
   }
   return (
