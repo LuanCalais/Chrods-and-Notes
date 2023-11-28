@@ -1,0 +1,32 @@
+.sidebarContainer {
+  border-right: 2px solid #989898;
+  height: 100vh;
+  width: fit-content;
+  padding: 8px 10px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebaritemsMenu {
+  list-style: none;
+  color: var(--dark-green);
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding-left: 0;
+  width: 85%;
+}
+
+.sidebaritemsMenu li {
+  padding: 6px 8px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.sidebaritemsMenu li.active {
+  background-color: var(--dark-green);
+  color: var(--light-color);
+}
