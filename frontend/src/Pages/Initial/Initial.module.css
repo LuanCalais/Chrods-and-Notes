@@ -1,13 +1,13 @@
-main{
-    height: 100vh;
-    position: relative;
+main {
+  height: 100vh;
+  position: relative;
 }
 
-main header{
-    height: calc(100% - 170px);
-    background-color: var(--light-dark-green);
-    background-image: url('./img/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+main header {
+  height: calc(100% - 170px);
+  background-color: var(--light-dark-green);
+  background-image: url("./img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

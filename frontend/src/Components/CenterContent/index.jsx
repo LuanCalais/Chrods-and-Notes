@@ -2,6 +2,7 @@ import styles from "./CenterContent.module.css";
 import Button from "../Common/Button";
 import Modal from "../Common/CommonModal";
 import Input from "../Common/CommonInput";
+import SideMenu from "../Common/SideMenu";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
@@ -62,7 +63,11 @@ const CenterContent = ({ changeState, isLogged }) => {
   }
 
   if (isLogged) {
-    return <h1>Usuário logado</h1>;
+    return (
+      <>
+        <SideMenu />
+      </>
+    );
   }
 
   return (
