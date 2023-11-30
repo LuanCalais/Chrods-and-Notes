@@ -26,7 +26,7 @@ const Initial = () => {
   return (
     <main>
       <header style={{ display: isUserLogged ? "none" : "block" }}>
-        <Header changeState={false} isLogged={isUserLogged} />
+        <Header changeState={handleSetUserState} isLogged={isUserLogged} />
       </header>
       <CenterContent changeState={handleSetUserState} isLogged={isUserLogged} />
     </main>

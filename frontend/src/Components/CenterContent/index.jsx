@@ -43,13 +43,18 @@ const CenterContent = ({ changeState, isLogged }) => {
 
     if (isLogin) {
       res = await UserService.loginUser({ ...user, state: true });
-      setLogin(res.data.data);
-      changeState(res.data.data);
+      if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
+        setLogin(res.data.data);
+        changeState(res.data.data);
+      }
     } else {
       res = await UserService.createUser(user);
     }
 
-    responseRequest(res);
+    const responseResult = responseRequest(res);
+    if (responseResult) {
+      setUser(new UserModel());
+    }
 
     setIsLoading(false);
 
@@ -58,7 +63,6 @@ const CenterContent = ({ changeState, isLogged }) => {
       setIsLogin(false);
       return;
     }
-    setUser(new UserModel());
   }
 
   async function logOutUser() {
