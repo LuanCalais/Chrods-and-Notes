@@ -39,8 +39,10 @@ const Header = ({ changeState, isLogged }) => {
     let res;
     if (isLogin) {
       res = await UserService.loginUser({ ...user, state: true });
-      setLogin(res.data.data);
-      changeState(res.data.data);
+      if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
+        setLogin(res.data.data);
+        changeState(res.data.data);
+      }
     } else {
       res = await UserService.createUser(user);
     }
@@ -54,6 +56,7 @@ const Header = ({ changeState, isLogged }) => {
     if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
       setShow(false);
       setIsLogin(false);
+      return;
     }
   }
 

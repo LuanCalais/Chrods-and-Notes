@@ -71,6 +71,7 @@ export const setLogin = (object) => {
   const userState = {
     id: object.id,
     email: object.email,
+    name: object.name,
     isLogged: object.isLogged,
   };
   localStorage.setItem("userState", JSON.stringify(userState));
