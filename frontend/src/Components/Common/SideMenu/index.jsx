@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./SideMenu.module.css";
+import logo from "./logoLight.svg";
 
 const SideMenu = ({
   items = [
@@ -16,6 +17,13 @@ const SideMenu = ({
 
   return (
     <div className={styles.sidebarContainer}>
+      <div className={styles.logoContent}>
+        <img src={logo} alt="logo" />
+        <h5>
+          <span>Chrods</span> and Notes
+        </h5>
+      </div>
+
       <ul className={styles.sidebaritemsMenu}>
         {items.map((item, i) => {
           return (

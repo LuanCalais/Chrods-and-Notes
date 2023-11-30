@@ -9,6 +9,36 @@
   align-items: center;
 }
 
+.logoContent,
+.sidebaritemsMenu {
+  width: 85%;
+}
+
+.logoContent {
+  margin-bottom: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 8px;
+  height: 100px;
+}
+
+.logoContent img {
+  width: 90px;
+}
+
+.logoContent h5 {
+  color: var(--dark-green);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.logoContent h5 > span {
+  color: var(--light-green);
+}
+
 .sidebaritemsMenu {
   list-style: none;
   color: var(--dark-green);
@@ -17,7 +47,6 @@
   font-weight: 600;
   line-height: normal;
   padding-left: 0;
-  width: 85%;
 }
 
 .sidebaritemsMenu li {
