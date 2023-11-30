@@ -17,27 +17,42 @@ const SideMenu = ({
 
   return (
     <div className={styles.sidebarContainer}>
-      <div className={styles.logoContent}>
-        <img src={logo} alt="logo" />
-        <h5>
-          <span>Chrods</span> and Notes
-        </h5>
-      </div>
+      <span>
+        <div className={styles.logoContent}>
+          <img src={logo} alt="logo" />
+          <h5>
+            <span>Chrods</span> and Notes
+          </h5>
+        </div>
 
-      <ul className={styles.sidebaritemsMenu}>
-        {items.map((item, i) => {
-          return (
-            <li
-              className={selectedItem === i ? styles.active : ""}
-              key={`${item.name}_${i}`}
-              onClick={() => handleSelected(i)}
-            >
-              <span className="material-icons">{item.icon}</span>
-              {item.name}
-            </li>
-          );
-        })}
-      </ul>
+        <ul className={styles.sidebaritemsMenu}>
+          {items.map((item, i) => {
+            return (
+              <li
+                className={selectedItem === i ? styles.active : ""}
+                key={`${item.name}_${i}`}
+                onClick={() => handleSelected(i)}
+              >
+                <span className="material-icons">{item.icon}</span>
+                {item.name}
+              </li>
+            );
+          })}
+        </ul>
+      </span>
+
+      <span>
+        <div className={styles.personContent}>
+          <span className="material-icons">account_circle</span>
+          <div className={styles.personInformation}>
+            <h3>Fulano ciclado beltrano</h3>
+            <h5>FuladoSicladoBeltrado@mail.com</h5>
+          </div>
+        </div>
+        <div className={styles.logOut}>
+          <span className="material-icons">directions_run</span> Log Out
+        </div>
+      </span>
     </div>
   );
 };
