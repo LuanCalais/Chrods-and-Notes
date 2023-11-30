@@ -77,11 +77,14 @@
 }
 
 .personContent {
+  border-top: 1px solid #989898;
   border-bottom: 1px solid #989898;
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
+  height: 200px;
 }
 
 .personContent > span {
