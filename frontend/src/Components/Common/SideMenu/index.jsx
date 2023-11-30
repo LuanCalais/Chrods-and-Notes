@@ -2,9 +2,9 @@ import styles from "./SideMenu.module.css";
 
 const SideMenu = ({
   items = [
-    { name: "Home", icon: "", isActive: true, action: () => {} },
-    { name: "Bands", icon: "", isActive: false, action: () => {} },
-    { name: "Musics", icon: "", isActive: false, action: () => {} },
+    { name: "Home", icon: "cabin", isActive: true, action: () => {} },
+    { name: "Bands", icon: "diversity_3", isActive: false, action: () => {} },
+    { name: "Musics", icon: "nightlife", isActive: false, action: () => {} },
   ],
 }) => {
   return (
@@ -16,6 +16,7 @@ const SideMenu = ({
               className={item.isActive ? styles.active : ""}
               key={`${item.name}_${i}`}
             >
+              <span class="material-icons">{item.icon}</span>
               {item.name}
             </li>
           );
