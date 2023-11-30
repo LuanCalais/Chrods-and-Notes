@@ -9,10 +9,12 @@ const Initial = () => {
 
   useEffect(() => {
     const storageUserState = localStorage.getItem("userState");
-    if (!storageUserState) {
+    if (!storageUserState || !userState.isLogged) {
       localStorage.removeItem("userState");
+      setIsUserLogged(false);
       return;
     }
+
     const userStateObject = JSON.parse(storageUserState);
     setIsUserLogged(userStateObject.isLogged);
   }, [userState]);

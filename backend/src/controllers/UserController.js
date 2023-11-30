@@ -136,17 +136,20 @@ class UsersController {
         });
         return;
       } else {
-        const cryptPassword = user.password;
-        const result = await bcrypt.compare(password, cryptPassword);
+        let result = null;
+        if (state) {
+          const cryptPassword = user.password;
+          result = await bcrypt.compare(password, cryptPassword);
+        }
 
-        if (result) {
+        if (result || !state) {
           const updated = await UserModel.findOneAndUpdate(
             { email: email },
             { isLogged: state },
             { new: true }
           );
           res.status(200).send({
-            message: `Welcome :), ${updated.name}`,
+            message: `${state ? "Welcome :)" : "Goodbye :("} , ${updated.name}`,
             data: updated,
           });
         } else {

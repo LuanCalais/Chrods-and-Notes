@@ -1,26 +1,59 @@
+import { useState } from "react";
 import styles from "./SideMenu.module.css";
+import logo from "./logoLight.svg";
 
 const SideMenu = ({
   items = [
-    { name: "Home", icon: "", isActive: true, action: () => {} },
-    { name: "Bands", icon: "", isActive: false, action: () => {} },
-    { name: "Musics", icon: "", isActive: false, action: () => {} },
+    { name: "Home", icon: "cabin", action: () => {} },
+    { name: "Bands", icon: "diversity_3", action: () => {} },
+    { name: "Musics", icon: "nightlife", action: () => {} },
   ],
+  handleLogOut = () => {},
 }) => {
+  const [selectedItem, setSelectedItem] = useState(0);
+
+  function handleSelected(i) {
+    setSelectedItem(i);
+  }
+
   return (
     <div className={styles.sidebarContainer}>
-      <ul className={styles.sidebaritemsMenu}>
-        {items.map((item, i) => {
-          return (
-            <li
-              className={item.isActive ? styles.active : ""}
-              key={`${item.name}_${i}`}
-            >
-              {item.name}
-            </li>
-          );
-        })}
-      </ul>
+      <span>
+        <div className={styles.logoContent}>
+          <img src={logo} alt="logo" />
+          <h5>
+            <span>Chrods</span> and Notes
+          </h5>
+        </div>
+
+        <ul className={styles.sidebaritemsMenu}>
+          {items.map((item, i) => {
+            return (
+              <li
+                className={selectedItem === i ? styles.active : ""}
+                key={`${item.name}_${i}`}
+                onClick={() => handleSelected(i)}
+              >
+                <span className="material-icons">{item.icon}</span>
+                {item.name}
+              </li>
+            );
+          })}
+        </ul>
+      </span>
+
+      <span>
+        <div className={styles.personContent}>
+          <span className="material-icons">account_circle</span>
+          <div className={styles.personInformation}>
+            <h3>Fulano ciclado beltrano</h3>
+            <h5>FuladoSicladoBeltrado@mail.com</h5>
+          </div>
+        </div>
+        <div className={styles.logOut} onClick={handleLogOut}>
+          <span className="material-icons">directions_run</span> Log Out
+        </div>
+      </span>
     </div>
   );
 };

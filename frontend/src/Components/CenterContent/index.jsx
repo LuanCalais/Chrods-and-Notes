@@ -49,23 +49,37 @@ const CenterContent = ({ changeState, isLogged }) => {
       res = await UserService.createUser(user);
     }
 
-    const responseResult = responseRequest(res);
+    responseRequest(res);
 
-    if (responseResult) {
-      setUser(new UserModel());
-    }
     setIsLoading(false);
 
     if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
       setShow(false);
       setIsLogin(false);
+      return;
     }
+    setUser(new UserModel());
+  }
+
+  async function logOutUser() {
+    const storageUserState = localStorage.getItem("userState");
+    const userStateObject = JSON.parse(storageUserState);
+
+    setUser({ email: userStateObject.email });
+
+    const res = await UserService.loginUser({
+      email: userStateObject.email,
+      state: false,
+    });
+
+    responseRequest(res);
+    changeState(res.data.data);
   }
 
   if (isLogged) {
     return (
       <>
-        <SideMenu />
+        <SideMenu handleLogOut={logOutUser} />
       </>
     );
   }
