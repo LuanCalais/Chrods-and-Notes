@@ -14,16 +14,24 @@ import {
 } from "../../utils";
 import { ToastContainer } from "react-toastify";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
+import Home from "../../Pages/Home";
+import Bands from "../../Pages/Bands";
+import Musics from "../../Pages/Musics";
 
 const CenterContent = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
   const [isLogin, setIsLogin] = useState(false);
+  const [selectedContent, setSelectedContent] = useState(0);
 
   const handleModal = () => {
     setIsLoading(false);
     setShow(!show);
+  };
+
+  const handleContent = (selected) => {
+    setSelectedContent(selected);
   };
 
   async function handleUser() {
@@ -82,9 +90,14 @@ const CenterContent = ({ changeState, isLogged }) => {
 
   if (isLogged) {
     return (
-      <>
-        <SideMenu handleLogOut={logOutUser} />
-      </>
+      <div className={styles.loggedContent}>
+        <SideMenu handleLogOut={logOutUser} setContent={handleContent} />
+        <div className={styles.content}>
+          {selectedContent === 0 && <Home />}
+          {selectedContent === 1 && <Bands />}
+          {selectedContent === 2 && <Musics />}
+        </div>
+      </div>
     );
   }
 

@@ -90,3 +90,13 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.loggedContent {
+  display: flex;
+}
+
+.loggedContent .content {
+  display: flex;
+  width: 100%;
+  padding: 40px 72px;
+}

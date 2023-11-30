@@ -8,8 +8,14 @@ const Initial = () => {
   const [isUserLogged, setIsUserLogged] = useState(false);
 
   useEffect(() => {
-    const storageUserState = localStorage.getItem("userState");
-    if (!storageUserState || !userState.isLogged) {
+    const key = "userState";
+    const exists = localStorage.getItem(key) !== null;
+
+    if (!exists) return;
+
+    const storageUserState = localStorage.getItem(key);
+
+    if (!storageUserState || (userState && !userState.isLogged)) {
       localStorage.removeItem("userState");
       setIsUserLogged(false);
       return;
