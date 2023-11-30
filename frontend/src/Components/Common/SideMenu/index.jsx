@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SideMenu.module.css";
 import logo from "./logoLight.svg";
+import { UserModel } from "../../../Model";
 
 const SideMenu = ({
   items = [
@@ -9,11 +10,20 @@ const SideMenu = ({
     { name: "Musics", icon: "nightlife", action: () => {} },
   ],
   handleLogOut = () => {},
+  setContent = () => {},
 }) => {
   const [selectedItem, setSelectedItem] = useState(0);
+  const [currentUser, setCurrentUser] = useState(new UserModel());
+
+  useEffect(() => {
+    const storageUserState = localStorage.getItem("userState");
+    const userStateObject = JSON.parse(storageUserState);
+    setCurrentUser(userStateObject);
+  }, []);
 
   function handleSelected(i) {
     setSelectedItem(i);
+    setContent(i);
   }
 
   return (
@@ -46,8 +56,8 @@ const SideMenu = ({
         <div className={styles.personContent}>
           <span className="material-icons">account_circle</span>
           <div className={styles.personInformation}>
-            <h3>Fulano ciclado beltrano</h3>
-            <h5>FuladoSicladoBeltrado@mail.com</h5>
+            <h3>{currentUser.name}</h3>
+            <h5>{currentUser.email}</h5>
           </div>
         </div>
         <div className={styles.logOut} onClick={handleLogOut}>
