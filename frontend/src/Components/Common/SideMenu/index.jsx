@@ -8,6 +8,7 @@ const SideMenu = ({
     { name: "Bands", icon: "diversity_3", action: () => {} },
     { name: "Musics", icon: "nightlife", action: () => {} },
   ],
+  handleLogOut = () => {},
 }) => {
   const [selectedItem, setSelectedItem] = useState(0);
 
@@ -49,7 +50,7 @@ const SideMenu = ({
             <h5>FuladoSicladoBeltrado@mail.com</h5>
           </div>
         </div>
-        <div className={styles.logOut}>
+        <div className={styles.logOut} onClick={handleLogOut}>
           <span className="material-icons">directions_run</span> Log Out
         </div>
       </span>
