@@ -3,19 +3,40 @@ export const DoughnutMock = [
   {
     id: 1,
     label: "Indie",
-    userGain: 80000,
-    userLost: 823,
+    percent: 80000,
   },
   {
     id: 2,
     label: "Funk",
-    userGain: 45677,
-    userLost: 345,
+    percent: 45677,
   },
   {
     id: 3,
     label: "Pop",
-    userGain: 78888,
-    userLost: 555,
+    percent: 78888,
   },
 ];
+
+export const BarMock = [
+  {
+    id: 1,
+    label: "The Strokes",
+    percent: 18000,
+  },
+  {
+    id: 2,
+    label: "Luiza Sonza",
+    percent: 20000,
+  },
+  {
+    id: 3,
+    label: "Lady Gaga",
+    percent: 30000,
+  },
+  {
+    id: 4,
+    label: "Chico Buarque",
+    percent: 29000,
+  },
+  
+]

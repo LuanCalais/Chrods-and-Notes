@@ -2,32 +2,48 @@ import styles from "./Home.module.css";
 import disco from "./disco.png";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { DoughnutMock } from "../../utils/Mocks";
+import { DoughnutMock, BarMock } from "../../utils/Mocks";
 import { useState } from "react";
 import DoughnutChart from "../../Components/Common/DoughnutChart";
+import BarChart from "../../Components/Common/BarChart";
 
 Chart.register(CategoryScale);
 
 const Home = ({ user }) => {
-  const [chartData, setChartData] = useState({
+  const [doughnutChartData, setDoughnutChartData] = useState({
     labels: DoughnutMock.map((data) => data.label),
     datasets: [
       {
-        label: "Users Gained ",
-        data: DoughnutMock.map((data) => data.userGain),
+        label: "Percent",
+        data: DoughnutMock.map((data) => {
+          return data.percent;
+        }),
         backgroundColor: ["#003B36", "#668F80", "#A0AF84"],
-        borderColor: "black",
+        borderColor: "none",
         borderWidth: 2,
       },
     ],
   });
 
-  const [chartOptions, setChartOptions] = useState({
+  const [barChartData, setBarChartData] = useState({
+    labels: BarMock.map((data) => data.label),
+    datasets: [
+      {
+        data: BarMock.map((data) => {
+          return data.percent;
+        }),
+        backgroundColor: ["#003B36"],
+        borderColor: "none",
+      },
+    ],
+  });
+
+  const chartOptions = {
     responsive: true,
     legend: {
       display: false,
     },
-  });
+  };
 
   return (
     <div className={styles.contentContainer}>
@@ -38,13 +54,17 @@ const Home = ({ user }) => {
       <div className={styles.chartsContainer}>
         <div>
           <DoughnutChart
-            chartData={chartData}
+            chartData={doughnutChartData}
             chartOptions={chartOptions}
             label="Artists by gender"
           />
         </div>
         <div>
-          <DoughnutChart chartData={chartData} />
+          <BarChart
+            chartData={barChartData}
+            chartOptions={chartOptions}
+            label="Musics by artist"
+          />
         </div>
       </div>
     </div>
