@@ -54,7 +54,7 @@ const SideMenu = ({
         </ul>
       </span>
 
-      <span>
+      <span className={styles.bottomContent}>
         <div className={styles.personContent}>
           <span className="material-icons">account_circle</span>
           <div className={styles.personInformation}>

@@ -19,3 +19,14 @@
 .contentContainer .topContent img {
   width: 75%;
 }
+
+.contentContainer .chartsContainer {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 100px;
+  width: 100%;
+}
+
+.contentContainer .chartsContainer > div {
+  width: 50%;
+}
