@@ -91,6 +91,7 @@ const CenterContent = ({ changeState, isLogged }) => {
 
     responseRequest(res);
     changeState(res.data.data);
+    setSelectedContent(0);
   }
 
   if (isLogged) {
