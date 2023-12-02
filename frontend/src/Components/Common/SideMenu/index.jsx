@@ -11,6 +11,7 @@ const SideMenu = ({
   ],
   handleLogOut = () => {},
   setContent = () => {},
+  loggedUser = () => {},
 }) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [currentUser, setCurrentUser] = useState(new UserModel());
@@ -19,6 +20,7 @@ const SideMenu = ({
     const storageUserState = localStorage.getItem("userState");
     const userStateObject = JSON.parse(storageUserState);
     setCurrentUser(userStateObject);
+    loggedUser(userStateObject);
   }, []);
 
   function handleSelected(i) {

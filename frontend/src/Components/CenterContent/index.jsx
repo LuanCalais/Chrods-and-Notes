@@ -24,6 +24,7 @@ const CenterContent = ({ changeState, isLogged }) => {
   const [user, setUser] = useState(new UserModel());
   const [isLogin, setIsLogin] = useState(false);
   const [selectedContent, setSelectedContent] = useState(0);
+  const [loggedUser, setLoggedUser] = useState(new UserModel());
 
   const handleModal = () => {
     setIsLoading(false);
@@ -32,6 +33,10 @@ const CenterContent = ({ changeState, isLogged }) => {
 
   const handleContent = (selected) => {
     setSelectedContent(selected);
+  };
+
+  const logUser = (user) => {
+    setLoggedUser(user);
   };
 
   async function handleUser() {
@@ -86,14 +91,19 @@ const CenterContent = ({ changeState, isLogged }) => {
 
     responseRequest(res);
     changeState(res.data.data);
+    setSelectedContent(0);
   }
 
   if (isLogged) {
     return (
       <div className={styles.loggedContent}>
-        <SideMenu handleLogOut={logOutUser} setContent={handleContent} />
+        <SideMenu
+          loggedUser={logUser}
+          handleLogOut={logOutUser}
+          setContent={handleContent}
+        />
         <div className={styles.content}>
-          {selectedContent === 0 && <Home />}
+          {selectedContent === 0 && <Home user={loggedUser} />}
           {selectedContent === 1 && <Bands />}
           {selectedContent === 2 && <Musics />}
         </div>

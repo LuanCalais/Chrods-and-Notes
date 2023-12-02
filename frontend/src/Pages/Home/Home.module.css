@@ -1,0 +1,21 @@
+.contentContainer {
+  width: 100%;
+}
+
+.contentContainer .topContent h2 {
+  text-align: center;
+  color: var(--dark-green);
+  font-weight: 600;
+  font-size: 34px;
+}
+
+.contentContainer .topContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 12px;
+}
+
+.contentContainer .topContent img {
+  width: 75%;
+}
