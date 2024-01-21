@@ -2,7 +2,7 @@ import MusicModel from "../models/MusicModel.js";
 import { verifyObject } from "../utils/index.js";
 
 class MusicController {
-  static creatMusic = async (req, res) => {
+  static createMusic = async (req, res) => {
     try {
       req.body.createdAt = new Date();
       req.body.updatedAt = new Date();

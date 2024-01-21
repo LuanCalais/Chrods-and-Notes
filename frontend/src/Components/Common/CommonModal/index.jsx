@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 const CommonModal = ({
   title = "Modal Title",
   show = false,
-  handleModal,
+  handleModal = () => {},
   children,
 }) => {
   return (
