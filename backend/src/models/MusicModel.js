@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 const musicSchema = new mongoose.Schema({
   id: { type: String, required: false },
   name: { type: String, required: true },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
   artist: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "bands",
