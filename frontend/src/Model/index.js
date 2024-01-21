@@ -1,3 +1,4 @@
 import UserModel from "./UserModel";
+import MusicModel from "./MusicModel";
 
-export { UserModel };
+export { UserModel, MusicModel };

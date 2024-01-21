@@ -5,11 +5,12 @@ import Button from "../../Components/Button";
 import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
+import { MusicModel } from "../../Model";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
-  const [band, setBand] = useState();
+  const [band, setBand] = useState(new MusicModel());
 
   const searchObject = {
     label: "Add",
@@ -21,7 +22,7 @@ const Bands = () => {
   };
 
   function createBand() {
-    alert("Criando banda");
+    console.log(band);
   }
 
   return (
@@ -33,9 +34,27 @@ const Bands = () => {
         </div>
       </div>
       <Modal title="Create band" show={show}>
-        <Input placeholder="Name" handleValue={() => {}} type="text" />
-        <Input placeholder="Gender" handleValue={() => {}} type="text" />
-        <Input placeholder="Created Year" handleValue={() => {}} type="text" />
+        <Input
+          placeholder="Name"
+          handleValue={(value) => {
+            band.name = value;
+          }}
+          type="text"
+        />
+        <Input
+          placeholder="Gender"
+          handleValue={(value) => {
+            band.gender = value;
+          }}
+          type="text"
+        />
+        <Input
+          placeholder="Created Year"
+          handleValue={(value) => {
+            band.bandCreatedAt = value;
+          }}
+          type="text"
+        />
         <div className={styles.buttons}>
           <ModalButton
             label="Criar"
@@ -44,7 +63,7 @@ const Bands = () => {
             width="50%"
             height="41px"
             fontSize="14px"
-            actionFunction={() => createBand}
+            actionFunction={createBand}
           />
 
           <ModalButton
