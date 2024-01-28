@@ -10,7 +10,7 @@ export const responseRequest = (responseErrorStatus) => {
 
   if(!responseErrorStatus){
     toast.error(
-      `Cannot create band`,
+      "Cannot complete operation",
       {
         position: toast.POSITION.BOTTOM_RIGHT,
       }
