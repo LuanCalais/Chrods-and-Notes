@@ -7,6 +7,17 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 
 export const responseRequest = (responseErrorStatus) => {
+
+  if(!responseErrorStatus){
+    toast.error(
+      `Cannot create band`,
+      {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      }
+    );
+    return false;
+  }
+
   if (HTTP_SUCCESS_STATUS.includes(Number(responseErrorStatus.status))) {
     toast.success("A operação foi um sucesso!", {
       position: toast.POSITION.BOTTOM_RIGHT,

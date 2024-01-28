@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import styles from "./Bands.module.css";
 import Search from "../../Components/Search";
 import Button from "../../Components/Button";
@@ -6,11 +7,14 @@ import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
 import { MusicModel } from "../../Model";
+import BandService from "../../Services/BandService";
+import { responseRequest } from "../../utils";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new MusicModel());
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const searchObject = {
     label: "Add",
@@ -21,8 +25,33 @@ const Bands = () => {
     action: () => setShow(true),
   };
 
-  function createBand() {
-    console.log(band);
+  async function createBand() {
+    setIsProcessing(true);
+    if (
+      !band.name.trim() ||
+      !band.gender.trim() ||
+      !band.bandCreatedAt.trim()
+    ) {
+      toast.error("Insert all required fields", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      return;
+    }
+
+    const res = await BandService.createBand(band);
+
+    const responseResult = responseRequest(res);
+
+    if (responseResult) {
+      handleCloseModal();
+    }
+    setIsProcessing(false);
+  }
+
+  function handleCloseModal() {
+    if (isProcessing) return;
+    setBand(new MusicModel());
+    setShow(false);
   }
 
   return (
@@ -64,6 +93,7 @@ const Bands = () => {
             height="41px"
             fontSize="14px"
             actionFunction={createBand}
+            disabledButton={isProcessing}
           />
 
           <ModalButton
@@ -74,10 +104,12 @@ const Bands = () => {
             width="50%"
             height="41px"
             fontSize="14px"
-            actionFunction={() => setShow(false)}
+            actionFunction={() => handleCloseModal()}
+            disabledButton={isProcessing}
           />
         </div>
       </Modal>
+      <ToastContainer />
     </>
   );
 };
