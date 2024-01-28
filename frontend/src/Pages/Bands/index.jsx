@@ -35,6 +35,11 @@ const Bands = () => {
     }
   }
 
+  function handleCloseModal() {
+    setBand(new MusicModel());
+    setShow(false);
+  }
+
   return (
     <>
       <div className={styles.bands}>
@@ -84,7 +89,7 @@ const Bands = () => {
             width="50%"
             height="41px"
             fontSize="14px"
-            actionFunction={() => setShow(false)}
+            actionFunction={() => handleCloseModal()}
           />
         </div>
       </Modal>
