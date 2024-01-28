@@ -63,6 +63,8 @@ const CenterContent = ({ changeState, isLogged }) => {
       res = await UserService.loginUser({ ...user, state: true });
       if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
         setLogin(res.data.data);
+
+        // TODO: Refactor with context API
         changeState(res.data.data);
       }
     } else {

@@ -25,6 +25,7 @@ const Initial = () => {
     setIsUserLogged(userStateObject.isLogged);
   }, [userState]);
 
+  // TODO: Refactor with context API
   const handleSetUserState = (user) => {
     setUserState(user);
   };
