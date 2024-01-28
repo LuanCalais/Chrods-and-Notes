@@ -9,12 +9,16 @@ import ModalButton from "../../Components/Common/Button";
 import { MusicModel } from "../../Model";
 import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new MusicModel());
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const { contextUser } = useContext(UserContext);
 
   const searchObject = {
     label: "Add",
@@ -37,6 +41,8 @@ const Bands = () => {
       });
       return;
     }
+
+    band.user = contextUser.id;
 
     const res = await BandService.createBand(band);
 

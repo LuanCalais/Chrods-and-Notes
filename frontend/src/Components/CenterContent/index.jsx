@@ -17,6 +17,8 @@ import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 import Home from "../../Pages/Home";
 import Bands from "../../Pages/Bands";
 import Musics from "../../Pages/Musics";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 const CenterContent = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
@@ -25,6 +27,8 @@ const CenterContent = ({ changeState, isLogged }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [selectedContent, setSelectedContent] = useState(0);
   const [loggedUser, setLoggedUser] = useState(new UserModel());
+
+  const { setContextUser } = useContext(UserContext);
 
   const handleModal = () => {
     setIsLoading(false);
@@ -37,6 +41,7 @@ const CenterContent = ({ changeState, isLogged }) => {
 
   const logUser = (user) => {
     setLoggedUser(user);
+    setContextUser(user)
   };
 
   async function handleUser() {
@@ -58,6 +63,8 @@ const CenterContent = ({ changeState, isLogged }) => {
       res = await UserService.loginUser({ ...user, state: true });
       if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
         setLogin(res.data.data);
+
+        // TODO: Refactor with context API
         changeState(res.data.data);
       }
     } else {
