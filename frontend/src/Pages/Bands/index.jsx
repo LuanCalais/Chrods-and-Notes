@@ -7,11 +7,14 @@ import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
 import { MusicModel } from "../../Model";
+import BandService from "../../Services/BandService";
+import { responseRequest } from "../../utils";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new MusicModel());
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const searchObject = {
     label: "Add",
@@ -22,7 +25,8 @@ const Bands = () => {
     action: () => setShow(true),
   };
 
-  function createBand() {
+  async function createBand() {
+    setIsProcessing(true);
     if (
       !band.name.trim() ||
       !band.gender.trim() ||
@@ -33,9 +37,19 @@ const Bands = () => {
       });
       return;
     }
+
+    const res = await BandService.createBand(band);
+
+    const responseResult = responseRequest(res);
+
+    if (responseResult) {
+      handleCloseModal();
+    }
+    setIsProcessing(false);
   }
 
   function handleCloseModal() {
+    if (isProcessing) return;
     setBand(new MusicModel());
     setShow(false);
   }
@@ -79,6 +93,7 @@ const Bands = () => {
             height="41px"
             fontSize="14px"
             actionFunction={createBand}
+            disabledButton={isProcessing}
           />
 
           <ModalButton
@@ -90,6 +105,7 @@ const Bands = () => {
             height="41px"
             fontSize="14px"
             actionFunction={() => handleCloseModal()}
+            disabledButton={isProcessing}
           />
         </div>
       </Modal>
