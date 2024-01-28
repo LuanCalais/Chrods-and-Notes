@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import styles from "./Bands.module.css";
 import Search from "../../Components/Search";
 import Button from "../../Components/Button";
@@ -22,7 +23,16 @@ const Bands = () => {
   };
 
   function createBand() {
-    console.log(band);
+    if (
+      !band.name.trim() ||
+      !band.gender.trim() ||
+      !band.bandCreatedAt.trim()
+    ) {
+      toast.error("Insert all required fields", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      return;
+    }
   }
 
   return (
@@ -78,6 +88,7 @@ const Bands = () => {
           />
         </div>
       </Modal>
+      <ToastContainer />
     </>
   );
 };
