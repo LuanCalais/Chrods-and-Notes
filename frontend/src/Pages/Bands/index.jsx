@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./Bands.module.css";
 import Search from "../../Components/Search";
@@ -19,6 +19,14 @@ const Bands = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { contextUser } = useContext(UserContext);
+
+  useEffect(() => {
+    async function getAllBands() {
+      const res = await BandService.getBands(contextUser.id);
+    }
+
+    getAllBands();
+  }, []);
 
   const searchObject = {
     label: "Add",
