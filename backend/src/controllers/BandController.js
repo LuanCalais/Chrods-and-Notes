@@ -30,15 +30,18 @@ class BandController {
   };
 
   static getBands = async (req, res) => {
-    BandModel.find({})
+    // TODO: Fix, está retornando 0 
+    BandModel.find({ "user._id": req.params.userId })
       .populate("user")
       .then((bands) => {
-        BandModel.countDocuments({}).then((count) => {
-          res.status(200).json({
-            data: bands,
-            count: count,
-          });
-        });
+        BandModel.countDocuments({ "user._id": req.params.userId }).then(
+          (count) => {
+            res.status(200).json({
+              data: bands,
+              count: count,
+            });
+          }
+        );
       })
       .catch((err) => {
         res.status(500).send({
@@ -49,7 +52,7 @@ class BandController {
 
   static getBandByUserId = async (req, res) => {
     const id = req.params.id;
-    
+
     BandModel.find({})
       .populate({
         path: "user",
