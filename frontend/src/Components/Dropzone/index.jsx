@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import styles from "./Dropzone.module.css";
 import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,9 @@ const Dropzone = ({
   acceptedTypeFiles = 261676,
   onUpload,
 }) => {
+  const [showDropzone, setShowDropzone] = useState(true);
+  const [localFile, setLocalFile] = useState(null);
+
   const onDrop = useCallback((acceptedFiles) => {
     const hasAcceptedExtensionsExtension =
       Number(acceptedTypeFiles.indexOf(acceptedFiles[0].type)) !== -1
@@ -24,7 +27,12 @@ const Dropzone = ({
       });
       return;
     }
+
+    console.log(acceptedFiles[0]);
+
     onUpload(acceptedFiles[0]);
+    setLocalFile(acceptedFiles[0]);
+    setShowDropzone(false);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -33,15 +41,27 @@ const Dropzone = ({
 
   return (
     <>
-      <h6>{message}</h6>
-      <div {...getRootProps()} className={styles.dropzone}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drag your file here</p>
-        ) : (
-          <p>Drag and drop your file here, or click to select</p>
-        )}
-      </div>
+      {showDropzone ? (
+        <div>
+          <h6>{message}</h6>
+          <div {...getRootProps()} className={styles.dropzone}>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drag your file here</p>
+            ) : (
+              <p>Drag and drop your file here, or click to select</p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className={styles.image}>
+          <div className={styles.icon}>
+            <i class="bx bx-trash"></i>
+          </div>
+          <img src={URL.createObjectURL(localFile)} alt={localFile.name} />
+        </div>
+      )}
+
       <ToastContainer />
     </>
   );
