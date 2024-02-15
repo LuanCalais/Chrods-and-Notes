@@ -30,18 +30,15 @@ class BandController {
   };
 
   static getBands = async (req, res) => {
-    // TODO: Fix, está retornando 0 
-    BandModel.find({ "user._id": req.params.userId })
+    BandModel.find({})
       .populate("user")
       .then((bands) => {
-        BandModel.countDocuments({ "user._id": req.params.userId }).then(
-          (count) => {
-            res.status(200).json({
-              data: bands,
-              count: count,
-            });
-          }
-        );
+        BandModel.countDocuments({}).then((count) => {
+          res.status(200).json({
+            data: bands,
+            count: count,
+          });
+        });
       })
       .catch((err) => {
         res.status(500).send({
