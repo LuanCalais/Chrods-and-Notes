@@ -17,6 +17,7 @@ const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new MusicModel());
+  const [banner, setBanner] = useState();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { contextUser } = useContext(UserContext);
@@ -39,22 +40,33 @@ const Bands = () => {
     console.log(res);
   }
 
+  function onUpload(file) {
+    setBanner(file);
+  }
+
   async function createBand() {
     setIsProcessing(true);
     if (
       !band.name.trim() ||
       !band.gender.trim() ||
-      !band.bandCreatedAt.trim()
+      !band.bandCreatedAt.trim() ||
+      !banner?.path.trim()
     ) {
       toast.error("Insert all required fields", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
+      setIsProcessing(false);
       return;
     }
 
     band.user = contextUser.id;
 
-    const res = await BandService.createBand(band);
+    const formData = new FormData();
+
+    formData.append("file", banner);
+    formData.append("band", band);
+
+    const res = await BandService.createBand(formData);
 
     const responseResult = responseRequest(res);
 
@@ -105,6 +117,7 @@ const Bands = () => {
           message="Acceped files: .png, jpg, jpeg"
           maxFilesSize={3 * 1024 * 1024}
           acceptedTypeFiles="image/png, image/jpeg, image/jpg"
+          onUpload={onUpload}
         />
         <div className={styles.buttons}>
           <ModalButton

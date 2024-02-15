@@ -3,7 +3,12 @@ import styles from "./Dropzone.module.css";
 import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
 
-const Dropzone = ({ message, maxFilesSize, acceptedTypeFiles = 261676 }) => {
+const Dropzone = ({
+  message,
+  maxFilesSize,
+  acceptedTypeFiles = 261676,
+  onUpload,
+}) => {
   const onDrop = useCallback((acceptedFiles) => {
     const hasAcceptedExtensionsExtension =
       Number(acceptedTypeFiles.indexOf(acceptedFiles[0].type)) !== -1
@@ -19,6 +24,7 @@ const Dropzone = ({ message, maxFilesSize, acceptedTypeFiles = 261676 }) => {
       });
       return;
     }
+    onUpload(acceptedFiles[0]);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

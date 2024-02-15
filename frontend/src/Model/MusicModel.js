@@ -5,6 +5,7 @@ class MusicModel {
     gender = "",
     bandCreatedAt = "",
     user = "",
+    banner = "",
     createdAt = "",
     updatedAt = ""
   ) {
@@ -13,6 +14,7 @@ class MusicModel {
     this.gender = gender;
     this.bandCreatedAt = bandCreatedAt;
     this.user = user;
+    this.banner = banner;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
