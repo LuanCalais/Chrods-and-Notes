@@ -1,15 +1,49 @@
 .dropzone {
   border: 2px dashed #cccccc;
+  background-color: var(--disabled-color);
   border-radius: 4px;
   padding: 20px;
   text-align: center;
   cursor: pointer;
 }
 
-h6{
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 200px;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.icon {
+  background-color: var(--danger-color);
+  min-width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.icon i {
+  color: var(--light-color);
+  font-size: 30px;
+}
+
+h6 {
   margin: 0;
   padding: 0;
-  margin-top: 24px;
+  margin: 24px 0 10px 0;
   font-size: 14px;
   color: var(--light-dark-green);
   font-weight: 700;

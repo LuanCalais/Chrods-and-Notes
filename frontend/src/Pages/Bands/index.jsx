@@ -17,7 +17,7 @@ const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new MusicModel());
-  const [banner, setBanner] = useState();
+  const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { contextUser } = useContext(UserContext);
@@ -118,6 +118,7 @@ const Bands = () => {
           maxFilesSize={3 * 1024 * 1024}
           acceptedTypeFiles="image/png, image/jpeg, image/jpg"
           onUpload={onUpload}
+          setBanner={setBanner}
         />
         <div className={styles.buttons}>
           <ModalButton
