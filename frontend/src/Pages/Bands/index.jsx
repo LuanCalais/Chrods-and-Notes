@@ -6,6 +6,7 @@ import Button from "../../Components/Button";
 import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
+import Dropzone from "../../Components/Dropzone";
 import { MusicModel } from "../../Model";
 import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
@@ -100,6 +101,7 @@ const Bands = () => {
           }}
           type="text"
         />
+        <Dropzone message="Acceped files: .png, jpg, jpeg" />
         <div className={styles.buttons}>
           <ModalButton
             label="Criar"
