@@ -5,6 +5,7 @@ const bandSchema = new mongoose.Schema({
   name: { type: String, required: true },
   gender: { type: String, required: true },
   bandCreatedAt: { type: String, required: true },
+  banner: { type: String, required: true },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",

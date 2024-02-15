@@ -3,13 +3,15 @@ import { verifyObject } from "../utils/index.js";
 
 class BandController {
   static createBand = async (req, res) => {
+    const incommingBand = JSON.parse(req.body.band);
+    incommingBand.banner = req.file.path;
     try {
-      req.body.createdAt = new Date();
-      req.body.updatedAt = new Date();
-      req.body.name = req.body.name.toLowerCase();
+      incommingBand.createdAt = new Date();
+      incommingBand.updatedAt = new Date();
+      incommingBand.name = incommingBand.name.toLowerCase();
 
-      if (verifyObject(req.body)) {
-        let band = new BandModel(req.body);
+      if (verifyObject(incommingBand)) {
+        let band = new BandModel(incommingBand);
 
         band.save().then((savedBand) => {
           savedBand.id = savedBand._id.toString();

@@ -64,7 +64,7 @@ const Bands = () => {
     const formData = new FormData();
 
     formData.append("file", banner);
-    formData.append("band", band);
+    formData.append("band", JSON.stringify(band));
 
     const res = await BandService.createBand(formData);
 
