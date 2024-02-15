@@ -6,6 +6,7 @@ import Button from "../../Components/Button";
 import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
+import Dropzone from "../../Components/Dropzone";
 import { MusicModel } from "../../Model";
 import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
@@ -16,15 +17,12 @@ const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new MusicModel());
+  const [banner, setBanner] = useState();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { contextUser } = useContext(UserContext);
 
   useEffect(() => {
-    async function getAllBands() {
-      const res = await BandService.getBands(contextUser.id);
-    }
-
     getAllBands();
   }, []);
 
@@ -37,27 +35,44 @@ const Bands = () => {
     action: () => setShow(true),
   };
 
+  async function getAllBands() {
+    const res = await BandService.getBandByUserId(contextUser.id);
+    console.log(res);
+  }
+
+  function onUpload(file) {
+    setBanner(file);
+  }
+
   async function createBand() {
     setIsProcessing(true);
     if (
       !band.name.trim() ||
       !band.gender.trim() ||
-      !band.bandCreatedAt.trim()
+      !band.bandCreatedAt.trim() ||
+      !banner?.path.trim()
     ) {
       toast.error("Insert all required fields", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
+      setIsProcessing(false);
       return;
     }
 
     band.user = contextUser.id;
 
-    const res = await BandService.createBand(band);
+    const formData = new FormData();
+
+    formData.append("file", banner);
+    formData.append("band", JSON.stringify(band));
+
+    const res = await BandService.createBand(formData);
 
     const responseResult = responseRequest(res);
 
     if (responseResult) {
       handleCloseModal();
+      getAllBands();
     }
     setIsProcessing(false);
   }
@@ -97,6 +112,12 @@ const Bands = () => {
             band.bandCreatedAt = value;
           }}
           type="text"
+        />
+        <Dropzone
+          message="Acceped files: .png, jpg, jpeg"
+          maxFilesSize={3 * 1024 * 1024}
+          acceptedTypeFiles="image/png, image/jpeg, image/jpg"
+          onUpload={onUpload}
         />
         <div className={styles.buttons}>
           <ModalButton

@@ -1,11 +1,11 @@
-import axios from "axios";
+import api from "./api";
 
 const path = "/bands";
 
 const BandService = {
-  getBands: async (userId) => {
+  getBandByUserId: async (userId) => {
     try {
-      const res = await axios.get(`http://localhost:3001${path}/${userId}`);
+      const res = await api.get(`${path}/user/${userId}`);
       return res.data;
     } catch (err) {
       return err.response;
@@ -14,7 +14,7 @@ const BandService = {
 
   createBand: async (band) => {
     try {
-      const res = await axios.post(`http://localhost:3001${path}`, band);
+      const res = await api.post(path, band);
       return res;
     } catch (err) {
       return err.response;
