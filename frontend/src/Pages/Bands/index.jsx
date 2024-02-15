@@ -21,10 +21,6 @@ const Bands = () => {
   const { contextUser } = useContext(UserContext);
 
   useEffect(() => {
-    async function getAllBands() {
-      const res = await BandService.getBands(contextUser.id);
-    }
-
     getAllBands();
   }, []);
 
@@ -36,6 +32,11 @@ const Bands = () => {
     },
     action: () => setShow(true),
   };
+
+  async function getAllBands() {
+    const res = await BandService.getBandByUserId(contextUser.id);
+    console.log(res);
+  }
 
   async function createBand() {
     setIsProcessing(true);
@@ -58,6 +59,7 @@ const Bands = () => {
 
     if (responseResult) {
       handleCloseModal();
+      getAllBands();
     }
     setIsProcessing(false);
   }

@@ -1,11 +1,11 @@
-import axios from "axios";
+import api from "./api";
 
 const path = "/users";
 
 const UserService = {
   createUser: async (user) => {
     try {
-      const res = await axios.post(`http://localhost:3001${path}`, user);
+      const res = await api.post(path, user);
       return res;
     } catch (err) {
       return err.response;
@@ -14,7 +14,7 @@ const UserService = {
 
   loginUser: async (user) => {
     try {
-      const res = await axios.put(`http://localhost:3001/login${path}`, user);
+      const res = await api.put(`/login${path}`, user);
       return res;
     } catch (err) {
       return err.response;
