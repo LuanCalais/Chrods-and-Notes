@@ -101,7 +101,11 @@ const Bands = () => {
           }}
           type="text"
         />
-        <Dropzone message="Acceped files: .png, jpg, jpeg" />
+        <Dropzone
+          message="Acceped files: .png, jpg, jpeg"
+          maxFilesSize={3 * 1024 * 1024}
+          acceptedTypeFiles="image/png, image/jpeg, image/jpg"
+        />
         <div className={styles.buttons}>
           <ModalButton
             label="Criar"
