@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  min-height: 200px;
 }
 
 .image img {

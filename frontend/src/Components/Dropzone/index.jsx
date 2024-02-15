@@ -8,6 +8,7 @@ const Dropzone = ({
   maxFilesSize,
   acceptedTypeFiles = 261676,
   onUpload,
+  setBanner,
 }) => {
   const [showDropzone, setShowDropzone] = useState(true);
   const [localFile, setLocalFile] = useState(null);
@@ -28,12 +29,16 @@ const Dropzone = ({
       return;
     }
 
-    console.log(acceptedFiles[0]);
-
     onUpload(acceptedFiles[0]);
     setLocalFile(acceptedFiles[0]);
     setShowDropzone(false);
   }, []);
+
+  const removeImage = () => {
+    setShowDropzone(true);
+    setLocalFile(null);
+    setBanner(null);
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -54,7 +59,7 @@ const Dropzone = ({
           </div>
         </div>
       ) : (
-        <div className={styles.image}>
+        <div className={styles.image} onClick={removeImage}>
           <div className={styles.icon}>
             <i class="bx bx-trash"></i>
           </div>
