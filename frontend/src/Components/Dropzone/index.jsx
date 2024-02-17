@@ -61,7 +61,7 @@ const Dropzone = ({
       ) : (
         <div className={styles.image} onClick={removeImage}>
           <div className={styles.icon}>
-            <i class="bx bx-trash"></i>
+            <i className="bx bx-trash"></i>
           </div>
           <img src={URL.createObjectURL(localFile)} alt={localFile.name} />
         </div>

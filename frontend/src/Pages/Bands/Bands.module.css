@@ -15,6 +15,12 @@
   column-gap: 8px;
 }
 
+.colorPicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
