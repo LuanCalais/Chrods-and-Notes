@@ -7,18 +7,21 @@ import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
 import Dropzone from "../../Components/Dropzone";
-import { MusicModel } from "../../Model";
+import { BandModel } from "../../Model";
 import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
+import { Colorful, color, hsvaToHex } from "@uiw/react-color";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
-  const [band, setBand] = useState(new MusicModel());
+  const [band, setBand] = useState(new BandModel());
   const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [bands, setBands] = useState();
+  const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 
   const { contextUser } = useContext(UserContext);
 
@@ -37,7 +40,8 @@ const Bands = () => {
 
   async function getAllBands() {
     const res = await BandService.getBandByUserId(contextUser.id);
-    console.log(res);
+    console.log("oies", res);
+    setBands(res);
   }
 
   function onUpload(file) {
@@ -50,7 +54,8 @@ const Bands = () => {
       !band.name.trim() ||
       !band.gender.trim() ||
       !band.bandCreatedAt.trim() ||
-      !banner?.path.trim()
+      !banner?.path.trim() ||
+      !String(hsva).trim()
     ) {
       toast.error("Insert all required fields", {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -60,6 +65,7 @@ const Bands = () => {
     }
 
     band.user = contextUser.id;
+    band.color = String(hsvaToHex(hsva));
 
     const formData = new FormData();
 
@@ -79,7 +85,7 @@ const Bands = () => {
 
   function handleCloseModal() {
     if (isProcessing) return;
-    setBand(new MusicModel());
+    setBand(new BandModel());
     setShow(false);
   }
 
@@ -120,6 +126,17 @@ const Bands = () => {
           onUpload={onUpload}
           setBanner={setBanner}
         />
+
+        <div className={styles.colorPicker}>
+          <Colorful
+            color={hsva}
+            disableAlpha
+            onChange={(color) => {
+              setHsva(color.hsva);
+            }}
+          />
+        </div>
+
         <div className={styles.buttons}>
           <ModalButton
             label="Criar"
