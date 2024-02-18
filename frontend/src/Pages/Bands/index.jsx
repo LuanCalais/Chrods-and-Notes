@@ -101,7 +101,7 @@ const Bands = () => {
         {bands?.data?.length > 0 && (
           <div className={styles.bandsContainer}>
             {bands.data.map((item, index) => (
-              <Card />
+              <Card key={`band_${index}`} {...item} />
             ))}
           </div>
         )}
