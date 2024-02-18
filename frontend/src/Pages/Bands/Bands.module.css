@@ -26,3 +26,11 @@
   justify-content: space-between;
   column-gap: 8px;
 }
+
+.bandsContainer {
+  padding: 37px 52px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+}

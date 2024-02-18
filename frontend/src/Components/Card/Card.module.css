@@ -1,0 +1,13 @@
+.cardContainer {
+  height: 282px;
+  width: 282px;
+  border-radius: 8px;
+  box-shadow: 10px 11px 39px -12px rgba(112, 112, 112, 0.75);
+  -webkit-box-shadow: 10px 11px 39px -12px rgba(112, 112, 112, 0.75);
+  -moz-box-shadow: 10px 11px 39px -12px rgba(112, 112, 112, 0.75);
+  padding: 12px;
+}
+
+h1{
+    font-weight: 700;
+}
