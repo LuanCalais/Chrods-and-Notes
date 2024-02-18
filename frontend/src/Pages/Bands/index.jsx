@@ -12,7 +12,8 @@ import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-import { Colorful, color, hsvaToHex } from "@uiw/react-color";
+import { Colorful, hsvaToHex } from "@uiw/react-color";
+import Card from "../../Components/Card";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
@@ -20,7 +21,7 @@ const Bands = () => {
   const [band, setBand] = useState(new BandModel());
   const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [bands, setBands] = useState();
+  const [bands, setBands] = useState(["Item 1", "Item 2", "Item 3"]);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 
   const { contextUser } = useContext(UserContext);
@@ -40,8 +41,8 @@ const Bands = () => {
 
   async function getAllBands() {
     const res = await BandService.getBandByUserId(contextUser.id);
-    console.log("oies", res);
     setBands(res);
+    console.log("oies", bands);
   }
 
   function onUpload(file) {
@@ -95,6 +96,13 @@ const Bands = () => {
         <div className={styles.inputs}>
           <Search value={search} setValue={setSearch} />
           <Button {...searchObject} />
+        </div>
+        <div className={styles.bandsContainer}>
+          {/* 
+          TODO render cards */}
+          {/* {bands.map((item, index) => (
+            <Card />
+          ))} */}
         </div>
       </div>
       <Modal title="Create band" show={show}>
