@@ -1,16 +1,32 @@
+import { useEffect, useState } from "react";
 import styles from "./Card.module.css";
 
 const Card = ({
   name = "Band",
   gender = "Rock",
-  backgroundColor = "var(--light-green)",
+  color = "var(--light-green)",
+  banner = null,
 }) => {
+  const [localBanner, setLocalBanner] = useState();
+
+  useEffect(() => {
+    if (banner) {
+      const url = banner.replace(/\\/g, "/");
+      setLocalBanner(url);
+    }
+  }, []);
+
   return (
-    <div
-      style={{ backgroundColor: backgroundColor }}
-      className={styles.cardContainer}
-    >
-      <h1>Component works</h1>
+    <div style={{ backgroundColor: color }} className={styles.cardContainer}>
+      <div>
+        <h1>{name}</h1>
+        <h2>{gender}</h2>
+      </div>
+      {banner && (
+        <div>
+          <img src={localBanner} alt={name} />
+        </div>
+      )}
     </div>
   );
 };

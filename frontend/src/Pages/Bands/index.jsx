@@ -42,7 +42,7 @@ const Bands = () => {
   async function getAllBands() {
     const res = await BandService.getBandByUserId(contextUser.id);
     setBands(res);
-    console.log("oies", bands);
+    console.log(res);
   }
 
   function onUpload(file) {
@@ -97,13 +97,14 @@ const Bands = () => {
           <Search value={search} setValue={setSearch} />
           <Button {...searchObject} />
         </div>
-        <div className={styles.bandsContainer}>
-          {/* 
-          TODO render cards */}
-          {/* {bands.map((item, index) => (
-            <Card />
-          ))} */}
-        </div>
+
+        {bands?.data?.length > 0 && (
+          <div className={styles.bandsContainer}>
+            {bands.data.map((item, index) => (
+              <Card key={`band_${index}`} {...item} />
+            ))}
+          </div>
+        )}
       </div>
       <Modal title="Create band" show={show}>
         <Input

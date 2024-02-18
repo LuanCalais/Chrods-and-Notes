@@ -31,6 +31,5 @@
   padding: 37px 52px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 7%;
 }
