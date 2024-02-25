@@ -21,14 +21,15 @@ const Bands = () => {
   const [band, setBand] = useState(new BandModel());
   const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [bands, setBands] = useState(["Item 1", "Item 2", "Item 3"]);
+  const [bands, setBands] = useState([]);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 
   const { contextUser } = useContext(UserContext);
 
   useEffect(() => {
     getAllBands();
-  }, []);
+    console.log(band);
+  }, [band]);
 
   const searchObject = {
     label: "Add",
@@ -99,6 +100,11 @@ const Bands = () => {
     }
   }
 
+  async function editBand(selectedBand) {
+    setBand(selectedBand);
+    setShow(true);
+  }
+
   return (
     <>
       <div className={styles.bands}>
@@ -114,6 +120,7 @@ const Bands = () => {
                 key={`band_${index}`}
                 {...item}
                 deleteFunction={() => deleteBand(item.id)}
+                editFunction={() => editBand(item)}
               />
             ))}
           </div>
@@ -139,6 +146,7 @@ const Bands = () => {
           handleValue={(value) => {
             band.bandCreatedAt = value;
           }}
+          value={band.bandCreatedAt}
           type="text"
         />
         <Dropzone

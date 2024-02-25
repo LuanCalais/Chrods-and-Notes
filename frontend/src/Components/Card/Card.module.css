@@ -13,7 +13,19 @@ h1 {
   font-weight: 700;
 }
 
-.icon {
+.actionsContainer {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.editElement,
+.deleteElement {
   background-color: var(--light-color);
   min-width: 35px;
   height: 35px;
@@ -22,12 +34,17 @@ h1 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  position: absolute;
-  top: 12px;
-  right: 12px;
 }
 
-.icon i {
+.editElement i,
+.deleteElement i {
   font-size: 20px;
+}
+
+.deleteElement i {
   color: var(--danger-color);
+}
+
+.editElement i {
+  color: var(--dark-green);
 }

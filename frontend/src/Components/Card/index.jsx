@@ -7,6 +7,7 @@ const Card = ({
   color = "var(--light-green)",
   banner = null,
   deleteFunction = () => {},
+  editFunction = () => {},
 }) => {
   const [localBanner, setLocalBanner] = useState();
   const [isMouseOn, setIsMouseOn] = useState(false);
@@ -17,7 +18,6 @@ const Card = ({
       setLocalBanner(url);
     }
   }, []);
-
 
   return (
     <div
@@ -31,8 +31,16 @@ const Card = ({
       className={styles.cardContainer}
     >
       {isMouseOn && (
-        <div onClick={() => deleteFunction()} className={styles.icon}>
-          <i className="bx bx-trash"></i>
+        <div className={styles.actionsContainer}>
+          <div
+            onClick={() => deleteFunction()}
+            className={styles.deleteElement}
+          >
+            <i className="bx bx-trash" />
+          </div>
+          <div onClick={() => editFunction()} className={styles.editElement}>
+            <i className="bx bx-edit-alt" />
+          </div>
         </div>
       )}
 
