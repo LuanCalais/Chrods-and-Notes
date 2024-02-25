@@ -6,8 +6,10 @@ const Card = ({
   gender = "Rock",
   color = "var(--light-green)",
   banner = null,
+  deleteFunction = () => {},
 }) => {
   const [localBanner, setLocalBanner] = useState();
+  const [isMouseOn, setIsMouseOn] = useState(false);
 
   useEffect(() => {
     if (banner) {
@@ -16,8 +18,24 @@ const Card = ({
     }
   }, []);
 
+
   return (
-    <div style={{ backgroundColor: color }} className={styles.cardContainer}>
+    <div
+      onMouseEnter={() => {
+        setIsMouseOn(true);
+      }}
+      onMouseLeave={() => {
+        setIsMouseOn(false);
+      }}
+      style={{ backgroundColor: color }}
+      className={styles.cardContainer}
+    >
+      {isMouseOn && (
+        <div onClick={() => deleteFunction()} className={styles.icon}>
+          <i className="bx bx-trash"></i>
+        </div>
+      )}
+
       <div>
         <h1>{name}</h1>
         <h2>{gender}</h2>

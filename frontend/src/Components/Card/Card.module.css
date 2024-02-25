@@ -6,8 +6,28 @@
   -webkit-box-shadow: 10px 11px 39px -12px rgba(112, 112, 112, 0.75);
   -moz-box-shadow: 10px 11px 39px -12px rgba(112, 112, 112, 0.75);
   padding: 12px;
+  position: relative;
 }
 
-h1{
-    font-weight: 700;
+h1 {
+  font-weight: 700;
+}
+
+.icon {
+  background-color: var(--light-color);
+  min-width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.icon i {
+  font-size: 20px;
+  color: var(--danger-color);
 }

@@ -20,6 +20,15 @@ const BandService = {
       return err.response;
     }
   },
+
+  deleteBand: async (bandId) => {
+    try {
+      const res = await api.delete(`${path}/${bandId}`);
+      return res;
+    } catch (err) {
+      return err.response;
+    }
+  },
 };
 
 export default BandService;

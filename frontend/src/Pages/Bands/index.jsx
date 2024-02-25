@@ -42,7 +42,6 @@ const Bands = () => {
   async function getAllBands() {
     const res = await BandService.getBandByUserId(contextUser.id);
     setBands(res);
-    console.log(res);
   }
 
   function onUpload(file) {
@@ -90,6 +89,16 @@ const Bands = () => {
     setShow(false);
   }
 
+  async function deleteBand(id) {
+    const res = await BandService.deleteBand(id);
+
+    const responseResult = responseRequest(res);
+
+    if (responseResult) {
+      getAllBands();
+    }
+  }
+
   return (
     <>
       <div className={styles.bands}>
@@ -101,7 +110,11 @@ const Bands = () => {
         {bands?.data?.length > 0 && (
           <div className={styles.bandsContainer}>
             {bands.data.map((item, index) => (
-              <Card key={`band_${index}`} {...item} />
+              <Card
+                key={`band_${index}`}
+                {...item}
+                deleteFunction={() => deleteBand(item.id)}
+              />
             ))}
           </div>
         )}
