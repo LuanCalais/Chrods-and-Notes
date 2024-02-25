@@ -57,6 +57,8 @@ const Home = ({ user }) => {
             chartData={doughnutChartData}
             chartOptions={chartOptions}
             label="Artists by gender"
+            className={styles.doughnutChart}
+
           />
         </div>
         <div>
