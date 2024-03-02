@@ -21,6 +21,15 @@ const BandService = {
     }
   },
 
+  editBand: async (body, bandId) => {
+    try {
+      const res = await api.put(`${path}/${bandId}`, body);
+      return res.data;
+    } catch (err) {
+      return err.response;
+    }
+  },
+
   deleteBand: async (bandId) => {
     try {
       const res = await api.delete(`${path}/${bandId}`);
