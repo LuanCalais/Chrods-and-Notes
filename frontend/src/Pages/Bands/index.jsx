@@ -11,6 +11,7 @@ import { BandModel } from "../../Model";
 import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
 import { useContext } from "react";
+
 import { UserContext } from "../../Contexts/UserContext";
 import { Colorful, hsvaToHex } from "@uiw/react-color";
 import Card from "../../Components/Card";
@@ -28,7 +29,6 @@ const Bands = () => {
 
   useEffect(() => {
     getAllBands();
-    console.log(band);
   }, [band]);
 
   const searchObject = {
@@ -49,7 +49,7 @@ const Bands = () => {
     setBanner(file);
   }
 
-  async function createBand() {
+  async function handleActionBand() {
     setIsProcessing(true);
     if (
       !band.name.trim() ||
@@ -71,9 +71,26 @@ const Bands = () => {
     const formData = new FormData();
 
     formData.append("file", banner);
-    formData.append("band", JSON.stringify(band));
 
-    const res = await BandService.createBand(formData);
+    let res;
+
+    if (band.id) {
+      const body = {
+        name: band.name,
+        gender: band.gender,
+        bandCreatedAt: band.bandCreatedAt,
+        banner: band.path,
+        color: band.color,
+      };
+
+      formData.append("band", JSON.stringify(body));
+
+      res = await BandService.editBand(formData, band.id);
+    } else {
+      formData.append("band", JSON.stringify(band));
+
+      res = await BandService.createBand(formData);
+    }
 
     const responseResult = responseRequest(res);
 
@@ -100,7 +117,7 @@ const Bands = () => {
     }
   }
 
-  async function editBand(selectedBand) {
+  function openEditBand(selectedBand) {
     setBand(selectedBand);
     setShow(true);
   }
@@ -120,13 +137,13 @@ const Bands = () => {
                 key={`band_${index}`}
                 {...item}
                 deleteFunction={() => deleteBand(item.id)}
-                editFunction={() => editBand(item)}
+                editFunction={() => openEditBand(item)}
               />
             ))}
           </div>
         )}
       </div>
-      <Modal title="Create band" show={show}>
+      <Modal title={band.id ? "Edit band" : "Create band"} show={show}>
         <Input
           placeholder="Name"
           handleValue={(value) => {
@@ -169,18 +186,18 @@ const Bands = () => {
 
         <div className={styles.buttons}>
           <ModalButton
-            label="Criar"
+            label={band.id ? "Edit" : "Create"}
             color="var(--light-color)"
             background="var(--deep-dark-green)"
             width="50%"
             height="41px"
             fontSize="14px"
-            actionFunction={createBand}
+            actionFunction={handleActionBand}
             disabledButton={isProcessing}
           />
 
           <ModalButton
-            label="Voltar"
+            label="Back"
             color="var(--deep-dark-green)"
             background="var(--light-color)"
             borderColor="var(--deep-dark-green)"
