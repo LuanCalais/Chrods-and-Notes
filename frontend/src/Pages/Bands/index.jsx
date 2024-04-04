@@ -86,15 +86,12 @@ const Bands = () => {
 
       formData.append("band", JSON.stringify(body));
 
-      console.log(formData);
-
       res = await BandService.editBand(formData, band.id);
     } else {
       formData.append("band", JSON.stringify(band));
 
       res = await BandService.createBand(formData);
     }
-
     const responseResult = responseRequest(res);
 
     if (responseResult) {

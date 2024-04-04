@@ -104,18 +104,16 @@ class BandController {
   };
 
   static editBandById = async (req, res) => {
-    const incommingBand = req.body.band;
+    const incommingBand = JSON.parse(req.body.band);
 
     const id = req.params.id;
 
     try {
-      const updated = await BandModel.findOneAndUpdate(
-        { id: id },
-        { $set: { incommingBand } },
-        { new: false }
-      );
+      const updated = await BandModel.findByIdAndUpdate(id, {
+        $set: incommingBand,
+      });
       res.status(200).send({
-        message: `The operation was a success :), ${updated.name} has changed`,
+        message: `The operation was a success :), ${updated?.name} has changed`,
       });
     } catch (err) {
       res.status(500).send({

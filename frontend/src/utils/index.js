@@ -41,8 +41,8 @@ export const responseRequest = (responseErrorStatus) => {
     );
     return false;
   }
-  toast.error(
-    `Operação infelizmente não pôde ser concluída :( - ${responseErrorStatus.data?.message}`,
+  toast.success(
+    `${responseErrorStatus.data?.message ? responseErrorStatus.data?.message : responseErrorStatus.message}`,
     {
       position: toast.POSITION.BOTTOM_RIGHT,
     }
