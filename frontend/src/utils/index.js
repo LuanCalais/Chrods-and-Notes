@@ -7,7 +7,6 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 
 export const responseRequest = (responseErrorStatus) => {
-
   if(!responseErrorStatus){
     toast.error(
       "Cannot complete operation",
@@ -26,7 +25,7 @@ export const responseRequest = (responseErrorStatus) => {
   }
   if (HTTP_CLIENT_ERROR_STATUS.includes(Number(responseErrorStatus.status))) {
     toast.error(
-      `Houve um erro no lado do cliente :( - ${responseErrorStatus.data.message}`,
+      `Houve um erro no lado do cliente :( - ${responseErrorStatus.data?.message}`,
       {
         position: toast.POSITION.BOTTOM_RIGHT,
       }
@@ -35,7 +34,7 @@ export const responseRequest = (responseErrorStatus) => {
   }
   if (HTTP_SERVER_ERROR_STATUS.includes(Number(responseErrorStatus.status))) {
     toast.error(
-      `Houve um erro no servidor - ${responseErrorStatus.data.message}`,
+      `Houve um erro no servidor - ${responseErrorStatus.data?.message}`,
       {
         position: toast.POSITION.BOTTOM_RIGHT,
       }
@@ -43,7 +42,7 @@ export const responseRequest = (responseErrorStatus) => {
     return false;
   }
   toast.error(
-    `Operação infelizmente não pôde ser concluída :( - ${responseErrorStatus.data.message}`,
+    `Operação infelizmente não pôde ser concluída :( - ${responseErrorStatus.data?.message}`,
     {
       position: toast.POSITION.BOTTOM_RIGHT,
     }

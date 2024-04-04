@@ -104,24 +104,24 @@ class BandController {
   };
 
   static editBandById = async (req, res) => {
-    req.body.updatedAt = new Date();
-    req.body.name = req.body.name.toLowerCase();
+    const incommingBand = req.body.band;
 
     const id = req.params.id;
-    const body = req.body;
 
     try {
-      const updated = await BandModel.findByIdAndUpdate(
-        id,
-        { $set: body },
-        { new: true }
+      const updated = await BandModel.findOneAndUpdate(
+        { id: id },
+        { $set: { incommingBand } },
+        { new: false }
       );
       res.status(200).send({
         message: `The operation was a success :), ${updated.name} has changed`,
       });
     } catch (err) {
       res.status(500).send({
-        message: `${err.message} We sorry, something wrong happend`,
+        message: err.message
+          ? `${err.message} We sorry, something wrong happend`
+          : "We sorry, something wrong happend",
       });
     }
   };
