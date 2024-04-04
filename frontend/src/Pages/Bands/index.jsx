@@ -81,9 +81,12 @@ const Bands = () => {
         bandCreatedAt: band.bandCreatedAt,
         banner: band.path,
         color: band.color,
+        updatedAt: new Date(),
       };
 
       formData.append("band", JSON.stringify(body));
+
+      console.log(formData);
 
       res = await BandService.editBand(formData, band.id);
     } else {
