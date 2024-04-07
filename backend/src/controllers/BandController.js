@@ -112,9 +112,11 @@ class BandController {
       const updated = await BandModel.findByIdAndUpdate(id, {
         $set: incommingBand,
       });
-      res.status(200).send({
+      res.send({
         message: `The operation was a success :), ${updated?.name} has changed`,
+        status: 200,
       });
+      return;
     } catch (err) {
       res.status(500).send({
         message: err.message
