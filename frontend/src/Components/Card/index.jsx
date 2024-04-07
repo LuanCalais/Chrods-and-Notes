@@ -14,8 +14,11 @@ const Card = ({
 
   useEffect(() => {
     if (banner) {
-      const url = banner.replace(/\\/g, "/");
-      setLocalBanner(url);
+      let regex = /\bhttps?:\/\/\S+\.(?:png|jpe?g|gif)\b/;
+      if (regex.test(banner)) {
+        const url = banner.replace(/\\/g, "/");
+        setLocalBanner(url);
+      }
     }
   }, []);
 

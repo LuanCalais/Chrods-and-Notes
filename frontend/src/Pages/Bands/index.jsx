@@ -15,6 +15,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { Colorful, hsvaToHex } from "@uiw/react-color";
 import Card from "../../Components/Card";
+import EmptyComponent from "../../Components/EmptyComponent";
 
 const Bands = () => {
   const [search, setSearch] = useState("");
@@ -130,7 +131,7 @@ const Bands = () => {
           <Button {...searchObject} />
         </div>
 
-        {bands?.data?.length > 0 && (
+        {bands?.data?.length > 0 ? (
           <div className={styles.bandsContainer}>
             {bands.data.map((item, index) => (
               <Card
@@ -140,6 +141,10 @@ const Bands = () => {
                 editFunction={() => openEditBand(item)}
               />
             ))}
+          </div>
+        ) : (
+          <div className={styles.emptyContainer}>
+            <EmptyComponent />
           </div>
         )}
       </div>
