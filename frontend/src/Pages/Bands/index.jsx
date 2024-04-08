@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./Bands.module.css";
@@ -30,7 +31,7 @@ const Bands = () => {
 
   useEffect(() => {
     getAllBands();
-  }, [band, getAllBands]);
+  }, [band]);
 
   const searchObject = {
     label: "Add",
