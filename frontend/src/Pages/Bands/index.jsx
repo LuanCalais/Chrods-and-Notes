@@ -25,6 +25,7 @@ const Bands = () => {
   const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [bands, setBands] = useState([]);
+  const [fixedBands, setFixedBands] = useState([]);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 
   const { contextUser } = useContext(UserContext);
@@ -45,6 +46,7 @@ const Bands = () => {
   async function getAllBands() {
     const res = await BandService.getBandByUserId(contextUser.id);
     setBands(res);
+    setFixedBands(res);
   }
 
   function onUpload(file) {
@@ -124,11 +126,28 @@ const Bands = () => {
     setShow(true);
   }
 
+  function onSearch(value) {
+    setSearch(value);
+
+    if (!value.trim()) {
+      setBands(fixedBands);
+      return;
+    }
+
+    const clonedBands = Object.assign({}, fixedBands);
+
+    const filteredBands = clonedBands?.data?.filter((band) => {
+      return band.name.toLowerCase().includes(search.toLowerCase());
+    });
+
+    setBands({ data: filteredBands });
+  }
+
   return (
     <>
       <div className={styles.bands}>
         <div className={styles.inputs}>
-          <Search value={search} setValue={setSearch} />
+          <Search value={search} setValue={onSearch} />
           <Button {...searchObject} />
         </div>
 
