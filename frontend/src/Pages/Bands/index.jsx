@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import styles from "./Bands.module.css";
@@ -24,6 +25,7 @@ const Bands = () => {
   const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [bands, setBands] = useState([]);
+  const [fixedBands, setFixedBands] = useState([]);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
 
   const { contextUser } = useContext(UserContext);
@@ -44,6 +46,7 @@ const Bands = () => {
   async function getAllBands() {
     const res = await BandService.getBandByUserId(contextUser.id);
     setBands(res);
+    setFixedBands(res);
   }
 
   function onUpload(file) {
@@ -123,11 +126,28 @@ const Bands = () => {
     setShow(true);
   }
 
+  function onSearch(value) {
+    setSearch(value);
+
+    if (!value.trim()) {
+      setBands(fixedBands);
+      return;
+    }
+
+    const clonedBands = Object.assign({}, fixedBands);
+
+    const filteredBands = clonedBands?.data?.filter((band) => {
+      return band.name.toLowerCase().includes(search.toLowerCase());
+    });
+
+    setBands({ data: filteredBands });
+  }
+
   return (
     <>
       <div className={styles.bands}>
         <div className={styles.inputs}>
-          <Search value={search} setValue={setSearch} />
+          <Search value={search} setValue={onSearch} />
           <Button {...searchObject} />
         </div>
 
@@ -155,6 +175,7 @@ const Bands = () => {
             band.name = value;
           }}
           type="text"
+          currentValue={band.name}
         />
         <Input
           placeholder="Gender"
@@ -162,13 +183,14 @@ const Bands = () => {
             band.gender = value;
           }}
           type="text"
+          currentValue={band.gender}
         />
         <Input
           placeholder="Created Year"
           handleValue={(value) => {
             band.bandCreatedAt = value;
           }}
-          value={band.bandCreatedAt}
+          currentValue={band.bandCreatedAt}
           type="text"
         />
         <Dropzone
