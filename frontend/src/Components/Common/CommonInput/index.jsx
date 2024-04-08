@@ -13,7 +13,7 @@ const CommonInput = ({
       onChange={(e) => {
         handleValue(e.target.value);
       }}
-      placeholder={placeholder}
+      placeholder={currentValue ? currentValue : placeholder}
       type={type}
     />
   );

@@ -30,7 +30,7 @@ const Bands = () => {
 
   useEffect(() => {
     getAllBands();
-  }, [band]);
+  }, [band, getAllBands]);
 
   const searchObject = {
     label: "Add",
@@ -155,6 +155,7 @@ const Bands = () => {
             band.name = value;
           }}
           type="text"
+          currentValue={band.name}
         />
         <Input
           placeholder="Gender"
@@ -162,13 +163,14 @@ const Bands = () => {
             band.gender = value;
           }}
           type="text"
+          currentValue={band.gender}
         />
         <Input
           placeholder="Created Year"
           handleValue={(value) => {
             band.bandCreatedAt = value;
           }}
-          value={band.bandCreatedAt}
+          currentValue={band.bandCreatedAt}
           type="text"
         />
         <Dropzone
