@@ -6,6 +6,7 @@ const Card = ({
   gender = "Rock",
   color = "var(--light-green)",
   banner = null,
+  bandCreatedAt = null,
   deleteFunction = () => {},
   editFunction = () => {},
 }) => {
@@ -20,7 +21,7 @@ const Card = ({
         setLocalBanner(url);
       }
     }
-  }, []);
+  }, [banner]);
 
   return (
     <div
@@ -50,8 +51,9 @@ const Card = ({
       <div>
         <h1>{name}</h1>
         <h2>{gender}</h2>
+        <h3>{bandCreatedAt}</h3>
       </div>
-      {banner && (
+      {localBanner && (
         <div>
           <img src={localBanner} alt={name} />
         </div>
