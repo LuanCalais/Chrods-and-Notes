@@ -9,7 +9,7 @@ import BarChart from "../../Components/Common/BarChart";
 
 Chart.register(CategoryScale);
 
-const Home = ({ user }) => {
+const Home = ({ user = {}}) => {
   const [doughnutChartData, setDoughnutChartData] = useState({
     labels: DoughnutMock.map((data) => data.label),
     datasets: [

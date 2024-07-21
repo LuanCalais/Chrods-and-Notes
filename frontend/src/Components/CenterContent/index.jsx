@@ -2,7 +2,6 @@ import styles from "./CenterContent.module.css";
 import Button from "../Common/Button";
 import Modal from "../Common/CommonModal";
 import Input from "../Common/CommonInput";
-import SideMenu from "../Common/SideMenu";
 import { useState } from "react";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
@@ -14,21 +13,15 @@ import {
 } from "../../utils";
 import { ToastContainer } from "react-toastify";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
-import Home from "../../Pages/Home";
-import Bands from "../../Pages/Bands";
-import Musics from "../../Pages/Musics";
-import { useContext } from "react";
-import { UserContext } from "../../Contexts/UserContext";
+import LoggedPage from "../LoggedPage";
+import { useNavigate } from "react-router-dom";
 
 const CenterContent = ({ changeState, isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
   const [isLogin, setIsLogin] = useState(false);
-  const [selectedContent, setSelectedContent] = useState(0);
-  const [loggedUser, setLoggedUser] = useState(new UserModel());
-
-  const { setContextUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleModal = () => {
     setIsLoading(false);
@@ -36,12 +29,7 @@ const CenterContent = ({ changeState, isLogged }) => {
   };
 
   const handleContent = (selected) => {
-    setSelectedContent(selected);
-  };
-
-  const logUser = (user) => {
-    setLoggedUser(user);
-    setContextUser(user)
+    // setSelectedContent(selected);
   };
 
   async function handleUser() {
@@ -62,10 +50,9 @@ const CenterContent = ({ changeState, isLogged }) => {
     if (isLogin) {
       res = await UserService.loginUser({ ...user, state: true });
       if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
-        setLogin(res.data.data);
-
+        // setLogin(res.data.data);
         // TODO: Refactor with context API
-        changeState(res.data.data);
+        // changeState(res.data.data);
       }
     } else {
       res = await UserService.createUser(user);
@@ -80,42 +67,13 @@ const CenterContent = ({ changeState, isLogged }) => {
 
     if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
       setShow(false);
-      setIsLogin(false);
+      navigate("app");
       return;
     }
   }
 
-  async function logOutUser() {
-    const storageUserState = localStorage.getItem("userState");
-    const userStateObject = JSON.parse(storageUserState);
-
-    setUser({ email: userStateObject.email });
-
-    const res = await UserService.loginUser({
-      email: userStateObject.email,
-      state: false,
-    });
-
-    responseRequest(res);
-    changeState(res.data.data);
-    setSelectedContent(0);
-  }
-
   if (isLogged) {
-    return (
-      <div className={styles.loggedContent}>
-        <SideMenu
-          loggedUser={logUser}
-          handleLogOut={logOutUser}
-          setContent={handleContent}
-        />
-        <div className={styles.content}>
-          {selectedContent === 0 && <Home user={loggedUser} />}
-          {selectedContent === 1 && <Bands />}
-          {selectedContent === 2 && <Musics />}
-        </div>
-      </div>
-    );
+    return <LoggedPage isLogged={isLogged} />;
   }
 
   return (
