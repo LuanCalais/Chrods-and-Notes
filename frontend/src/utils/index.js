@@ -7,13 +7,10 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 
 export const responseRequest = (responseErrorStatus) => {
-  if(!responseErrorStatus){
-    toast.error(
-      "Cannot complete operation",
-      {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      }
-    );
+  if (!responseErrorStatus) {
+    toast.error("Cannot complete operation", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
     return false;
   }
 
@@ -42,7 +39,11 @@ export const responseRequest = (responseErrorStatus) => {
     return false;
   }
   toast.success(
-    `${responseErrorStatus.data?.message ? responseErrorStatus.data?.message : responseErrorStatus.message}`,
+    `${
+      responseErrorStatus.data?.message
+        ? responseErrorStatus.data?.message
+        : responseErrorStatus.message
+    }`,
     {
       position: toast.POSITION.BOTTOM_RIGHT,
     }

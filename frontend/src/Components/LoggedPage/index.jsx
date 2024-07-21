@@ -2,14 +2,28 @@ import styles from "./LoggedPage.module.css";
 import SideMenu from "../Common/SideMenu";
 import { useNavigate } from "react-router-dom";
 
-import { useContext, useState } from "react";
+import { useEffect } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
 import { responseRequest } from "../../utils";
-
+// import { useContext } from "react";
 
 const LoggedPage = () => {
+  useEffect(() => {
+    // const { validateLogin } = validateLogin;
+    // const { validateLogin } = useContext(UserContext);
+    // console.log("HIHIHI", validateLogin);
+    const { validateLogin } = UserContext();
+    console.log(validateLogin);
+    // validateLogin();
+  }, []);
+
+  const getUserContext = () => {
+    console.log("Cheguei aqui papihihi");
+    // console.log(`context`, context);
+  };
+
   //   const [selectedContent, setSelectedContent] = useState(0);
   //   const [loggedUser, setLoggedUser] = useState(new UserModel());
   //   const [user, setUser] = useState(new UserModel());
@@ -20,7 +34,6 @@ const LoggedPage = () => {
     //     setLoggedUser(user);
     //     setContextUser(user);
   };
-
 
   async function logOutUser() {
     //     const storageUserState = localStorage.getItem("userState");

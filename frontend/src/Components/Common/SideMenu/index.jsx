@@ -23,7 +23,6 @@ const SideMenu = ({
     },
   ],
 
-  handleLogOut = () => {},
   loggedUser = () => {},
 }) => {
   const [selectedItem, setSelectedItem] = useState("/app");
@@ -40,6 +39,14 @@ const SideMenu = ({
     }
   }, []);
 
+  function handleLogOut() {
+    const { userState } = localStorage;
+    if (userState) {
+      localStorage.removeItem("userState");
+      navigate("/");
+    }
+  }
+
   function handleNavigate(path = null) {
     if (!path || selectedItem === path) return;
 
@@ -47,7 +54,7 @@ const SideMenu = ({
     navigate(path);
   }
 
-  function handleWithSelected(path = '/app') {
+  function handleWithSelected(path = "/app") {
     return path === selectedItem;
   }
 
