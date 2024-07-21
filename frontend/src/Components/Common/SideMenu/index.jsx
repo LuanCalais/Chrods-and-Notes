@@ -1,31 +1,54 @@
 import { useEffect, useState } from "react";
 import styles from "./SideMenu.module.css";
 import logo from "./logoLight.svg";
+import { useNavigate } from "react-router-dom";
 import { UserModel } from "../../../Model";
 
 const SideMenu = ({
   items = [
-    { name: "Home", icon: "cabin", action: () => {} },
-    { name: "Bands", icon: "diversity_3", action: () => {} },
-    { name: "Musics", icon: "nightlife", action: () => {} },
+    {
+      name: "Home",
+      icon: "cabin",
+      path: "/app",
+    },
+    {
+      name: "Bands",
+      icon: "diversity_3",
+      path: "bands",
+    },
+    {
+      name: "Musics",
+      icon: "nightlife",
+      path: "musics",
+    },
   ],
+
   handleLogOut = () => {},
   setContent = () => {},
   loggedUser = () => {},
 }) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [currentUser, setCurrentUser] = useState(new UserModel());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storageUserState = localStorage.getItem("userState");
     const userStateObject = JSON.parse(storageUserState);
-    setCurrentUser(userStateObject);
-    loggedUser(userStateObject);
+
+    if (userStateObject) {
+      setCurrentUser(userStateObject);
+      loggedUser(userStateObject);
+    }
   }, []);
 
-  function handleSelected(i) {
-    setSelectedItem(i);
-    setContent(i);
+  // function handleSelected(i) {
+  //   setSelectedItem(i);
+  //   setContent(i);
+  // }
+
+  function handleNavigate(path = null) {
+    if (!path) return;
+    navigate(path);
   }
 
   return (
@@ -43,8 +66,8 @@ const SideMenu = ({
             return (
               <li
                 className={selectedItem === i ? styles.active : ""}
-                key={`${item.name}_${i}`}
-                onClick={() => handleSelected(i)}
+                key={`${item.name}_${ i}`}
+                onClick={() => handleNavigate(item.path)}
               >
                 <span className="material-icons">{item.icon}</span>
                 {item.name}
@@ -53,19 +76,20 @@ const SideMenu = ({
           })}
         </ul>
       </span>
-
-      <span className={styles.bottomContent}>
-        <div className={styles.personContent}>
-          <span className="material-icons">account_circle</span>
-          <div className={styles.personInformation}>
-            <h3>{currentUser.name}</h3>
-            <h5>{currentUser.email}</h5>
+      {currentUser.id && (
+        <span className={styles.bottomContent}>
+          <div className={styles.personContent}>
+            <span className="material-icons">account_circle</span>
+            <div className={styles.personInformation}>
+              <h3>{currentUser.name}</h3>
+              <h5>{currentUser.email}</h5>
+            </div>
           </div>
-        </div>
-        <div className={styles.logOut} onClick={handleLogOut}>
-          <span className="material-icons">directions_run</span> Log Out
-        </div>
-      </span>
+          <div className={styles.logOut} onClick={handleLogOut}>
+            <span className="material-icons">directions_run</span> Log Out
+          </div>
+        </span>
+      )}
     </div>
   );
 };
