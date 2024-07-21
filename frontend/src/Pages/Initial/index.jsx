@@ -25,17 +25,12 @@ const Initial = () => {
     setIsUserLogged(userStateObject.isLogged);
   }, [userState]);
 
-  // TODO: Refactor with context API
-  const handleSetUserState = (user) => {
-    setUserState(user);
-  };
-
   return (
     <main>
       <header style={{ display: isUserLogged ? "none" : "block" }}>
-        <Header changeState={handleSetUserState} isLogged={isUserLogged} />
+        <Header isLogged={isUserLogged} />
       </header>
-      <CenterContent changeState={handleSetUserState} isLogged={isUserLogged} />
+      <CenterContent isLogged={isUserLogged} />
     </main>
   );
 };

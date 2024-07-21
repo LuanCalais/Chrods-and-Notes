@@ -16,7 +16,7 @@ import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 import LoggedPage from "../LoggedPage";
 import { useNavigate } from "react-router-dom";
 
-const CenterContent = ({ changeState, isLogged }) => {
+const CenterContent = ({ isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
@@ -26,10 +26,6 @@ const CenterContent = ({ changeState, isLogged }) => {
   const handleModal = () => {
     setIsLoading(false);
     setShow(!show);
-  };
-
-  const handleContent = (selected) => {
-    // setSelectedContent(selected);
   };
 
   async function handleUser() {
@@ -50,9 +46,7 @@ const CenterContent = ({ changeState, isLogged }) => {
     if (isLogin) {
       res = await UserService.loginUser({ ...user, state: true });
       if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
-        // setLogin(res.data.data);
-        // TODO: Refactor with context API
-        // changeState(res.data.data);
+        setLogin(res.data.data);
       }
     } else {
       res = await UserService.createUser(user);
@@ -63,13 +57,12 @@ const CenterContent = ({ changeState, isLogged }) => {
       setUser(new UserModel());
     }
 
-    setIsLoading(false);
-
     if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
       setShow(false);
       navigate("app");
-      return;
     }
+
+    setIsLoading(false);
   }
 
   if (isLogged) {

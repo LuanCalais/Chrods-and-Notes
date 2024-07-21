@@ -23,11 +23,9 @@ const SideMenu = ({
     },
   ],
 
-  handleLogOut = () => {},
-  setContent = () => {},
   loggedUser = () => {},
 }) => {
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItem, setSelectedItem] = useState("/app");
   const [currentUser, setCurrentUser] = useState(new UserModel());
   const navigate = useNavigate();
 
@@ -41,14 +39,23 @@ const SideMenu = ({
     }
   }, []);
 
-  // function handleSelected(i) {
-  //   setSelectedItem(i);
-  //   setContent(i);
-  // }
+  function handleLogOut() {
+    const { userState } = localStorage;
+    if (userState) {
+      localStorage.removeItem("userState");
+      navigate("/");
+    }
+  }
 
   function handleNavigate(path = null) {
-    if (!path) return;
+    if (!path || selectedItem === path) return;
+
+    setSelectedItem(path);
     navigate(path);
+  }
+
+  function handleWithSelected(path = "/app") {
+    return path === selectedItem;
   }
 
   return (
@@ -65,8 +72,8 @@ const SideMenu = ({
           {items.map((item, i) => {
             return (
               <li
-                className={selectedItem === i ? styles.active : ""}
-                key={`${item.name}_${ i}`}
+                className={handleWithSelected(item.path) ? styles.active : ""}
+                key={`${item.name}_${i}`}
                 onClick={() => handleNavigate(item.path)}
               >
                 <span className="material-icons">{item.icon}</span>
