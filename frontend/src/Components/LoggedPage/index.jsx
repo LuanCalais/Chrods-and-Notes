@@ -2,21 +2,17 @@ import styles from "./LoggedPage.module.css";
 import SideMenu from "../Common/SideMenu";
 import { useNavigate } from "react-router-dom";
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { UserModel } from "../../Model";
 import UserService from "../../Services/UserService";
 import { responseRequest } from "../../utils";
-// import { useContext } from "react";
 
 const LoggedPage = () => {
+  const { validateLogin } = useContext(UserContext);
+
   useEffect(() => {
-    // const { validateLogin } = validateLogin;
-    // const { validateLogin } = useContext(UserContext);
-    // console.log("HIHIHI", validateLogin);
-    const { validateLogin } = UserContext();
-    console.log(validateLogin);
-    // validateLogin();
+    validateLogin();
   }, []);
 
   const getUserContext = () => {
@@ -49,7 +45,7 @@ const LoggedPage = () => {
   }
 
   return (
-    <div className={styles.loggedContent}>
+    <div>
       <SideMenu loggedUser={logUser} handleLogOut={logOutUser} />
       {/* setContent={handleContent} */}
       {/* <div className={styles.content}>
