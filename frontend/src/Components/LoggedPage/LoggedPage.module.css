@@ -1,3 +1,7 @@
+.componentesContainer {
+  display: flex;
+}
+
 .loggedContent {
   display: flex;
 }
