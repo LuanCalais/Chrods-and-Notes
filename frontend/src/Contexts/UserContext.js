@@ -12,10 +12,12 @@ export function UserProvider({ children }) {
 
   const validateLogin = () => {
     const storageUserState = localStorage.getItem("userState");
-
     if (storageUserState) {
-      localStorage.removeItem("userState");
-      navigate("/");
+      const userState = JSON.parse(storageUserState);
+      if (!userState.id || !userState.isLogged) {
+        localStorage.removeItem("userState");
+        navigate("/");
+      }
     }
   };
 
