@@ -3,13 +3,16 @@ import disco from "./disco.png";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { DoughnutMock, BarMock } from "../../utils/Mocks";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DoughnutChart from "../../Components/Common/DoughnutChart";
 import BarChart from "../../Components/Common/BarChart";
+import { UserContext } from "../../Contexts/UserContext";
 
 Chart.register(CategoryScale);
 
-const Home = ({ user = {}}) => {
+const Home = () => {
+  const { contextUser } = useContext(UserContext);
+
   const [doughnutChartData, setDoughnutChartData] = useState({
     labels: DoughnutMock.map((data) => data.label),
     datasets: [
@@ -48,7 +51,7 @@ const Home = ({ user = {}}) => {
   return (
     <div className={styles.contentContainer}>
       <div className={styles.topContent}>
-        <h2> Wellcome back, {user.name} :) </h2>
+        <h2> Wellcome back, {contextUser.name} :) </h2>
         <img src={disco} alt="disco" />
       </div>
       <div className={styles.chartsContainer}>
@@ -58,7 +61,6 @@ const Home = ({ user = {}}) => {
             chartOptions={chartOptions}
             label="Artists by gender"
             className={styles.doughnutChart}
-
           />
         </div>
         <div>
