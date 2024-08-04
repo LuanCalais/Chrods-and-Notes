@@ -1,6 +1,7 @@
 import UserModel from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { verifyUserObject } from "../utils/index.js";
+import moment from "moment-timezone";
 
 class UsersController {
   static createUser = async (req, res) => {
@@ -127,12 +128,11 @@ class UsersController {
   static userLogin = async (req, res) => {
     try {
       const { email, password, state } = req.body;
-
       const user = await this.getUserByEmail(email);
 
       if (!user) {
         res.status(500).send({
-          message: `We sorry, user doesent exist`,
+          message: `We sorry, user does not exist`,
         });
         return;
       } else {
@@ -146,6 +146,7 @@ class UsersController {
           const updated = await UserModel.findOneAndUpdate(
             { email: email },
             { isLogged: state },
+            { lastLogged: moment.tz("America/Sao_Paulo").toDate() },
             { new: true }
           );
           res.status(200).send({
