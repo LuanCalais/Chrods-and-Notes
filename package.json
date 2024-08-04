@@ -1,0 +1,13 @@
+{
+  "name": "chrods-and-notes",
+  "version": "1.0.0",
+  "description": "application to adm musics and bands ",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "start:both": "cd backend && npm start && ../frontend && npm start"
+  },
+  "author": "Luan Calais",
+  "license": "ISC"
+}
