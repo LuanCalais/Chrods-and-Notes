@@ -2,15 +2,14 @@ import mongoose from "mongoose";
 import UserModel from "../models/UserModel.js";
 import { CONNECTION_STRING } from "../constants/index.js";
 
-const updateUserColumnLastLogged = async () => {
+const updateUserSchemaAddColumnPicture = async () => {
   try {
     await mongoose.connect(CONNECTION_STRING.MONGO_DB);
 
     const users = await UserModel.find();
 
-    await UserModel.updateMany({}, { $set: { lastLogged: new Date() } });
-
-    console.log(`Atualizado ${users.length} com a coluna 'last logged'`);
+    await UserModel.updateMany({}, { $set: { profilePicture: 0 } });
+    console.log(`Atualizado ${users.length} com a coluna 'profilePicture'`);
   } catch (ex) {
     console.log(`Aconteceu um erro ao executar o script ${ex}`);
   } finally {
@@ -18,4 +17,4 @@ const updateUserColumnLastLogged = async () => {
   }
 };
 
-updateUserColumnLastLogged();
+updateUserSchemaAddColumnPicture();

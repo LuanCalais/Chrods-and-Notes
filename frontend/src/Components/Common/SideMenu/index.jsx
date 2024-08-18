@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./SideMenu.module.css";
-import logo from "./logoLight.svg";
 import { useNavigate } from "react-router-dom";
 import { UserModel } from "../../../Model";
+import { PROFILE_PICTURE } from "../../../constants";
+import logo from "./logoLight.svg";
+
 
 const SideMenu = ({
   items = [
@@ -86,7 +88,7 @@ const SideMenu = ({
       {currentUser.id && (
         <span className={styles.bottomContent}>
           <div className={styles.personContent}>
-            <span className="material-icons">account_circle</span>
+            <img src={PROFILE_PICTURE.DOG.path} />
             <div className={styles.personInformation}>
               <h3>{currentUser.name}</h3>
               <h5>{currentUser.email}</h5>
