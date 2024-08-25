@@ -13,6 +13,7 @@ const musicSchema = new mongoose.Schema({
     ref: "bands",
     required: true,
   },
+  resume: { type: String, required: false },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
 });
