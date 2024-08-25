@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   isLogged: { type: Boolean, required: false },
   lastLogged: { type: Date, required: false },
+  profilePicture: { type: String, required: false },
   createdAt: { type: Date, required: false },
   updatedAt: { type: Date, required: true },
 });

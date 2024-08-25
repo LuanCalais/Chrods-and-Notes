@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 import UserModel from "../models/UserModel.js";
+import { CONNECTION_STRING } from "../constants/index.js";
 
 const updateUserColumnLastLogged = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://KingOfNothing:125678943@kingofnothing.huxpw63.mongodb.net/ChordsAndNotes"
-    );
+    await mongoose.connect(CONNECTION_STRING.MONGO_DB);
 
     const users = await UserModel.find();
 
