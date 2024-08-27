@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./SideMenu.module.css";
 import { useNavigate } from "react-router-dom";
 import { UserModel } from "../../../Model";
-import { PROFILE_PICTURE } from "../../../constants";
 import logo from "./logoLight.svg";
-
+import Avatar from "../Avatar";
 
 const SideMenu = ({
   items = [
@@ -86,18 +85,11 @@ const SideMenu = ({
         </ul>
       </span>
       {currentUser.id && (
-        <span className={styles.bottomContent}>
-          <div className={styles.personContent}>
-            <img src={PROFILE_PICTURE.DOG.path} />
-            <div className={styles.personInformation}>
-              <h3>{currentUser.name}</h3>
-              <h5>{currentUser.email}</h5>
-            </div>
-          </div>
+        <Avatar currentUser={currentUser} hasName hasEmail>
           <div className={styles.logOut} onClick={handleLogOut}>
             <span className="material-icons">directions_run</span> Log Out
           </div>
-        </span>
+        </Avatar>
       )}
     </div>
   );

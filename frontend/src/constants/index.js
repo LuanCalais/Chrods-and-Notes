@@ -1,6 +1,4 @@
-export const ROOT_ASSETS = Object.freeze({
-  PATH: "../public/assets",
-});
+
 
 export const HTTP_SUCCESS_STATUS = Object.freeze([200, 201, 204]);
 
@@ -31,17 +29,17 @@ export const SELECTED_CONTENT = Object.freeze({
 export const PROFILE_PICTURE = Object.freeze({
   DOG: {
     name: "Dog",
-    path: `${ROOT_ASSETS.PATH}/img/profile/dog.jpg`,
+    path: "/static/media/dog.6c06e6dae29d6157b518.jpg",
     code: "DOG",
   },
   CAT: {
     name: "Cat",
-    path: `${ROOT_ASSETS.PATH}/img/profile/cat.jpg`,
+    path: "/static/media/cat.556bed6d43b6060bc577.jpg",
     code: "CAT",
   },
   MNK: {
     name: "Monkey",
-    path: `${ROOT_ASSETS.PATH}/img/profile/monkey.jpg`,
+    path: "/static/media/monkey.fdd5014bceb32093b6b4.jpg",
     code: "MNK",
   },
 });
