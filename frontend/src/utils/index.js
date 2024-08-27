@@ -84,6 +84,7 @@ export const setLogin = (object) => {
     email: object.email,
     name: object.name,
     isLogged: object.isLogged,
+    profilePicture: object.profilePicture,
   };
   localStorage.setItem("userState", JSON.stringify(userState));
 };
