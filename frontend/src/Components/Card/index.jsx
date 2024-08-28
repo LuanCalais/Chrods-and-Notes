@@ -25,12 +25,8 @@ const Card = ({
 
   return (
     <div
-      onMouseEnter={() => {
-        setIsMouseOn(true);
-      }}
-      onMouseLeave={() => {
-        setIsMouseOn(false);
-      }}
+      onMouseEnter={() => setIsMouseOn(true)}
+      onMouseLeave={() => setIsMouseOn(false)}
       style={{ backgroundColor: color }}
       className={styles.cardContainer}
     >
