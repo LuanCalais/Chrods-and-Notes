@@ -29,17 +29,27 @@ export const SELECTED_CONTENT = Object.freeze({
 export const PROFILE_PICTURE = Object.freeze({
   DOG: {
     name: "Dog",
-    path: "/static/media/dog.6c06e6dae29d6157b518.jpg",
+    path: "/static/media/DOG.81eb894a9b7fee1d28e5c477a46f5d89.svg",
     code: "DOG",
   },
   CAT: {
     name: "Cat",
-    path: "/static/media/cat.556bed6d43b6060bc577.jpg",
+    path: "/static/media/CAT.b32929cbfe2cb43f6c350691e1d9786e.svg",
     code: "CAT",
   },
   MNK: {
     name: "Monkey",
-    path: "/static/media/monkey.fdd5014bceb32093b6b4.jpg",
+    path: "/static/media/MNK.21c828e144bce5b88ba9736709ec166d.svg",
     code: "MNK",
+  },
+  NON: {
+    name: "No one",
+    path: "/static/media/NON.50ea5be638a61291ee520ecaa305e299.svg",
+    code: "NON",
+  },
+  UNK: {
+    name: "Unknown",
+    path: "/static/media/UNK.3097eef98a0a4637c068e873cf184db9.svg",
+    code: "UNK",
   },
 });

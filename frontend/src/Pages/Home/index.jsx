@@ -13,7 +13,7 @@ Chart.register(CategoryScale);
 const Home = () => {
   const { contextUser } = useContext(UserContext);
 
-  const [doughnutChartData, setDoughnutChartData] = useState({
+  const [doughnutChartData] = useState({
     labels: DoughnutMock.map((data) => data.label),
     datasets: [
       {
@@ -28,7 +28,7 @@ const Home = () => {
     ],
   });
 
-  const [barChartData, setBarChartData] = useState({
+  const [barChartData] = useState({
     labels: BarMock.map((data) => data.label),
     datasets: [
       {
