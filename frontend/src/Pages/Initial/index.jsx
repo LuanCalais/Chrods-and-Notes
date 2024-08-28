@@ -4,7 +4,7 @@ import CenterContent from "../../Components/CenterContent";
 import { useState, useEffect } from "react";
 
 const Initial = () => {
-  const [userState, setUserState] = useState();
+  const [userState] = useState();
   const [isUserLogged, setIsUserLogged] = useState(false);
 
   useEffect(() => {
