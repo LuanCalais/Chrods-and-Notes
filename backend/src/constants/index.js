@@ -15,5 +15,13 @@ export const PROFILE_PICTURE = Object.freeze({
       name: "Monkey",
       code: "MNK",
     },
+    NON: {
+      name: "No one",
+      code: "NON",
+    },
+    UNK: {
+      name: "Unknown",
+      code: "UNK",
+    },
   });
   
