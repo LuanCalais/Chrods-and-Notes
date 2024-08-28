@@ -1,8 +1,8 @@
-import CAT from "../assets/img/CAT.svg"
-import DOG from "../assets/img/DOG.svg"
-import MNK from "../assets/img/MNK.svg"
-import NON from "../assets/img/NON.svg"
-import UNK from "../assets/img/UNK.svg"
+import CAT from "../assets/img/CAT.svg";
+import DOG from "../assets/img/DOG.svg";
+import MNK from "../assets/img/MNK.svg";
+import NON from "../assets/img/NON.svg";
+import UNK from "../assets/img/UNK.svg";
 
 export const HTTP_SUCCESS_STATUS = Object.freeze([200, 201, 204]);
 
@@ -30,7 +30,7 @@ export const SELECTED_CONTENT = Object.freeze({
   },
 });
 
-export const PROFILE_PICTURE = Object.freeze({
+export const PROFILE_PICTURE_DETAILS = Object.freeze({
   DOG: {
     name: "Dog",
     path: DOG,
@@ -57,3 +57,11 @@ export const PROFILE_PICTURE = Object.freeze({
     code: "UNK",
   },
 });
+
+export const PROFILE_PICTURE_AVATARS = Object.freeze([
+  PROFILE_PICTURE_DETAILS.DOG,
+  PROFILE_PICTURE_DETAILS.CAT,
+  PROFILE_PICTURE_DETAILS.MNK,
+  PROFILE_PICTURE_DETAILS.NON,
+  PROFILE_PICTURE_DETAILS.UNK,
+]);

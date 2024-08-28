@@ -6,6 +6,7 @@ const CommonModal = ({
   show = false,
   handleModal = () => {},
   children,
+  hasCloseButton = false,
 }) => {
   return (
     <Modal
@@ -13,7 +14,7 @@ const CommonModal = ({
       show={show}
       onHide={() => handleModal()}
     >
-      <Modal.Header className={styles.modalHeader}>
+      <Modal.Header className={styles.modalHeader} closeButton={hasCloseButton}>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles.modalBody}>{children}</Modal.Body>
