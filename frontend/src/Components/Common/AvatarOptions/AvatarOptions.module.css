@@ -1,0 +1,12 @@
+.carouselContainer {
+  min-height: 200px;
+}
+
+.carouselItem {
+  width: 180px;
+  height: 180px;
+  padding: 30px;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

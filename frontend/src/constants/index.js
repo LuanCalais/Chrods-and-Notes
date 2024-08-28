@@ -1,4 +1,8 @@
-
+import CAT from "../assets/img/CAT.svg";
+import DOG from "../assets/img/DOG.svg";
+import MNK from "../assets/img/MNK.svg";
+import NON from "../assets/img/NON.svg";
+import UNK from "../assets/img/UNK.svg";
 
 export const HTTP_SUCCESS_STATUS = Object.freeze([200, 201, 204]);
 
@@ -26,30 +30,38 @@ export const SELECTED_CONTENT = Object.freeze({
   },
 });
 
-export const PROFILE_PICTURE = Object.freeze({
+export const PROFILE_PICTURE_DETAILS = Object.freeze({
   DOG: {
     name: "Dog",
-    path: "/static/media/DOG.81eb894a9b7fee1d28e5c477a46f5d89.svg",
+    path: DOG,
     code: "DOG",
   },
   CAT: {
     name: "Cat",
-    path: "/static/media/CAT.b32929cbfe2cb43f6c350691e1d9786e.svg",
+    path: CAT,
     code: "CAT",
   },
   MNK: {
     name: "Monkey",
-    path: "/static/media/MNK.21c828e144bce5b88ba9736709ec166d.svg",
+    path: MNK,
     code: "MNK",
   },
   NON: {
     name: "No one",
-    path: "/static/media/NON.50ea5be638a61291ee520ecaa305e299.svg",
+    path: NON,
     code: "NON",
   },
   UNK: {
     name: "Unknown",
-    path: "/static/media/UNK.3097eef98a0a4637c068e873cf184db9.svg",
+    path: UNK,
     code: "UNK",
   },
 });
+
+export const PROFILE_PICTURE_AVATARS = Object.freeze([
+  PROFILE_PICTURE_DETAILS.DOG,
+  PROFILE_PICTURE_DETAILS.CAT,
+  PROFILE_PICTURE_DETAILS.MNK,
+  PROFILE_PICTURE_DETAILS.NON,
+  PROFILE_PICTURE_DETAILS.UNK,
+]);
