@@ -32,6 +32,7 @@ const AvatarOptions = () => {
   };
 
   const onClick = (picture) => {
+    if (picture.code === selectedPicture.code) return;
     setSelectedPicture(picture);
   };
 
@@ -42,16 +43,23 @@ const AvatarOptions = () => {
       minimumTouchDrag={80}
       responsive={responsive}
       swipeable
+      centerMode={true}
     >
       {PROFILE_PICTURE_AVATARS.map((picture, index) => (
-        <img
-          src={picture.path}
-          alt={picture.name}
+        <span
           key={`${picture.name}-${index}`}
-          className={styles.carouselItem}
-          draggable="false"
+          className={
+            picture.code === selectedPicture.code ? styles.selected : ""
+          }
           onClick={() => onClick(picture)}
-        />
+        >
+          <img
+            src={picture.path}
+            alt={picture.name}
+            className={styles.carouselItem}
+            draggable="false"
+          />
+        </span>
       ))}
     </Carousel>
   );

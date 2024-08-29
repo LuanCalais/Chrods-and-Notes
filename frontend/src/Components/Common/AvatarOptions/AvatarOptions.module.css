@@ -21,5 +21,12 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   cursor: pointer;
-  margin-left: 100px;
+}
+
+.selected {
+  border: 3px solid var(--dark-green);
+  height: auto;
+  width: auto;
+  display: block;
+  border-radius: 4px;
 }

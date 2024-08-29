@@ -3,6 +3,7 @@ import { PROFILE_PICTURE_DETAILS } from "../../../constants";
 import styles from "./Avatar.module.css";
 import Modal from "../../../Components/Common/CommonModal";
 import AvatarOptions from "../AvatarOptions";
+import Button from "../Button";
 
 const Avatar = ({
   currentUser = null,
@@ -55,6 +56,30 @@ const Avatar = ({
         hasCloseButton
       >
         <AvatarOptions />
+        <div className={styles.buttons}>
+          <Button
+            label="Salvar"
+            color="var(--light-color)"
+            background="var(--deep-dark-green)"
+            width="50%"
+            height="41px"
+            fontSize="14px"
+            actionFunction={() => {}}
+            disabledButton={false}
+          />
+
+          <Button
+            label="Back"
+            color="var(--deep-dark-green)"
+            background="var(--light-color)"
+            borderColor="var(--deep-dark-green)"
+            width="50%"
+            height="41px"
+            fontSize="14px"
+            actionFunction={() => setShow(false)}
+            disabledButton={false}
+          />
+        </div>
       </Modal>
     </>
   );

@@ -77,3 +77,9 @@
   font-size: 15px;
   color: var(--dark-green);
 }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 8px;
+}
