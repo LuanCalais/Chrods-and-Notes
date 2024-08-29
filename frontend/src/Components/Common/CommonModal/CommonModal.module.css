@@ -7,9 +7,21 @@
   font-size: 45px;
   font-weight: 300;
   height: 130px;
-  background: linear-gradient(270deg, var(--deep-dark-green) 0%, rgba(1, 38, 34, 0.63) 100%);
+  background: linear-gradient(
+    270deg,
+    var(--deep-dark-green) 0%,
+    rgba(1, 38, 34, 0.63) 100%
+  );
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.modalHeader i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
 }
 
 .modalBody {

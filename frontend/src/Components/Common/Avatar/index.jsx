@@ -44,7 +44,14 @@ const Avatar = ({
         </div>
         {children && <span>{children}</span>}
       </span>
-      <Modal title="Alterar foto de perfil" show={show} hasCloseButton>
+      <Modal
+        hideModal={() => {
+          setShow(false);
+        }}
+        title="Alterar foto de perfil"
+        show={show}
+        hasCloseButton
+      >
         <AvatarOptions />
       </Modal>
     </>
