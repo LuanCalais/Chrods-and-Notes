@@ -1,9 +1,17 @@
 import styles from "./AvatarOptions.module.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { PROFILE_PICTURE_AVATARS } from "../../../constants";
+import {
+  PROFILE_PICTURE_AVATARS,
+  PROFILE_PICTURE_DETAILS,
+} from "../../../constants";
+import { useState } from "react";
 
 const AvatarOptions = () => {
+  const [selectedPicture, setSelectedPicture] = useState(
+    PROFILE_PICTURE_DETAILS.NON
+  );
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -23,6 +31,10 @@ const AvatarOptions = () => {
     },
   };
 
+  const onClick = (picture) => {
+    setSelectedPicture(picture);
+  };
+
   return (
     <Carousel
       containerClass={styles.carouselContainer}
@@ -38,6 +50,7 @@ const AvatarOptions = () => {
           key={`${picture.name}-${index}`}
           className={styles.carouselItem}
           draggable="false"
+          onClick={() => onClick(picture)}
         />
       ))}
     </Carousel>

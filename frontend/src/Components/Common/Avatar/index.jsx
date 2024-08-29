@@ -50,6 +50,8 @@ const Avatar = ({
         }}
         title="Alterar foto de perfil"
         show={show}
+        size="lg"
+        centered
         hasCloseButton
       >
         <AvatarOptions />

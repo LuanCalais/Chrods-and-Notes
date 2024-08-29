@@ -1,12 +1,25 @@
 .carouselContainer {
   min-height: 200px;
+  cursor: grab;
+}
+
+.carouselContainer ul li {
+  height: auto;
+  cursor: grab;
+}
+
+.carouselContainer ul li img {
+  height: auto;
+  width: 100%;
 }
 
 .carouselItem {
-  width: 180px;
-  height: 180px;
+  width: 280px;
+  height: 280px;
   padding: 30px;
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  cursor: pointer;
+  margin-left: 100px;
 }
