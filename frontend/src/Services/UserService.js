@@ -24,7 +24,7 @@ const UserService = {
   changeProfilePicture: async (userId, body) => {
     try {
       const res = await api.put(
-        `/changePicture${path}?userId=${userId}`,
+        `${path}/changePicture/${userId}`,
         body
       );
       return res;

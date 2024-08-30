@@ -9,6 +9,6 @@ const router = Router()
   .put("/users/:id", UserController.editUserById)
   .put("/login/users", UserController.userLogin)
   .put("/logoff/users", UserController.userLogin)
-  .put("/changePicture/users/:userId", UserController.changePicture);
+  .put("/users/changePicture/:userId", UserController.changePicture);
 
 export default router;
