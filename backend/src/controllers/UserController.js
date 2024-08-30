@@ -165,6 +165,30 @@ class UsersController {
       });
     }
   };
+
+  static changePicture = async (req, res) => {
+    const { body, params } = req;
+
+    try {
+      const updated = await UserModel.findByIdAndUpdate(
+        params.userId,
+        {
+          $set: {
+            profilePicture: body.code,
+          },
+        },
+        { new: true }
+      );
+
+      res.status(200).send({
+        message: `The operation was a success :), ${updated.name} has changed`,
+      });
+    } catch (err) {
+      res.status(500).send({
+        message: `${err.message} We sorry, something wrong happend`,
+      });
+    }
+  };
 }
 
 export default UsersController;

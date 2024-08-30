@@ -20,6 +20,18 @@ const UserService = {
       return err.response;
     }
   },
+
+  changeProfilePicture: async (userId, body) => {
+    try {
+      const res = await api.put(
+        `${path}/changePicture/${userId}`,
+        body
+      );
+      return res;
+    } catch (err) {
+      return err.response;
+    }
+  },
 };
 
 export default UserService;

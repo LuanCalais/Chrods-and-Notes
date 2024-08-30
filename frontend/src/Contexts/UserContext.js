@@ -21,12 +21,22 @@ export function UserProvider({ children }) {
     }
   };
 
+  const changePicture = (code = "NON") => {
+    const storageUserState = localStorage.getItem("userState");
+    if (storageUserState) {
+      const userState = JSON.parse(storageUserState);
+      userState.profilePicture = code;
+      localStorage.setItem("userState", JSON.stringify(userState));
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
         contextUser,
         setContextUser,
         validateLogin,
+        changePicture,
       }}
     >
       {children}
