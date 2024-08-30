@@ -14,12 +14,13 @@ const Avatar = ({
   hasName = false,
   hasEmail = false,
 }) => {
-  const { contextUser } = useContext(UserContext);
+  const { contextUser, changePicture } = useContext(UserContext);
 
   const [isMouseOn, setIsMouseOn] = useState(false);
   const [show, setShow] = useState(false);
+  const [key, setKey] = useState(Math.random());
   const [selectedPicture, setSelectedPicture] = useState(
-    PROFILE_PICTURE_DETAILS.NON
+    PROFILE_PICTURE_DETAILS[contextUser.profilePicture]
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,14 +32,16 @@ const Avatar = ({
     );
     const responseResult = responseRequest(res);
     if (responseResult) {
-      // TODO: Fazer alterações necessárias
+      changePicture(selectedPicture.code);
+      setKey(Math.random());
+      setShow(false);
     }
     setIsLoading(false);
   }
 
   return (
     <>
-      <span className={styles.bottomContent}>
+      <span key={key} className={styles.bottomContent}>
         <div className={styles.personContent}>
           <div
             onMouseEnter={() => setIsMouseOn(true)}
