@@ -165,6 +165,10 @@ class UsersController {
       });
     }
   };
+
+  static changePicture = async (req, res) => {
+    const { code } = req.body;
+  };
 }
 
 export default UsersController;

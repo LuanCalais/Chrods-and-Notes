@@ -1,17 +1,12 @@
 import styles from "./AvatarOptions.module.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {
-  PROFILE_PICTURE_AVATARS,
-  PROFILE_PICTURE_DETAILS,
-} from "../../../constants";
-import { useState } from "react";
+import { PROFILE_PICTURE_AVATARS } from "../../../constants";
 
-const AvatarOptions = () => {
-  const [selectedPicture, setSelectedPicture] = useState(
-    PROFILE_PICTURE_DETAILS.NON
-  );
-
+const AvatarOptions = ({
+  selectedPicture = {},
+  setSelectedPicture = () => {},
+}) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
