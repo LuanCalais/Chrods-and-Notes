@@ -27,6 +27,7 @@ export function UserProvider({ children }) {
       const userState = JSON.parse(storageUserState);
       userState.profilePicture = code;
       localStorage.setItem("userState", JSON.stringify(userState));
+      window.location.reload();
     }
   };
 
