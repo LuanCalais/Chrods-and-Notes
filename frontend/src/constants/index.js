@@ -65,3 +65,9 @@ export const PROFILE_PICTURE_AVATARS = Object.freeze([
   PROFILE_PICTURE_DETAILS.NON,
   PROFILE_PICTURE_DETAILS.UNK,
 ]);
+
+export const PATHS_TO_EDIT = Object.freeze({
+  DEFAULT: "/app",
+  BANDS: "/app/bands",
+  MUSICS: "/app/musics",
+});
