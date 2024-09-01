@@ -7,7 +7,6 @@ import Button from "../../Components/Button";
 import Input from "../../Components/Common/CommonInput";
 import Modal from "../../Components/Common/CommonModal";
 import ModalButton from "../../Components/Common/Button";
-import Dropzone from "../../Components/Dropzone";
 import { BandModel } from "../../Model";
 import BandService from "../../Services/BandService";
 import { responseRequest } from "../../utils";
@@ -22,7 +21,6 @@ const Bands = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [band, setBand] = useState(new BandModel());
-  const [banner, setBanner] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [bands, setBands] = useState([]);
   const [fixedBands, setFixedBands] = useState([]);
@@ -49,17 +47,12 @@ const Bands = () => {
     setFixedBands(res);
   }
 
-  function onUpload(file) {
-    setBanner(file);
-  }
-
   async function handleActionBand() {
     setIsProcessing(true);
     if (
       !band.name.trim() ||
       !band.gender.trim() ||
       !band.bandCreatedAt.trim() ||
-      !banner?.path.trim() ||
       !String(hsva).trim()
     ) {
       toast.error("Insert all required fields", {
@@ -74,8 +67,6 @@ const Bands = () => {
 
     const formData = new FormData();
 
-    formData.append("file", banner);
-
     let res;
 
     if (band.id) {
@@ -83,7 +74,6 @@ const Bands = () => {
         name: band.name,
         gender: band.gender,
         bandCreatedAt: band.bandCreatedAt,
-        banner: band.path,
         color: band.color,
         updatedAt: new Date(),
       };
@@ -192,13 +182,6 @@ const Bands = () => {
           }}
           currentValue={band.bandCreatedAt}
           type="text"
-        />
-        <Dropzone
-          message="Acceped files: .png, jpg, jpeg"
-          maxFilesSize={3 * 1024 * 1024}
-          acceptedTypeFiles="image/png, image/jpeg, image/jpg"
-          onUpload={onUpload}
-          setBanner={setBanner}
         />
 
         <div className={styles.colorPicker}>

@@ -7,6 +7,13 @@
   -moz-box-shadow: 10px 11px 39px -12px rgba(112, 112, 112, 0.75);
   padding: 12px;
   position: relative;
+  overflow: clip;
+}
+
+.cardContainerBackground {
+  position: absolute;
+  left: -600px;
+  bottom: -20px;
 }
 
 h1 {
@@ -15,7 +22,7 @@ h1 {
 
 .actionsContainer {
   position: absolute;
-  top: 12px;
+  bottom: 12px;
   right: 12px;
   display: flex;
   align-items: center;

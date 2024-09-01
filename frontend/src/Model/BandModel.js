@@ -5,7 +5,6 @@ class BandModel {
     gender = "",
     bandCreatedAt = "",
     user = "",
-    banner = "",
     color = "#A0AF84",
     createdAt = "",
     updatedAt = ""
@@ -15,7 +14,6 @@ class BandModel {
     this.gender = gender;
     this.bandCreatedAt = bandCreatedAt;
     this.user = user;
-    this.banner = banner;
     this.color = color;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

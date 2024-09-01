@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Card.module.css";
+import svgElement from "../../assets/img/Elements/CARD_BACKEROUND.svg";
 
 const Card = ({
   name = "Band",
@@ -30,6 +31,7 @@ const Card = ({
       style={{ backgroundColor: color }}
       className={styles.cardContainer}
     >
+      <img src={svgElement} alt="background" className={styles.cardContainerBackground} />
       {isMouseOn && (
         <div className={styles.actionsContainer}>
           <div
