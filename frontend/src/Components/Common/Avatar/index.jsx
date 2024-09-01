@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { PROFILE_PICTURE_DETAILS } from "../../../constants";
+import { PROFILE_PICTURE_DETAILS, PATHS_TO_EDIT } from "../../../constants";
 import styles from "./Avatar.module.css";
 import Modal from "../../../Components/Common/CommonModal";
 import AvatarOptions from "../AvatarOptions";
@@ -7,6 +7,7 @@ import Button from "../Button";
 import UserService from "../../../Services/UserService";
 import { responseRequest } from "../../../utils";
 import { UserContext } from "../../../Contexts/UserContext";
+import { useLocation } from "react-router-dom";
 
 const Avatar = ({
   currentUser = null,
@@ -15,6 +16,7 @@ const Avatar = ({
   hasEmail = false,
 }) => {
   const { contextUser, changePicture } = useContext(UserContext);
+  const location = useLocation();
 
   const [isMouseOn, setIsMouseOn] = useState(false);
   const [show, setShow] = useState(false);
@@ -23,6 +25,10 @@ const Avatar = ({
     PROFILE_PICTURE_DETAILS[contextUser.profilePicture]
   );
   const [isLoading, setIsLoading] = useState(false);
+
+  const isNewRouteValidate = location.pathname === PATHS_TO_EDIT.DEFAULT;
+
+  const variableCursor = isNewRouteValidate ? styles.selected : "";
 
   async function saveNewPicture() {
     setIsLoading(true);
@@ -39,16 +45,28 @@ const Avatar = ({
     setIsLoading(false);
   }
 
+  function handleWithShowMouseOn() {
+    if (!isNewRouteValidate) return;
+    setIsMouseOn(true);
+  }
+
+  function handleSetModal() {
+    if (!isNewRouteValidate) return;
+    setShow(true);
+  }
+
   return (
     <>
       <span key={key} className={styles.bottomContent}>
         <div className={styles.personContent}>
           <div
-            onMouseEnter={() => setIsMouseOn(true)}
+            onMouseEnter={handleWithShowMouseOn}
             onMouseLeave={() => setIsMouseOn(false)}
-            className={styles.userPicture}
+            className={`${isNewRouteValidate ? styles.selected : ""} ${
+              styles.userPicture
+            }`}
             title={currentUser.name}
-            onClick={() => setShow(true)}
+            onClick={handleSetModal}
           >
             {isMouseOn && (
               <span className={styles.editIcon}>
