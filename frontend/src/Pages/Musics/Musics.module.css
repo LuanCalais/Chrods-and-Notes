@@ -1,0 +1,24 @@
+emptyContainer,
+.musics {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.colorPicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 8px;
+}

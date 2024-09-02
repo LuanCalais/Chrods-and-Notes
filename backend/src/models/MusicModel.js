@@ -14,6 +14,7 @@ const musicSchema = new mongoose.Schema({
     required: true,
   },
   resume: { type: String, required: false },
+  color: { type: String, required: true },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
 });

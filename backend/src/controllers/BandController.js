@@ -5,8 +5,6 @@ class BandController {
   static createBand = async (req, res) => {
     const incommingBand = JSON.parse(req.body.band);
 
-    // TODO: Save in base64
-    incommingBand.banner = req.file.path;
     try {
       incommingBand.createdAt = new Date();
       incommingBand.updatedAt = new Date();

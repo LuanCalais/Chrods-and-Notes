@@ -2,19 +2,19 @@ class MusicModel {
   constructor(
     id = null,
     name = "",
-    gender = "",
-    bandCreatedAt = "",
+    artist = "",
     user = "",
-    banner = "",
+    color = "#A0AF84",
+    resume = "",
     createdAt = "",
     updatedAt = ""
   ) {
     this.id = id;
     this.name = name;
-    this.gender = gender;
-    this.bandCreatedAt = bandCreatedAt;
+    this.artist = artist;
     this.user = user;
-    this.banner = banner;
+    this.color = color;
+    this.resume = resume;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
