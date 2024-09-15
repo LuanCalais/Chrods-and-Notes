@@ -12,7 +12,7 @@ import TextArea from "../../Components/TextArea";
 import { MusicModel } from "../../Model";
 import { UserContext } from "../../Contexts/UserContext";
 import SelectCommon from "../../Components/Select";
-import BandService from "../../Services/BandService";
+import { BandService, OpenaiService } from "../../Services";
 
 const Musics = () => {
   const [search, setSearch] = useState("");
@@ -61,9 +61,12 @@ const Musics = () => {
     setShow(false);
   }
 
-  function handleGenerateIa() {
+  async function handleGenerateIa() {
     setIsProcessingIa(true);
-    setTimeout(() => {
+    const res = OpenaiService.GenerateResume();
+    console.log(res);
+    // TODO: fix error 429
+    await setTimeout(() => {
       setIsProcessingIa(false);
     }, 2000);
   }
