@@ -1,0 +1,6 @@
+.textArea {
+  border-radius: 2px;
+  background-color: var(--disabled-color);
+  font-size: 16px;
+  padding: .375rem .75rem;
+}

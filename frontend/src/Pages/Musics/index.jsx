@@ -8,6 +8,7 @@ import { Colorful, hsvaToHex } from "@uiw/react-color";
 import Input from "../../Components/Common/CommonInput";
 import ModalButton from "../../Components/Common/Button";
 import Modal from "../../Components/Common/CommonModal";
+import TextArea from "../../Components/TextArea";
 import { MusicModel } from "../../Model";
 import { UserContext } from "../../Contexts/UserContext";
 import SelectCommon from "../../Components/Select";
@@ -19,6 +20,7 @@ const Musics = () => {
   const [show, setShow] = useState(false);
   const [music, setMusic] = useState(new MusicModel());
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessingIa, setIsProcessingIa] = useState(false);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 68, a: 1 });
   const { contextUser } = useContext(UserContext);
 
@@ -59,6 +61,13 @@ const Musics = () => {
     setShow(false);
   }
 
+  function handleGenerateIa() {
+    setIsProcessingIa(true);
+    setTimeout(() => {
+      setIsProcessingIa(false);
+    }, 2000);
+  }
+
   async function handleActionMusic() {
     setIsProcessing(true);
     if (
@@ -79,7 +88,7 @@ const Musics = () => {
 
     const formData = new FormData();
 
-    let res;
+    // let res;
 
     if (music.id) {
       const body = {
@@ -128,6 +137,22 @@ const Musics = () => {
           currentValue={music.name}
         />
 
+        <div className={styles.iaContainer}>
+          <TextArea placeholder="Resume" width="100%" />
+
+          <ModalButton
+            label="Generate with AI"
+            color="var(--deep-dark-green)"
+            background="var(--light-color)"
+            borderColor="var(--deep-dark-green)"
+            width="50%"
+            height="41px"
+            fontSize="14px"
+            actionFunction={() => handleGenerateIa()}
+            disabledButton={isProcessingIa}
+          />
+        </div>
+
         <div className={styles.colorPicker}>
           <Colorful
             color={hsva}
@@ -138,7 +163,11 @@ const Musics = () => {
           />
         </div>
 
-        <SelectCommon getResult={getSelectResult} options={bands} />
+        <SelectCommon
+          getResult={getSelectResult}
+          options={bands}
+          placeholder="Bands"
+        />
 
         <div className={styles.buttons}>
           <ModalButton
