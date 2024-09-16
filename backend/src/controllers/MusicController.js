@@ -121,6 +121,9 @@ class MusicController {
       });
     }
   };
+
+  static generateBandResume = async (req, res) => {};
+
 }
 
 export default MusicController;

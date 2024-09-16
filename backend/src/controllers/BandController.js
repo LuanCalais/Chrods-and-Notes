@@ -123,6 +123,8 @@ class BandController {
       });
     }
   };
+
+  static generateBandResume = async (req, res) => {};
 }
 
 export default BandController;
