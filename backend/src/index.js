@@ -5,7 +5,6 @@ import Routes from "./routes/index.js";
 import db from "./config/dbConnect.js";
 dotenv.config();
 
-
 db.on("error", console.log.bind(console, "Connection error :("));
 
 db.once("open", () => {
