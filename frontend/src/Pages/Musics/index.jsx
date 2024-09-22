@@ -63,7 +63,7 @@ const Musics = () => {
 
   async function handleGenerateIa() {
     setIsProcessingIa(true);
-    const res = OpenaiService.GenerateResume();
+    const res = await OpenaiService.GenerateResume();
     console.log(res);
     // TODO: fix error 429
     await setTimeout(() => {

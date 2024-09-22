@@ -1,7 +1,10 @@
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import Routes from "./routes/index.js";
 import db from "./config/dbConnect.js";
+dotenv.config();
+
 
 db.on("error", console.log.bind(console, "Connection error :("));
 
