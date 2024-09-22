@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import "dotenv/config";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPEN_API_KEY,
+  // apiKey: process.env.OPEN_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
