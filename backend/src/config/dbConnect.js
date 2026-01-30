@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import "dotenv/config";
 
 mongoose.connect(
-  "mongodb+srv://KingOfNothing:125678943@kingofnothing.huxpw63.mongodb.net/ChordsAndNotes"
+  process.env.MONGODB_URI,
 );
 
 const db = mongoose.connection;

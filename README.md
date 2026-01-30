@@ -221,7 +221,7 @@ touch .env
 **Exemplo de arquivo `.env`:**
 ```env
 MONGO_DB=mongodb+srv://seu-usuario:senha@cluster.mongodb.net/ChordsAndNotes
-OPEN_AI_KEY=sua-chave-api-openai
+GEMINI_API_KEY=sua-chave-api-gemini
 PORT=3001
 ```
 
