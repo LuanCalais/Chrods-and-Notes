@@ -28,8 +28,6 @@ const Avatar = ({
 
   const isNewRouteValidate = location.pathname === PATHS_TO_EDIT.DEFAULT;
 
-  const variableCursor = isNewRouteValidate ? styles.selected : "";
-
   async function saveNewPicture() {
     setIsLoading(true);
     const res = await UserService.changeProfilePicture(

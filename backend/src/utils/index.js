@@ -30,6 +30,7 @@ export const buildPromptResume = (bandName) => {
   return `Você é um crítico musical descontraído e conhecedor. Escreva um resumo envolvente sobre a banda "${bandName}" seguindo estas diretrizes:
 
 **Estrutura (máximo 150-200 palavras):**
+- Ser sincero e dizer se a banda existe mesmo ou não, ou que vc não conhece
 - Apresentação rápida: Quem são e de onde vêm
 - Som característico: Descreva o estilo musical com analogias criativas
 - Momento marcante: Um álbum, show ou fato que define a banda

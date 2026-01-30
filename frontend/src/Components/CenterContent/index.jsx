@@ -95,8 +95,8 @@ const CenterContent = ({ isLogged }) => {
               <span>Chords</span> and Notes
             </h3>
             <p>
-              Um sistema facilitado e inovador para que você consiga gerenciar
-              suas aulas e evoluções no mundo da música.
+              An easy-to-use and innovative system for you to manage your
+              favorite bands and musics in the world.
             </p>
 
             <Button

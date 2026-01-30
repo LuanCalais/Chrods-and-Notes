@@ -1,32 +1,214 @@
 .carouselContainer {
-  min-height: 200px;
+  min-height: 240px;
   cursor: grab;
+  user-select: none;
+  padding: 0 14px;
+}
+
+.carouselContainer:active {
+  cursor: grabbing;
+}
+
+.carouselContainer ul {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .carouselContainer ul li {
   height: auto;
   cursor: grab;
+  transition: all 0.3s ease;
+}
+
+.carouselContainer ul li:active {
+  cursor: grabbing;
 }
 
 .carouselContainer ul li img {
   height: auto;
   width: 100%;
+  display: block;
+}
+
+.carouselContainer span {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 16px;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.carouselContainer span:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(160, 175, 132, 0.3);
+}
+
+.carouselContainer span:active {
+  transform: translateY(-2px) scale(1);
 }
 
 .carouselItem {
-  width: 280px;
-  height: 280px;
-  padding: 30px;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  aspect-ratio: 1;
+  padding: 20px;
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   cursor: pointer;
+  display: block;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+.carouselContainer span:hover .carouselItem {
+  filter: brightness(1.1);
 }
 
 .selected {
-  border: 4px solid var(--dark-green);
-  height: auto;
-  width: auto;
-  display: block;
-  border-radius: 8px;
+  border: 4px solid var(--dark-green) !important;
+  background: rgba(160, 175, 132, 0.15) !important;
+  box-shadow:
+    0 8px 24px rgba(0, 59, 54, 0.25),
+    0 0 0 2px rgba(160, 175, 132, 0.3) !important;
+  transform: scale(1.08);
+}
+
+.selected .carouselItem {
+  filter: brightness(1.05);
+}
+
+.selected:hover {
+  transform: scale(1.08) !important;
+  border-color: var(--light-green) !important;
+}
+
+@media (max-width: 1024px) {
+  .carouselContainer {
+    min-height: 220px;
+    padding: 16px 0;
+  }
+
+  .carouselItem {
+    max-width: 240px;
+    padding: 16px;
+  }
+
+  .selected {
+    border-width: 3px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .carouselContainer {
+    min-height: 200px;
+    padding: 12px 0;
+  }
+
+  .carouselContainer span {
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .carouselItem {
+    max-width: 200px;
+    padding: 12px;
+  }
+
+  .selected {
+    border-width: 3px !important;
+    transform: scale(1.05);
+  }
+
+  .selected:hover {
+    transform: scale(1.05) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselContainer {
+    min-height: 180px;
+    padding: 8px 0;
+  }
+
+  .carouselContainer span {
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .carouselItem {
+    max-width: 160px;
+    padding: 10px;
+  }
+
+  .carouselContainer span:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  .selected {
+    transform: scale(1.03);
+  }
+
+  .selected:hover {
+    transform: scale(1.03) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carouselContainer,
+  .carouselContainer ul li,
+  .carouselContainer span,
+  .carouselItem {
+    transition: none;
+  }
+
+  .carouselContainer span:hover,
+  .carouselContainer span:active,
+  .selected,
+  .selected:hover {
+    transform: none;
+  }
+}
+
+.carouselContainer :global(.react-multi-carousel-track) {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.carouselContainer :global(.react-multi-carousel-item) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carouselContainer :global(.react-multi-carousel-dot-list) {
+  bottom: -10px;
+  gap: 8px;
+}
+
+.carouselContainer :global(.react-multi-carousel-dot button) {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--light-dark-green);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.carouselContainer :global(.react-multi-carousel-dot--active button) {
+  background: var(--light-green);
+  border-color: var(--dark-green);
+  transform: scale(1.2);
+}
+
+.carouselContainer :global(.react-multi-carousel-dot button):hover {
+  background: var(--light-green);
+  transform: scale(1.1);
 }

@@ -1,6 +1,121 @@
 .textArea {
-  border-radius: 2px;
-  background-color: var(--disabled-color);
+  border-radius: 12px;
+  background: rgba(217, 217, 217, 0.4);
+  backdrop-filter: blur(10px);
+  color: var(--deep-dark-green);
   font-size: 16px;
-  padding: .375rem .75rem;
+  font-weight: 500;
+  font-family: var(--font);
+  padding: 12px 20px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.textArea::placeholder {
+  color: var(--grey-default-color);
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+.textArea:hover {
+  background: rgba(217, 217, 217, 0.6);
+  border-color: rgba(160, 175, 132, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.textArea:hover::placeholder {
+  opacity: 1;
+  color: var(--light-slim-green);
+}
+
+.textArea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--light-green);
+  box-shadow:
+    0 0 0 4px rgba(160, 175, 132, 0.15),
+    0 6px 16px rgba(0, 0, 0, 0.1);
+  color: var(--deep-dark-green);
+}
+
+.textArea:focus::placeholder {
+  opacity: 0.5;
+}
+
+.textArea:not(:placeholder-shown) {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--light-dark-green);
+  font-weight: 600;
+}
+
+.textArea:disabled {
+  background: var(--disabled-color);
+  color: var(--grey-default-color);
+  cursor: not-allowed;
+  opacity: 0.6;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.textArea:focus-visible {
+  outline: 2px solid var(--light-green);
+  outline-offset: 2px;
+}
+
+.textArea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.textArea::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.textArea::-webkit-scrollbar-thumb {
+  background: var(--light-green);
+  border-radius: 4px;
+}
+
+.textArea::-webkit-scrollbar-thumb:hover {
+  background: var(--light-slim-green);
+}
+
+@media (max-width: 768px) {
+  .textArea {
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .textArea {
+    font-size: 14px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    min-height: 90px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .textArea {
+    background: rgba(67, 107, 95, 0.2);
+    color: var(--light-color);
+    border-color: rgba(160, 175, 132, 0.3);
+  }
+
+  .textArea:focus {
+    background: rgba(67, 107, 95, 0.3);
+  }
+
+  .textArea::placeholder {
+    color: var(--light-dark-green);
+  }
 }

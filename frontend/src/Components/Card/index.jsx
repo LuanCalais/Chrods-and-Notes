@@ -32,6 +32,7 @@ const Card = ({
       className={styles.cardContainer}
     >
       <img src={svgElement} alt="background" className={styles.cardContainerBackground} />
+      
       {isMouseOn && (
         <div className={styles.actionsContainer}>
           <div
@@ -46,16 +47,19 @@ const Card = ({
         </div>
       )}
 
-      <div>
-        <h1>{name}</h1>
-        <h2>{gender}</h2>
-        <h3>{bandCreatedAt}</h3>
-      </div>
-      {localBanner && (
-        <div>
-          <img src={localBanner} alt={name} />
+      <div className={styles.contentWrapper}>
+        <div className={styles.infoContainer}>
+          <h1 className={styles.bandName}>{name}</h1>
+          <h2 className={styles.bandGender}>{gender}</h2>
+          {bandCreatedAt && <h3 className={styles.bandYear}>{bandCreatedAt}</h3>}
         </div>
-      )}
+        
+        {localBanner && (
+          <div className={styles.bannerContainer}>
+            <img src={localBanner} alt={name} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

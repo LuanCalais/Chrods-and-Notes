@@ -7,8 +7,11 @@ button {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  font-size: 12px;
   backdrop-filter: blur(10px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  touch-action: manipulation;
 }
 
 button:hover:not(:disabled) {
@@ -25,6 +28,11 @@ button:active:not(:disabled) {
 button:focus:not(:disabled) {
   outline: 2px solid var(--light-green);
   outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--light-green);
+  outline-offset: 3px;
 }
 
 button:disabled {
@@ -187,6 +195,28 @@ button.btn-loading::before {
   transform: translate(-50%, -50%);
 }
 
+button[style*="background: var(--light-color)"],
+button[style*="background: rgb(236, 229, 240)"] {
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+button[style*="background: var(--deep-dark-green)"],
+button[style*="background: var(--dark-green)"] {
+  box-shadow: 
+    0 4px 6px rgba(0, 59, 54, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+button[style*="background: var(--deep-dark-green)"]:hover,
+button[style*="background: var(--dark-green)"]:hover {
+  box-shadow: 
+    0 6px 20px rgba(0, 59, 54, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
 @media (max-width: 768px) {
   button {
     font-size: 11px;
@@ -217,41 +247,4 @@ button.btn-loading::before {
     padding: 10px 24px;
     font-size: 14px;
   }
-}
-
-button:focus-visible {
-  outline: 3px solid var(--light-green);
-  outline-offset: 3px;
-}
-
-button[style*="background: var(--light-color)"],
-button[style*="background: rgb(236, 229, 240)"] {
-  backdrop-filter: blur(10px);
-  box-shadow: 
-    0 4px 6px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
-}
-
-button[style*="background: var(--deep-dark-green)"],
-button[style*="background: var(--dark-green)"] {
-  box-shadow: 
-    0 4px 6px rgba(0, 59, 54, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-}
-
-button[style*="background: var(--deep-dark-green)"]:hover,
-button[style*="background: var(--dark-green)"]:hover {
-  box-shadow: 
-    0 6px 20px rgba(0, 59, 54, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-}
-
-button {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-button {
-  touch-action: manipulation;
 }

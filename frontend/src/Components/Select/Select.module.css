@@ -1,5 +1,180 @@
+.selectContainer {
+  width: 100%;
+}
+
+.selectContainer > div {
+  font-family: var(--font);
+}
+
 .selectContainer > div > div {
-  color: #929292;
-  border-radius: 4px;
-  background: #d9d9d9;
+  color: var(--deep-dark-green);
+  border-radius: 12px;
+  background: rgba(217, 217, 217, 0.4);
+  backdrop-filter: blur(10px);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-height: 52px;
+  font-weight: 500;
+}
+
+.selectContainer > div > div:hover {
+  background: rgba(217, 217, 217, 0.6);
+  border-color: rgba(160, 175, 132, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.selectContainer > div > div:focus-within {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--light-green);
+  box-shadow:
+    0 0 0 4px rgba(160, 175, 132, 0.15),
+    0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.selectContainer :global(.css-1dimb5e-singleValue) {
+  color: var(--deep-dark-green);
+  font-weight: 600;
+}
+
+.selectContainer :global(.css-1jqq78o-placeholder) {
+  color: var(--grey-default-color);
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+.selectContainer :global(.css-1dimb5e-singleValue),
+.selectContainer :global(.css-1jqq78o-placeholder) {
+  margin-left: 8px;
+}
+
+.selectContainer :global(.css-tj5bde-Svg) {
+  fill: var(--light-dark-green);
+}
+
+.selectContainer :global(.css-1u9des2-indicatorSeparator) {
+  background-color: rgba(160, 175, 132, 0.3);
+}
+
+.selectContainer :global(.css-1xc3v61-indicatorContainer) {
+  color: var(--light-dark-green);
+  transition: transform 0.3s ease;
+}
+
+.selectContainer :global(.css-1xc3v61-indicatorContainer):hover {
+  color: var(--light-green);
+}
+
+.selectContainer :global(.css-26l3qy-menu) {
+  background: var(--light-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(160, 175, 132, 0.2);
+  overflow: hidden;
+  margin-top: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.selectContainer :global(.css-1n7v3ny-option) {
+  background: transparent;
+  color: var(--deep-dark-green);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.selectContainer :global(.css-1n7v3ny-option):hover {
+  background: rgba(160, 175, 132, 0.15);
+  color: var(--dark-green);
+}
+
+.selectContainer :global(.css-1n7v3ny-option):active {
+  background: rgba(160, 175, 132, 0.25);
+}
+
+.selectContainer :global(.css-9gakcf-option) {
+  background: var(--light-green) !important;
+  color: var(--deep-dark-green) !important;
+  font-weight: 600;
+}
+
+.selectContainer :global(.css-9gakcf-option):hover {
+  background: var(--light-dark-green) !important;
+}
+
+.selectContainer :global(.css-1pahdxg-control) {
+  border: 2px solid transparent !important;
+  box-shadow: none !important;
+}
+
+.selectContainer :global(.css-1pahdxg-control):hover {
+  border-color: rgba(160, 175, 132, 0.3) !important;
+}
+
+.selectContainer :global(.css-1pahdxg-control--is-focused) {
+  border-color: var(--light-green) !important;
+  box-shadow: 0 0 0 4px rgba(160, 175, 132, 0.15) !important;
+}
+
+.selectContainer :global(.css-t3ipsp-control) {
+  border: 2px solid var(--light-green) !important;
+  box-shadow: 0 0 0 4px rgba(160, 175, 132, 0.15) !important;
+}
+
+.selectContainer :global(.css-qbdosj-Input) {
+  color: var(--deep-dark-green);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .selectContainer > div > div {
+    min-height: 48px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .selectContainer :global(.css-26l3qy-menu) {
+    border-radius: 10px;
+  }
+
+  .selectContainer :global(.css-1n7v3ny-option) {
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .selectContainer > div > div {
+    min-height: 46px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  .selectContainer :global(.css-26l3qy-menu) {
+    border-radius: 8px;
+  }
+
+  .selectContainer :global(.css-1n7v3ny-option) {
+    padding: 9px 12px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .selectContainer > div > div {
+    background: rgba(67, 107, 95, 0.2);
+    color: var(--light-color);
+  }
+
+  .selectContainer > div > div:focus-within {
+    background: rgba(67, 107, 95, 0.3);
+  }
+
+  .selectContainer :global(.css-26l3qy-menu) {
+    background: var(--dark-green);
+    border-color: rgba(160, 175, 132, 0.3);
+  }
+
+  .selectContainer :global(.css-1n7v3ny-option) {
+    color: var(--light-color);
+  }
 }

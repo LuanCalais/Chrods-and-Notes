@@ -85,11 +85,11 @@ const SideMenu = ({
         </ul>
       </span>
       {currentUser.id && (
-        <Avatar currentUser={currentUser} hasName hasEmail>
-          <div className={styles.logOut} onClick={handleLogOut}>
-            <span className="material-icons">directions_run</span> Log Out
-          </div>
-        </Avatar>
+          <Avatar currentUser={currentUser} hasName hasEmail>
+            <div className={styles.logOut} onClick={handleLogOut}>
+              <span className="material-icons">directions_run</span> Log Out
+            </div>
+          </Avatar>
       )}
     </div>
   );
