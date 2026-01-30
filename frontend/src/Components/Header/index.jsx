@@ -67,13 +67,13 @@ const Header = ({ changeState, isLogged }) => {
     <nav>
       <div className={styles.container}>
         <a
-          href="https://www.instagram.com/luan_calais/"
+          href="https://github.com/LuanCalais"
           target="_blank"
           rel="noreferrer"
-          title="Luan Calais Instagram"
-          alt="Luan Calais Instagram"
+          title="Luan Calais GitHub"
+          alt="Luan Calais GitHub"
         >
-          <i className="bx bxl-instagram-alt"></i>
+          <i className="bx bx-code"></i>
         </a>
         <a
           href="https://www.linkedin.com/in/luan-s-calais-186104217/"

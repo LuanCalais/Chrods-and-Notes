@@ -79,6 +79,7 @@ const CenterContent = ({ isLogged }) => {
           <h2>Manage your classes </h2>
         </div>
         <Button
+          className={styles.singUpButton}
           label="Sing up"
           actionFunction={handleModal}
           color="var(--light-slim-green)"

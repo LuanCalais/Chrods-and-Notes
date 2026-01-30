@@ -1,6 +1,9 @@
 main {
   height: 100vh;
+  width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 main header {
@@ -10,4 +13,157 @@ main header {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+main header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 59, 54, 0.4) 0%,
+    rgba(1, 38, 34, 0.6) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+main header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+main header > * {
+  position: relative;
+  z-index: 3;
+}
+
+main::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 170px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 59, 54, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 1024px) {
+  main header {
+    height: calc(100% - 150px);
+  }
+  
+  main::after {
+    height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    height: 100dvh;
+  }
+  
+  main header {
+    height: calc(100% - 120px);
+    background-position: center center;
+  }
+  
+  main::after {
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  main header {
+    height: calc(100% - 100px);
+  }
+  
+  main::after {
+    height: 100px;
+  }
+  
+  main header::before {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 59, 54, 0.5) 0%,
+      rgba(1, 38, 34, 0.7) 100%
+    );
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  main {
+    height: 100vh;
+  }
+  
+  main header {
+    height: calc(100% - 80px);
+  }
+  
+  main::after {
+    height: 80px;
+  }
+}
+
+@media (min-width: 1920px) {
+  main header {
+    background-position: center top;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main header {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  main header::before {
+    background: rgba(0, 59, 54, 0.7);
+  }
+}
+
+main header[style*="display: none"] + * {
+  height: 100%;
+}
+
+main {
+  scroll-behavior: smooth;
+}
+
+main {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main header {
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+main header {
+  background-color: var(--light-dark-green);
+}
+
+@supports (background-image: url("./img/background.png")) {
+  main header {
+    background-blend-mode: overlay;
+  }
 }

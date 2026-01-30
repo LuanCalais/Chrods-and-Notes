@@ -1,5 +1,6 @@
 .centerContentContainer {
   position: absolute;
+  margin-top: 75px;
   height: calc(100vh - 50px);
   width: calc(100% - 120px);
   top: 50%;
@@ -8,85 +9,284 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
-.titleContainer {
-  text-align: center;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
-.titleContainer::after {
+dot {  text-align: center;
+  margin-bottom: 20px;
+}
+
+dot::after {
   content: "";
-  background-color: var(--light-color);
+  background: linear-gradient(90deg, transparent, var(--light-color), transparent);
   display: block;
   width: 242px;
-  height: 1px;
+  height: 2px;
   margin: 30px auto;
+  animation: shimmer 2s infinite;
 }
 
-.titleContainer h1 {
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+dot h1 {
   font-weight: 800;
   font-size: 80px;
   color: var(--light-green);
+  text-shadow: 0 4px 12px rgba(160, 175, 132, 0.3);
+  transition: all 0.3s ease;
+  letter-spacing: -2px;
 }
 
-.titleContainer h1 span {
+dot h1:hover {
+  transform: scale(1.02);
+  text-shadow: 0 6px 20px rgba(160, 175, 132, 0.5);
+}
+
+dot h1 span {
   color: var(--light-color);
+  text-shadow: 0 4px 12px rgba(236, 229, 240, 0.3);
 }
 
-.titleContainer h2 {
+dot h2 {
   font-weight: 600;
   font-size: 45px;
   line-height: 61px;
   color: var(--light-color);
+  opacity: 0.9;
+  letter-spacing: 1px;
 }
 
 .infoContainer {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 35% 65%;
   height: 410px;
   width: 100%;
+  max-width: 1200px;
   margin-top: 50px;
-  border-radius: 16px;
-  box-shadow: 2px 3px 27px 19px rgba(0, 0, 0, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              0 2px 8px rgba(0, 59, 54, 0.2);
   background-color: var(--light-color);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.infoContainer:hover {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 
+              0 4px 12px rgba(0, 59, 54, 0.3);
+  transform: translateY(-4px);
 }
 
 .infoContainer .infoBox {
-  border-radius: 16px 0 0 16px;
-  padding: 14px;
+  border-radius: 24px 0 0 24px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
+  background: linear-gradient(135deg, 
+    var(--light-color) 0%, 
+    rgba(236, 229, 240, 0.95) 100%);
+  position: relative;
+}
+
+.infoContainer .infoBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, 
+    rgba(160, 175, 132, 0.08) 0%, 
+    transparent 60%);
+  pointer-events: none;
+}
+
+.infoContainer .infoBox > * {
+  position: relative;
+  z-index: 1;
 }
 
 .infoContainer .infoBox h3 {
   font-weight: 800;
-  font-size: 40px;
+  font-size: 42px;
+  line-height: 1.2;
+  transition: color 0.3s ease;
 }
 
 .infoContainer .infoBox h3 span {
   color: var(--light-green);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.infoContainer .infoBox:hover h3 span {
+  transform: scale(1.05);
 }
 
 .infoContainer .infoBox h3::after {
   content: "";
-  background-color: currentColor;
+  background: linear-gradient(90deg, 
+    var(--light-green), 
+    var(--light-dark-green));
   display: block;
   width: 90px;
-  height: 1px;
-  margin: 8px 0;
+  height: 3px;
+  margin: 12px 0;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.infoContainer .infoBox:hover h3::after {
+  width: 120px;
 }
 
 .infoContainer .infoBox p {
   font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--dark-green);
+  opacity: 0.9;
 }
 
 .infoContainer .imgBox {
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 24px 24px 0;
   background-image: url(./band.png);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.infoContainer .imgBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(0, 59, 54, 0.3) 0%, 
+    transparent 60%);
+  transition: opacity 0.4s ease;
+}
+
+.infoContainer:hover .imgBox::before {
+  opacity: 0.5;
+}
+
+.infoContainer .imgBox::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, 
+    rgba(0, 59, 54, 0.6) 0%, 
+    transparent 100%);
+}
+
+.centerContentContainer > button {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 59, 54, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.centerContentContainer > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 59, 54, 0.3);
+  animation: none;
+}
+
+.titleContainer {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 1024px) {
+  .infoContainer {
+    grid-template-columns: 40% 60%;
+  }
+  
+  .titleContainer h1 {
+    font-size: 64px;
+  }
+  
+  .titleContainer h2 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .centerContentContainer {
+    width: calc(100% - 40px);
+  }
+  
+  .infoContainer {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-width: 500px;
+  }
+  
+  .infoContainer .infoBox {
+    border-radius: 24px 24px 0 0;
+    padding: 24px;
+  }
+  
+  .infoContainer .imgBox {
+    border-radius: 0 0 24px 24px;
+    min-height: 300px;
+  }
+  
+  .titleContainer h1 {
+    font-size: 48px;
+  }
+  
+  .titleContainer h2 {
+    font-size: 28px;
+  }
 }
