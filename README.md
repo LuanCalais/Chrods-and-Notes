@@ -143,7 +143,7 @@ Chrods-and-Notes/
 │       │   ├── BandService.js
 │       │   ├── MusicService.js
 │       │   ├── UserService.js
-│       │   └── OpenaiService.js
+│       │   └── GeminiService.js
 │       │
 │       ├── utils/                # Utilitários
 │       │   ├── Mocks.js          # Dados mock para gráficos

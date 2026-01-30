@@ -1,5 +1,5 @@
 import UserService from "./UserService";
-import OpenaiService from "./OpenaiService";
+import GeminiService from "./GeminiService";
 import BandService from "./BandService";
 
-export { UserService, BandService, OpenaiService };
+export { UserService, BandService, GeminiService };

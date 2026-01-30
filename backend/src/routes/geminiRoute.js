@@ -2,7 +2,7 @@ import { Router } from "express";
 import GeminiController from "../controllers/geminiController.js";
 
 const router = Router().get(
-  "/openAi/generateResume",
+  "/gemini/generateResume",
   GeminiController.generateResume,
 );
 
