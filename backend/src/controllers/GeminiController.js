@@ -1,12 +1,14 @@
 import "dotenv/config";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { buildPromptResume } from "../utils/index.js";
+import {
+  buildPromptBandResume,
+  buildPromptMusicResume,
+} from "../utils/index.js";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 class GeminiController {
-
-  static generateResume = async (req, res) => {
+  static generateBandResume = async (req, res) => {
     try {
       const { bandName } = req.query;
 
@@ -20,7 +22,7 @@ class GeminiController {
         model: process.env.GEMINI_API_VERSION,
       });
 
-      const prompt = buildPromptResume(bandName);
+      const prompt = buildPromptBandResume(bandName);
 
       const result = await model.generateContent(prompt);
       const response = result.response;
@@ -44,6 +46,44 @@ class GeminiController {
 
       return res.status(500).json({
         error: "Erro ao gerar texto com Gemini",
+        details: error.message,
+        status: error.status || 500,
+      });
+    }
+  };
+
+  static generateMusicResume = async (req, res) => {
+    try {
+      const { musicName, bandName } = req.query;
+      const isMusicNameEmpty = !musicName || musicName.trim() === "";
+      const isBandNameEmpty = !bandName || bandName.trim() === "";
+
+      if (isMusicNameEmpty && isBandNameEmpty) {
+        return res.status(400).json({
+          error: "Título da música é obrigatório",
+        });
+      }
+
+      const model = genAI.getGenerativeModel({
+        model: process.env.GEMINI_API_VERSION,
+      });
+
+      const prompt = buildPromptMusicResume(musicName, bandName);
+
+      const result = await model.generateContent(prompt);
+      const response = result.response;
+      const texto = response.text();
+
+      return res.status(200).json({
+        musica: musicName,
+        banda: bandName,
+        texto: texto,
+        modelo: process.env.GEMINI_API_VERSION,
+      });
+    } catch (error) {
+      console.error("Erro ao gerar resumo musical com Gemini:", error);
+      return res.status(500).json({
+        error: "Erro ao gerar resumo musical com Gemini",
         details: error.message,
         status: error.status || 500,
       });
