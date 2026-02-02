@@ -5,11 +5,17 @@ const TextArea = ({
   id = Math.random(),
   placeholder = "Placeholder",
   width = "auto",
+  currentValue = "",
+  handleValue,
 }) => {
   return (
     <textarea
       placeholder={placeholder}
+      value={currentValue}
       className={styles.textArea}
+      onChange={(e) => {
+        handleValue(e.target.value);
+      }}
       name={name}
       id={id}
       style={{

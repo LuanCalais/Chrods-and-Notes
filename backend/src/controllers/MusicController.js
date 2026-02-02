@@ -1,26 +1,53 @@
+import mongoose from "mongoose";
 import MusicModel from "../models/MusicModel.js";
-import { verifyObject } from "../utils/index.js";
+import BandController from "./BandController.js";
 
 class MusicController {
   static createMusic = async (req, res) => {
     try {
-      req.body.createdAt = new Date();
-      req.body.updatedAt = new Date();
-      req.body.name = req.body.name.toLowerCase();
+      const { name, artist, color, userId } = req.body;
 
-      if (verifyObject(req.body)) {
-        const music = new MusicModel(req.body);
-
-        music.save().then((savedMusic) => {
-          savedMusic.id = savedMusic._id.toString();
-          return savedMusic.save();
+      if (!name || !artist || !color || !userId) {
+        return res.status(400).json({
+          message:
+            "Please provide all required fields: name, artist, color, userId",
         });
-
-        res.status(200).json(music);
-        return;
       }
-      res.status(500).send({
-        message: "We sorry, please insert all the required informations >:(",
+
+      if (!mongoose.Types.ObjectId.isValid(artist)) {
+        return res.status(400).json({
+          message: "Invalid artist ID",
+        });
+      }
+
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({
+          message: "Invalid user ID",
+        });
+      }
+
+      const musicData = {
+        name: name.toLowerCase().trim(),
+        artist: artist,
+        userId: userId,
+        color: color,
+        resume: req.body.resume || "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      const music = new MusicModel(musicData);
+      const savedMusic = await music.save();
+      savedMusic.id = savedMusic._id.toString();
+      await savedMusic.save();
+
+      const populatedMusic = await MusicModel.findById(savedMusic._id)
+        .populate("artist", "name")
+        .populate("userId", "name email");
+
+      return res.status(201).json({
+        message: "Music created successfully",
+        data: populatedMusic,
       });
     } catch (err) {
       res.status(500).send({
@@ -30,21 +57,20 @@ class MusicController {
   };
 
   static getMusics = async (req, res) => {
-    MusicModel.find({})
-      .populate("artist", "name")
-      .then((musics) => {
-        MusicModel.countDocuments({}).then((count) => {
-          res.status(200).json({
-            data: musics,
-            count: count,
-          });
-        });
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: `${err.message} We sorry, something wrong happend`,
-        });
+    try {
+      const musics = await MusicModel.find({});
+
+      const count = await MusicModel.countDocuments({});
+
+      res.status(200).json({
+        data: musics,
+        count: count,
       });
+    } catch (err) {
+      res.status(500).json({
+        message: `${err.message} We sorry, something wrong happened`,
+      });
+    }
   };
 
   static getMusicByArtist = async (req, res) => {
@@ -110,7 +136,7 @@ class MusicController {
       const updated = await MusicModel.findByIdAndUpdate(
         id,
         { $set: body },
-        { new: true }
+        { new: true },
       );
       res.status(200).send({
         message: `The operation was a success :), ${updated.name} has changed`,
@@ -123,7 +149,6 @@ class MusicController {
   };
 
   static generateBandResume = async (req, res) => {};
-
 }
 
 export default MusicController;

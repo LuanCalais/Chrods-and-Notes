@@ -52,6 +52,7 @@
   background: rgba(255, 255, 255, 0.95);
   border-color: var(--light-dark-green);
   font-weight: 600;
+  color: black;
 }
 
 .textArea:disabled {

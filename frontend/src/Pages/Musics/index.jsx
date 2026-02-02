@@ -12,7 +12,8 @@ import TextArea from "../../Components/TextArea";
 import { MusicModel } from "../../Model";
 import { UserContext } from "../../Contexts/UserContext";
 import SelectCommon from "../../Components/Select";
-import { BandService, GeminiService } from "../../Services";
+import { BandService, GeminiService, MusicService } from "../../Services";
+import { responseRequest } from "../../utils";
 
 const Musics = () => {
   const [search, setSearch] = useState("");
@@ -39,6 +40,14 @@ const Musics = () => {
         band.value = band.id;
         band.label = band.name;
       });
+
+      if (!music.artist && bands[0]) {
+        setMusic((prev) => ({
+          ...prev,
+          artist: bands[0].id,
+          artistName: bands[0].name,
+        }));
+      }
     }
   }, [bands]);
 
@@ -63,22 +72,21 @@ const Musics = () => {
 
   async function handleGenerateIa() {
     setIsProcessingIa(true);
-    const res = await GeminiService.GenerateResume();
-    console.log(res);
-    // TODO: fix error 429
-    await setTimeout(() => {
+    const res = await GeminiService.GenerateMusicResume(
+      music.name,
+      music.artistName,
+    );
+    if (res) {
+      const { text } = res;
+      setMusic((prev) => ({ ...prev, resume: text }));
       setIsProcessingIa(false);
-    }, 2000);
+    }
   }
 
   async function handleActionMusic() {
     setIsProcessing(true);
-    if (
-      !music.name.trim() ||
-      !music.gender.trim() ||
-      !music.bandCreatedAt.trim() ||
-      !String(hsva).trim()
-    ) {
+
+    if (!music.name?.trim() || !music.artist || !hsva) {
       toast.error("Insert all required fields", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
@@ -86,41 +94,58 @@ const Musics = () => {
       return;
     }
 
-    music.user = contextUser.id;
-    music.color = String(hsvaToHex(hsva));
-
-    const formData = new FormData();
-
-    // let res;
-
-    if (music.id) {
+    try {
       const body = {
-        name: music.name,
-        gender: music.gender,
-        bandCreatedAt: music.bandCreatedAt,
-        color: music.color,
-        updatedAt: new Date(),
+        name: music.name.trim(),
+        color: hsvaToHex(hsva),
+        artist: music.artist,
+        resume: music.resume || "",
+        userId: contextUser.id,
       };
 
-      formData.append("band", JSON.stringify(body));
+      let res;
 
-      // res = await BandService.editBand(formData, band.id);
-    } else {
-      // formData.append("band", JSON.stringify(band));
-      // res = await BandService.createBand(formData);
+      if (music.id) {
+        body.updatedAt = new Date().toISOString();
+        res = await MusicService.editMusic(body, music.id);
+      } else {
+        body.createdAt = new Date().toISOString();
+        body.updatedAt = new Date().toISOString();
+        res = await MusicService.createMusic(body);
+      }
+
+      const responseResult = responseRequest(res);
+
+      if (responseResult) {
+        handleCloseModal();
+        // TODO: Recarregar lista de músicas
+        // getAllMusics();
+      } else {
+        toast.error("Failed to save music", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    } catch (error) {
+      console.error("Error saving music:", error);
+      toast.error("An error occurred while saving", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } finally {
+      setIsProcessing(false);
     }
-    // const responseResult = responseRequest(res);
-
-    // if (responseResult) {
-    handleCloseModal();
-    // getAllBands();
-    // }
-    setIsProcessing(false);
   }
 
   function getSelectResult(value) {
     music.artist = value.id;
+    music.artistName = value.name;
   }
+
+  const isGenerateIaDisabled = !music.name?.trim() || !music.artist?.trim();
+  const isSubmitDisabled =
+    isProcessing ||
+    !music.name?.trim() ||
+    !String(hsva).trim() ||
+    !music.artist?.trim();
 
   return (
     <>
@@ -134,14 +159,21 @@ const Musics = () => {
         <Input
           placeholder="Name"
           handleValue={(value) => {
-            music.name = value;
+            setMusic((prev) => ({ ...prev, name: value }));
           }}
           type="text"
           currentValue={music.name}
         />
 
         <div className={styles.iaContainer}>
-          <TextArea placeholder="Resume" width="100%" />
+          <TextArea
+            placeholder="Resume"
+            width="100%"
+            handleValue={(value) => {
+              setMusic((prev) => ({ ...prev, resume: value }));
+            }}
+            currentValue={music.resume}
+          />
 
           <ModalButton
             label="Generate with AI"
@@ -152,7 +184,7 @@ const Musics = () => {
             height="41px"
             fontSize="14px"
             actionFunction={() => handleGenerateIa()}
-            disabledButton={isProcessingIa}
+            disabledButton={isProcessingIa || isGenerateIaDisabled}
           />
         </div>
 
@@ -181,7 +213,7 @@ const Musics = () => {
             height="41px"
             fontSize="14px"
             actionFunction={handleActionMusic}
-            disabledButton={isProcessing}
+            disabledButton={isSubmitDisabled}
           />
 
           <ModalButton

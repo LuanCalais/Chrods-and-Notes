@@ -30,7 +30,8 @@ export const buildPromptBandResume = (bandName) => {
   return `Você é um crítico musical descontraído e conhecedor. Escreva um resumo envolvente sobre a banda "${bandName}" seguindo estas diretrizes:
 
 **Estrutura (máximo 20-50 palavras):**
-- Ser sincero e dizer se a banda existe mesmo ou não, ou que vc não conhece
+- Ser sincero e dizer se a banda existe mesmo ou não, não prossiga o resumo
+- Se conhecer a banda, não responda como se estivesse conversando com o usuário, pois este resumo será salvo no banco de dados, não use termos como "Você", "seu", "conheço", etc.
 - Apresentação rápida: Quem são e de onde vêm
 - Som característico: Descreva o estilo musical com analogias criativas
 - Momento marcante: Um álbum, show ou fato que define a banda
@@ -63,7 +64,8 @@ export const buildPromptMusicResume = (musicTitle, bandName) => {
   return `Você é um crítico musical descontraído, sincero e apaixonado por música. Escreva um resumo envolvente sobre a música "${musicTitle}" da banda "${bandName}" seguindo estas diretrizes:
 
 **IMPORTANTE - Autenticidade em Primeiro Lugar:**
-- Seja HONESTO: se você não conhece a banda/música, diga claramente
+- Seja HONESTO: se você não conhece a banda/música, diga claramente e não prossiga o resumo
+- Se conhecer a banda/música, não responda como se estivesse conversando com o usuário, pois este resumo será salvo no banco de dados, não use termos como "Você", "seu", "conheço", etc.
 - Se a banda ou música não existe ou parece inventada, mencione isso de forma amigável
 - Se conhece, mostre entusiasmo genuíno; se não conhece, admita sem problema
 

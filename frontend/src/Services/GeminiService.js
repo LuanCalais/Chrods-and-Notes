@@ -3,10 +3,15 @@ import api from "./api";
 const path = "/gemini";
 
 const GeminiService = {
-  GenerateResume: async () => {
+  GenerateMusicResume: async (musicName, bandName) => {
     try {
-      const res = await api.get(`${path}/generateResume`);
-      return res;
+      const encodedMusicName = encodeURIComponent(musicName);
+      const encodedBandName = encodeURIComponent(bandName);
+
+      const res = await api.get(
+        `${path}/generateMusicResume?musicName=${encodedMusicName}&bandName=${encodedBandName}`,
+      );
+      return res.data;
     } catch (ex) {
       console.log(`Gemini connection error: ${ex}`);
       return null;

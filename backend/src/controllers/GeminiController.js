@@ -14,7 +14,7 @@ class GeminiController {
 
       if (!bandName || bandName.trim() === "") {
         return res.status(400).json({
-          error: "Nome da banda é obrigatório",
+          error: "Band name is required",
         });
       }
 
@@ -26,26 +26,26 @@ class GeminiController {
 
       const result = await model.generateContent(prompt);
       const response = result.response;
-      const texto = response.text();
+      const text = response.text();
 
       return res.status(200).json({
-        banda: bandName,
-        texto: texto,
-        modelo: process.env.GEMINI_API_VERSION,
+        band: bandName,
+        text: text,
+        model: process.env.GEMINI_API_VERSION,
       });
     } catch (error) {
-      console.error("Erro ao gerar texto com Gemini:", error);
+      console.error("Error generating text with Gemini:", error);
       if (error.status === 404) {
         return res.status(500).json({
-          error: "Modelo não encontrado ou API Key inválida",
+          error: "Model not found or invalid API Key",
           details:
-            "Verifique se sua API Key do Google AI Studio está correta e ativa",
+            "Check if your Google AI Studio API Key is correct and active",
           message: error.message,
         });
       }
 
       return res.status(500).json({
-        error: "Erro ao gerar texto com Gemini",
+        error: "Error generating text with Gemini",
         details: error.message,
         status: error.status || 500,
       });
@@ -60,7 +60,7 @@ class GeminiController {
 
       if (isMusicNameEmpty && isBandNameEmpty) {
         return res.status(400).json({
-          error: "Título da música é obrigatório",
+          error: "Music title is required",
         });
       }
 
@@ -72,18 +72,18 @@ class GeminiController {
 
       const result = await model.generateContent(prompt);
       const response = result.response;
-      const texto = response.text();
+      const text = response.text();
 
       return res.status(200).json({
-        musica: musicName,
-        banda: bandName,
-        texto: texto,
-        modelo: process.env.GEMINI_API_VERSION,
+        music: musicName,
+        band: bandName,
+        text: text,
+        model: process.env.GEMINI_API_VERSION,
       });
     } catch (error) {
-      console.error("Erro ao gerar resumo musical com Gemini:", error);
+      console.error("Error generating music resume with Gemini:", error);
       return res.status(500).json({
-        error: "Erro ao gerar resumo musical com Gemini",
+        error: "Error generating music resume with Gemini",
         details: error.message,
         status: error.status || 500,
       });

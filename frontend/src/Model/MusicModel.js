@@ -3,6 +3,7 @@ class MusicModel {
     id = null,
     name = "",
     artist = "",
+    artistName = "",
     user = "",
     color = "#A0AF84",
     resume = "",
@@ -12,6 +13,7 @@ class MusicModel {
     this.id = id;
     this.name = name;
     this.artist = artist;
+    this.artistName = artistName;
     this.user = user;
     this.color = color;
     this.resume = resume;
