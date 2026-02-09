@@ -2,7 +2,7 @@
   height: 282px;
   width: 282px;
   border-radius: 16px;
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.2),
     0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -29,7 +29,7 @@
 
 .cardContainer:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 
+  box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.3),
     0 8px 16px rgba(0, 0, 0, 0.15);
   border-color: rgba(255, 255, 255, 0.25);
@@ -127,6 +127,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
+
 }
 
 .infoContainer {
@@ -139,7 +141,7 @@
   font-weight: 700;
   font-size: 28px;
   color: rgba(255, 255, 255, 0.98);
-  text-shadow: 
+  text-shadow:
     0 2px 8px rgba(0, 0, 0, 0.4),
     0 1px 3px rgba(0, 0, 0, 0.3);
   margin: 0;
@@ -170,36 +172,128 @@
   line-height: 1.4;
 }
 
-.bannerContainer {
-  align-self: flex-end;
-  width: 140px;
-  height: 140px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.35),
-    0 0 0 3px rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-}
-
-.cardContainer:hover .bannerContainer {
+.cardContainer:hover {
   transform: scale(1.05);
-  box-shadow: 
+  box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.45),
     0 0 0 3px rgba(255, 255, 255, 0.35);
 }
 
-.bannerContainer img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
 .cardContainer:hover .bannerContainer img {
   transform: scale(1.1);
+}
+
+.decorativeCircle1 {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  top: -40px;
+  right: -30px;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.decorativeCircle2 {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(15px);
+  bottom: 20px;
+  left: -20px;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.decorativeLine1 {
+  position: absolute;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  top: 35%;
+  right: -60px;
+  transform: rotate(-45deg);
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.decorativeShape2 {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  bottom: -20px;
+  right: 40px;
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.cardContainer:hover .decorativeCircle1 {
+  transform: translate(-10px, 10px) scale(1.1);
+  opacity: 0.12;
+}
+
+.cardContainer:hover .decorativeCircle2 {
+  transform: translate(10px, -10px) scale(1.15);
+  opacity: 0.08;
+}
+
+.cardContainer:hover .decorativeLine1 {
+  right: -50px;
+  opacity: 0.6;
+}
+
+.cardContainer:hover .decorativeShape2 {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.additionalContentWrapper {
+  color: rgba(255, 255, 255, 0.88);
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+@media (max-width: 768px) {
+  .decorativeCircle1 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .decorativeCircle2 {
+    width: 70px;
+    height: 70px;
+  }
+
+  .decorativeLine1 {
+    width: 150px;
+  }
+
+  .decorativeShape2 {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decorativeCircle1,
+  .decorativeCircle2,
+  .decorativeLine1,
+  .decorativeShape2 {
+    transition: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -232,11 +326,6 @@
   .editElement i,
   .deleteElement i {
     font-size: 18px;
-  }
-
-  .bannerContainer {
-    width: 120px;
-    height: 120px;
   }
 }
 
@@ -271,11 +360,6 @@
   .deleteElement i {
     font-size: 17px;
   }
-
-  .bannerContainer {
-    width: 100px;
-    height: 100px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -283,11 +367,6 @@
   .cardContainerBackground,
   .editElement,
   .deleteElement,
-  .bannerContainer,
-  .bannerContainer img {
-    transition: none;
-  }
-
   .cardContainer:hover {
     transform: none;
   }

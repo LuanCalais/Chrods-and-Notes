@@ -14,10 +14,14 @@ import { UserContext } from "../../Contexts/UserContext";
 import SelectCommon from "../../Components/Select";
 import { BandService, GeminiService, MusicService } from "../../Services";
 import { responseRequest } from "../../utils";
+import Card from "../../Components/Card";
+import EmptyComponent from "../../Components/EmptyComponent";
 
 const Musics = () => {
   const [search, setSearch] = useState("");
   const [bands, setBands] = useState([]);
+  const [musics, setMusics] = useState([]);
+  const [filteredMusics, setFilteredMusics] = useState([]);
   const [show, setShow] = useState(false);
   const [music, setMusic] = useState(new MusicModel());
   const [isProcessing, setIsProcessing] = useState(false);
@@ -27,11 +31,18 @@ const Musics = () => {
 
   useEffect(() => {
     getAllBands();
+    getAllMusics();
   }, []);
 
   async function getAllBands() {
     const { data } = await BandService.getBandByUserId(contextUser.id);
     setBands(data);
+  }
+
+  async function getAllMusics() {
+    const { data } = await MusicService.getMusicByUserId(contextUser.id);
+    setMusics(data);
+    setFilteredMusics(data);
   }
 
   useEffect(() => {
@@ -51,6 +62,17 @@ const Musics = () => {
     }
   }, [bands]);
 
+  useEffect(() => {
+    if (search.trim() === "") {
+      setFilteredMusics(musics);
+    } else {
+      const filtered = musics.filter((music) =>
+        music.name.toLowerCase().includes(search.toLowerCase()),
+      );
+      setFilteredMusics(filtered);
+    }
+  }, [search, musics]);
+
   const searchObject = {
     label: "Add",
     style: {
@@ -67,7 +89,17 @@ const Musics = () => {
   function handleCloseModal() {
     if (isProcessing) return;
     setMusic(new MusicModel());
+    setHsva({ h: 0, s: 0, v: 68, a: 1 });
     setShow(false);
+  }
+
+  async function deleteMusic(musicId) {
+    const res = await MusicService.deleteMusic(musicId);
+    const responseResult = responseRequest(res);
+
+    if (responseResult) {
+      getAllMusics();
+    }
   }
 
   async function handleGenerateIa() {
@@ -117,9 +149,14 @@ const Musics = () => {
       const responseResult = responseRequest(res);
 
       if (responseResult) {
+        toast.success(
+          music.id
+            ? "Music updated successfully"
+            : "Music created successfully",
+          { position: toast.POSITION.BOTTOM_RIGHT },
+        );
         handleCloseModal();
-        // TODO: Recarregar lista de músicas
-        // getAllMusics();
+        getAllMusics();
       } else {
         toast.error("Failed to save music", {
           position: toast.POSITION.BOTTOM_RIGHT,
@@ -136,16 +173,21 @@ const Musics = () => {
   }
 
   function getSelectResult(value) {
-    music.artist = value.id;
-    music.artistName = value.name;
+    setMusic((prev) => ({
+      ...prev,
+      artist: value.id,
+      artistName: value.name,
+    }));
   }
 
-  const isGenerateIaDisabled = !music.name?.trim() || !music.artist?.trim();
+  const isGenerateIaDisabled = !music.name?.trim() || !music.artistName?.trim();
   const isSubmitDisabled =
     isProcessing ||
     !music.name?.trim() ||
     !String(hsva).trim() ||
     !music.artist?.trim();
+
+  const openEditMusic = (id) => {};
 
   return (
     <>
@@ -154,7 +196,26 @@ const Musics = () => {
           <Search value={search} setValue={onSearch} />
           <Button {...searchObject} />
         </div>
+
+        {filteredMusics.length > 0 ? (
+          <div className={styles.musicsList}>
+            {filteredMusics.map((musicItem, index) => (
+              <Card
+                key={`music_${index}`}
+                {...musicItem}
+                additionalContent={musicItem.resume}
+                deleteFunction={() => deleteMusic(musicItem.id)}
+                editFunction={() => openEditMusic(musicItem)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className={styles.emptyContainer}>
+            <EmptyComponent />
+          </div>
+        )}
       </div>
+
       <Modal title={music.id ? "Edit music" : "Create music"} show={show}>
         <Input
           placeholder="Name"
@@ -202,6 +263,7 @@ const Musics = () => {
           getResult={getSelectResult}
           options={bands}
           placeholder="Bands"
+          currentValue={music.artist}
         />
 
         <div className={styles.buttons}>

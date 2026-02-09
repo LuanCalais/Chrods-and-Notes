@@ -23,10 +23,16 @@ emptyContainer,
   column-gap: 8px;
 }
 
-.iaContainer{
+.iaContainer {
   display: flex;
   flex-direction: column;
   row-gap: 8px;
   align-items: flex-end;
 }
 
+.musicsList {
+  padding: 37px 52px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 12px;
+}

@@ -3,6 +3,15 @@ import api from "./api";
 const path = "/musics";
 
 const MusicService = {
+  getMusicByUserId: async (userId) => {
+    try {
+      const res = await api.get(`${path}/user/${userId}`);
+      return res.data;
+    } catch (err) {
+      return err.response;
+    }
+  },
+
   createMusic: async (music) => {
     try {
       const res = await api.post(path, music);

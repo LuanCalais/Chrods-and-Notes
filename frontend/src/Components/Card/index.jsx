@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Card.module.css";
 import svgElement from "../../assets/img/Elements/CARD_BACKEROUND.svg";
 
@@ -6,23 +6,12 @@ const Card = ({
   name = "Band",
   gender = "Rock",
   color = "var(--light-green)",
-  banner = null,
+  additionalContent = null,
   bandCreatedAt = null,
   deleteFunction = () => {},
   editFunction = () => {},
 }) => {
-  const [localBanner, setLocalBanner] = useState();
   const [isMouseOn, setIsMouseOn] = useState(false);
-
-  useEffect(() => {
-    if (banner) {
-      let regex = /\bhttps?:\/\/\S+\.(?:png|jpe?g|gif)\b/;
-      if (regex.test(banner)) {
-        const url = banner.replace(/\\/g, "/");
-        setLocalBanner(url);
-      }
-    }
-  }, [banner]);
 
   return (
     <div
@@ -31,8 +20,17 @@ const Card = ({
       style={{ backgroundColor: color }}
       className={styles.cardContainer}
     >
-      <img src={svgElement} alt="background" className={styles.cardContainerBackground} />
-      
+      <img
+        src={svgElement}
+        alt="background"
+        className={styles.cardContainerBackground}
+      />
+
+      <div className={styles.decorativeCircle1} />
+      <div className={styles.decorativeCircle2} />
+      <div className={styles.decorativeLine1} />
+      <div className={styles.decorativeShape2} />
+
       {isMouseOn && (
         <div className={styles.actionsContainer}>
           <div
@@ -51,14 +49,15 @@ const Card = ({
         <div className={styles.infoContainer}>
           <h1 className={styles.bandName}>{name}</h1>
           <h2 className={styles.bandGender}>{gender}</h2>
-          {bandCreatedAt && <h3 className={styles.bandYear}>{bandCreatedAt}</h3>}
+          {bandCreatedAt && (
+            <h3 className={styles.bandYear}>{bandCreatedAt}</h3>
+          )}
+          {additionalContent && (
+            <div className={styles.additionalContentWrapper}>
+              {additionalContent}
+            </div>
+          )}
         </div>
-        
-        {localBanner && (
-          <div className={styles.bannerContainer}>
-            <img src={localBanner} alt={name} />
-          </div>
-        )}
       </div>
     </div>
   );

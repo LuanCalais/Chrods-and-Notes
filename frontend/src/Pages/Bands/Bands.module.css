@@ -30,7 +30,7 @@
 
 .bandsContainer {
   padding: 37px 52px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 8px;
 }

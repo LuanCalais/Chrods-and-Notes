@@ -73,6 +73,31 @@ class MusicController {
     }
   };
 
+  static getMusicByUserId = async (req, res) => {
+    const id = req.params.id;
+
+    MusicModel.find({})
+      .populate({
+        path: "userId",
+        match: { _id: id },
+      })
+      .populate({
+        path: "artist",
+      })
+      .then((musics) => {
+        const musicsFiltered = musics.filter((music) => music.userId !== null);
+        res.status(200).json({
+          data: musicsFiltered,
+          count: musicsFiltered.length,
+        });
+      })
+      .catch((err) =>
+        res.status(500).send({
+          message: `${err.message} We sorry, something wrong happend`,
+        }),
+      );
+  };
+
   static getMusicByArtist = async (req, res) => {
     const composer = req.params.composer;
 
