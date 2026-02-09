@@ -17,15 +17,11 @@ function AppRoutes() {
     <BrowserRouter>
       <UserProvider>
         <Routes>
-          <Route path="/" element={<ProtectedRoute element={App} />} />
-
-          <Route ProtectedRoute path="app" element={<LoggedPage />}>
-            <Route index element={<ProtectedRoute element={Home} />} />
-            <Route path="bands" element={<ProtectedRoute element={Bands} />} />
-            <Route
-              path="musics"
-              element={<ProtectedRoute element={Musics} />}
-            />
+          <Route path="/" element={<App />} />
+          <Route path="/app" element={<ProtectedRoute element={LoggedPage} />}>
+            <Route index element={<Home />} />
+            <Route path="bands" element={<Bands />} />
+            <Route path="musics" element={<Musics />} />
           </Route>
 
           <Route path="*" element={<h1>Página não encontrada :(</h1>} />

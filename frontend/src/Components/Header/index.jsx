@@ -13,7 +13,7 @@ import {
 } from "../../utils";
 import { HTTP_SERVER_ERROR_STATUS } from "../../constants";
 
-const Header = ({ changeState, isLogged }) => {
+const Header = ({ isLogged }) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(new UserModel());
@@ -41,7 +41,6 @@ const Header = ({ changeState, isLogged }) => {
       res = await UserService.loginUser({ ...user, state: true });
       if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
         setLogin(res.data.data);
-        changeState(res.data.data);
       }
     } else {
       res = await UserService.createUser(user);

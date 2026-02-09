@@ -4,19 +4,28 @@ import { useNavigate, useLocation } from "react-router-dom";
 const useAuth = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  
   useEffect(() => {
     const storageUserState = localStorage.getItem("userState");
-    const userStateObject = JSON.parse(storageUserState);
-
-    const stateObjectExists = userStateObject || userStateObject?.isLogged;
-
-    // TODO: Colocar isso no if depois && location.pathname !== "/"
-    if (!stateObjectExists) {
-      //TODO: Bora relogar assim que tiver aquele role do tempo de logado no backend
-      console.log(location);
-      navigate("/");
+    
+    if (!storageUserState) {
+      navigate("/", { replace: true });
+      return;
     }
-  }, []);
+
+    try {
+      const userStateObject = JSON.parse(storageUserState);
+      
+      if (!userStateObject?.id || !userStateObject?.isLogged) {
+        localStorage.removeItem("userState");
+        navigate("/", { replace: true });
+      }
+    } catch (error) {
+      console.error("Erro ao parsear userState:", error);
+      localStorage.removeItem("userState");
+      navigate("/", { replace: true });
+    }
+  }, [navigate, location]);
 };
 
 export default useAuth;

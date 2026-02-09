@@ -59,7 +59,7 @@ const CenterContent = ({ isLogged }) => {
 
     if (!HTTP_SERVER_ERROR_STATUS.includes(Number(res.status))) {
       setShow(false);
-      navigate("app");
+      navigate("/app");
     }
 
     setIsLoading(false);
