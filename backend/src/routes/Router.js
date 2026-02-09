@@ -3,10 +3,11 @@ import user from "./userRoute.js";
 import band from "./bandsRoute.js";
 import music from "./musicRoute.js";
 import ai from "./geminiRoute.js";
+import analytics from "./AnalyticsRoute.js";
 
 const Routes = (app) => {
   app.get("/", (req, res) => res.send("Welcome to Chords and notes server"));
-  app.use(bodyParser.json(), user, band, music, ai);
+  app.use(bodyParser.json(), user, band, music, ai, analytics);
 };
 
 export default Routes;

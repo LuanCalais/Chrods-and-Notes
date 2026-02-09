@@ -88,3 +88,10 @@ export const setLogin = (object) => {
   };
   localStorage.setItem("userState", JSON.stringify(userState));
 };
+
+export const percentageTransform = (value, total) => {
+  if (total === 0) {
+    return 0;
+  }
+  return (value / total) * 100;
+}

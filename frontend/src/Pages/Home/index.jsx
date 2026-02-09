@@ -3,15 +3,63 @@ import disco from "./disco.png";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { DoughnutMock, BarMock } from "../../utils/Mocks";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DoughnutChart from "../../Components/Common/DoughnutChart";
 import BarChart from "../../Components/Common/BarChart";
 import { UserContext } from "../../Contexts/UserContext";
+import AnalyticsService from "../../Services/AnalyticsService";
+import { percentageTransform } from "../../utils";
 
 Chart.register(CategoryScale);
 
 const Home = () => {
   const { contextUser } = useContext(UserContext);
+
+  const [barChartData, setBarChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        backgroundColor: [],
+        borderColor: "none",
+      },
+    ],
+  });
+
+  useEffect(() => {
+    if(contextUser?.id) getMusicCountByBand();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contextUser?.id]);
+
+  async function getMusicCountByBand() {
+    const { data } = await AnalyticsService.getMusicCountByBand(contextUser.id);
+    if (!data || !data?.length) return;
+
+    await buildBarChartData(data);
+  }
+
+  const buildBarChartData = (bands) => {
+    const totalMusicsCount = bands.reduce(
+      (acc, band) => acc + band.musicCount,
+      0,
+    );
+    const labels = bands.map((band) => band.bandName);
+    setBarChartData({
+      labels: labels,
+      datasets: [
+        {
+          label: labels,
+          data: [
+            ...bands.map((band) =>
+              percentageTransform(band.musicCount, totalMusicsCount),
+            ),
+          ],
+          backgroundColor: bands.map((band) => band.bandColor),
+          borderColor: "none",
+        },
+      ],
+    });
+  };
 
   const [doughnutChartData] = useState({
     labels: DoughnutMock.map((data) => data.label),
@@ -28,23 +76,12 @@ const Home = () => {
     ],
   });
 
-  const [barChartData] = useState({
-    labels: BarMock.map((data) => data.label),
-    datasets: [
-      {
-        data: BarMock.map((data) => {
-          return data.percent;
-        }),
-        backgroundColor: ["#003B36"],
-        borderColor: "none",
-      },
-    ],
-  });
-
   const chartOptions = {
     responsive: true,
-    legend: {
-      display: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
   };
 
