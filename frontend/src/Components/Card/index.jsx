@@ -4,7 +4,7 @@ import svgElement from "../../assets/img/Elements/CARD_BACKEROUND.svg";
 
 const Card = ({
   name = "Band",
-  gender = "Rock",
+  gender = "",
   color = "var(--light-green)",
   additionalContent = null,
   bandCreatedAt = null,

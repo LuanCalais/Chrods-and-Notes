@@ -203,6 +203,7 @@ const Musics = () => {
               <Card
                 key={`music_${index}`}
                 {...musicItem}
+                gender={musicItem.artist.name}
                 additionalContent={musicItem.resume}
                 deleteFunction={() => deleteMusic(musicItem.id)}
                 editFunction={() => openEditMusic(musicItem)}

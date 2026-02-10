@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import MusicModel from "../models/MusicModel.js";
+import BandModel from "../models/BandModel.js";
 
 class AnalyticsController {
   static getMusicCountByBand = async (req, res) => {
@@ -56,6 +57,46 @@ class AnalyticsController {
         success: true,
         data: musicsByBand,
         count: musicsByBand.length,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message,
+        stack: error.stack,
+      });
+    }
+  };
+
+  static getGenderCountByBand = async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const genderByBand = await BandModel.aggregate([
+        {
+          $match: {
+            user: new mongoose.Types.ObjectId(userId),
+          },
+        },
+        {
+          $addFields: {
+            normalizedGender: {
+              $toLower: { $trim: { input: "$gender" } },
+            },
+          },
+        },
+        {
+          $group: {
+            _id: "$normalizedGender",
+            count: { $sum: 1 },
+            originalGenders: { $push: "$gender" },
+            bandIds: { $push: "$_id" },
+          },
+        },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        data: genderByBand,
+        count: genderByBand.length,
       });
     } catch (error) {
       res.status(500).json({
