@@ -71,3 +71,5 @@ export const PATHS_TO_EDIT = Object.freeze({
   BANDS: "/app/bands",
   MUSICS: "/app/musics",
 });
+
+export const DEFAULT_COLORS = Object.freeze(["#003B36", "#668F80", "#A0AF84"]);

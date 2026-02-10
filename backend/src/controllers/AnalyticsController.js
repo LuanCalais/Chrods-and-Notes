@@ -87,8 +87,13 @@ class AnalyticsController {
           $group: {
             _id: "$normalizedGender",
             count: { $sum: 1 },
-            originalGenders: { $push: "$gender" },
-            bandIds: { $push: "$_id" },
+            genderName: { $first: "$gender" },
+            bandNames: { $push: "$name" },
+          },
+        },
+        {
+          $sort: {
+            count: -1,
           },
         },
       ]);

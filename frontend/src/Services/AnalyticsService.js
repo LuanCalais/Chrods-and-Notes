@@ -11,6 +11,15 @@ const AnalyticsService = {
       return err.response;
     }
   },
+
+  getGenderCountByBand: async (userId) => {
+    try {
+      const res = await api.get(`${path}/genderByBand/${userId}`);
+      return res.data;
+    } catch (err) {
+      return err.response;
+    }
+  },
 };
 
 export default AnalyticsService;

@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import {
+  DEFAULT_COLORS,
   HTTP_CLIENT_ERROR_STATUS,
   HTTP_SERVER_ERROR_STATUS,
   HTTP_SUCCESS_STATUS,
@@ -25,7 +26,7 @@ export const responseRequest = (responseErrorStatus) => {
       `Houve um erro no lado do cliente :( - ${responseErrorStatus.data?.message}`,
       {
         position: toast.POSITION.BOTTOM_RIGHT,
-      }
+      },
     );
     return false;
   }
@@ -34,7 +35,7 @@ export const responseRequest = (responseErrorStatus) => {
       `Houve um erro no servidor - ${responseErrorStatus.data?.message}`,
       {
         position: toast.POSITION.BOTTOM_RIGHT,
-      }
+      },
     );
     return false;
   }
@@ -46,7 +47,7 @@ export const responseRequest = (responseErrorStatus) => {
     }`,
     {
       position: toast.POSITION.BOTTOM_RIGHT,
-    }
+    },
   );
   return false;
 };
@@ -94,4 +95,49 @@ export const percentageTransform = (value, total) => {
     return 0;
   }
   return (value / total) * 100;
-}
+};
+
+export const generateChartColors = (count) => {
+  if (count <= DEFAULT_COLORS.length) {
+    return DEFAULT_COLORS.slice(0, count);
+  }
+  
+  const colors = [...DEFAULT_COLORS];
+  const usedColors = new Set(DEFAULT_COLORS.map(c => c.toUpperCase()));
+  
+  const goldenRatio = 0.618033988749895;
+  let hue = 0.5;
+  let attempts = 0;
+  const maxAttempts = count * 100;
+  
+  while (colors.length < count && attempts < maxAttempts) {
+    hue += goldenRatio;
+    hue %= 1;
+    
+    const h = Math.floor(hue * 360);
+    const s = 55;
+    const l = 45;
+    
+    const newColor = hslToHex(h, s, l);
+    
+    if (!usedColors.has(newColor)) {
+      colors.push(newColor);
+      usedColors.add(newColor);
+    }
+    
+    attempts++;
+  }
+  
+  return colors;
+};
+
+const hslToHex = (h, s, l) => {
+  l /= 100;
+  const a = s * Math.min(l, 1 - l) / 100;
+  const f = n => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
+};

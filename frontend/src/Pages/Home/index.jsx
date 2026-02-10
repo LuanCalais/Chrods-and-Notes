@@ -2,13 +2,12 @@ import styles from "./Home.module.css";
 import disco from "./disco.png";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { DoughnutMock, BarMock } from "../../utils/Mocks";
 import { useContext, useEffect, useState } from "react";
 import DoughnutChart from "../../Components/Common/DoughnutChart";
 import BarChart from "../../Components/Common/BarChart";
 import { UserContext } from "../../Contexts/UserContext";
 import AnalyticsService from "../../Services/AnalyticsService";
-import { percentageTransform } from "../../utils";
+import { generateChartColors, percentageTransform } from "../../utils";
 
 Chart.register(CategoryScale);
 
@@ -26,8 +25,22 @@ const Home = () => {
     ],
   });
 
+  const [doughnutChartData, setDoughnutChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        backgroundColor: [],
+        borderWidth: 2,
+      },
+    ],
+  });
+
   useEffect(() => {
-    if(contextUser?.id) getMusicCountByBand();
+    if (contextUser?.id) {
+      getMusicCountByBand();
+      getGenderCountByBand();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contextUser?.id]);
 
@@ -37,6 +50,39 @@ const Home = () => {
 
     await buildBarChartData(data);
   }
+
+  async function getGenderCountByBand() {
+    const { data } = await AnalyticsService.getGenderCountByBand(
+      contextUser.id,
+    );
+    if (!data || !data?.length) return;
+
+    buildDoughnutChartData(data);
+  }
+
+  const buildDoughnutChartData = (genderData) => {
+    const totalGenderCount = genderData.reduce(
+      (acc, gender) => acc + gender.count,
+      0,
+    );
+
+    const backgroundColors = generateChartColors(totalGenderCount);
+
+    setDoughnutChartData({
+      labels: genderData.map((gender) => gender.genderName),
+      datasets: [
+        {
+          label: "Percent",
+          data: genderData.map((gender) =>
+            percentageTransform(gender.count, totalGenderCount),
+          ),
+          backgroundColor: backgroundColors,
+          borderColor: "none",
+          borderWidth: 2,
+        },
+      ],
+    });
+  };
 
   const buildBarChartData = (bands) => {
     const totalMusicsCount = bands.reduce(
@@ -48,39 +94,36 @@ const Home = () => {
       labels: labels,
       datasets: [
         {
-          label: labels,
+          label: "Dataset ",
           data: [
             ...bands.map((band) =>
               percentageTransform(band.musicCount, totalMusicsCount),
             ),
           ],
           backgroundColor: bands.map((band) => band.bandColor),
-          borderColor: "none",
         },
       ],
     });
   };
 
-  const [doughnutChartData] = useState({
-    labels: DoughnutMock.map((data) => data.label),
-    datasets: [
-      {
-        label: "Percent",
-        data: DoughnutMock.map((data) => {
-          return data.percent;
-        }),
-        backgroundColor: ["#003B36", "#668F80", "#A0AF84"],
-        borderColor: "none",
-        borderWidth: 2,
-      },
-    ],
-  });
-
-  const chartOptions = {
+  const barChartChartOptions = {
     responsive: true,
     plugins: {
       legend: {
         display: false,
+      },
+    },
+  };
+
+  const doughnutChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: "left",
+      },
+      title: {
+        display: true,
       },
     },
   };
@@ -95,7 +138,7 @@ const Home = () => {
         <div>
           <DoughnutChart
             chartData={doughnutChartData}
-            chartOptions={chartOptions}
+            chartOptions={doughnutChartOptions}
             label="Artists by gender"
             className={styles.doughnutChart}
           />
@@ -103,7 +146,7 @@ const Home = () => {
         <div>
           <BarChart
             chartData={barChartData}
-            chartOptions={chartOptions}
+            chartOptions={barChartChartOptions}
             label="Musics by artist"
           />
         </div>
