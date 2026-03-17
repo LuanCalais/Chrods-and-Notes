@@ -1,0 +1,57 @@
+# Dependências
+node_modules
+npm-debug.log
+
+# Ambiente e configurações
+.env
+.env.local
+.env.*.local
+!.env.example
+docker-compose*.yml
+docker-compose*.yaml
+Dockerfile
+.dockerignore
+README.md
+
+# Pastas de dados (montadas como volume)
+logs/*
+uploads/*
+temp/*
+!logs/.gitkeep
+!uploads/.gitkeep
+!temp/.gitkeep
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE e editores
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testes e coverage
+coverage
+.nyc_output
+*.test.js
+*.spec.js
+__tests__
+test
+tests
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+Thumbs.db
+desktop.ini
+
+# Documentação
+docs
+*.md
+!README.md
