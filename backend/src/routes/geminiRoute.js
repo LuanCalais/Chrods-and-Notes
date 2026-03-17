@@ -1,5 +1,5 @@
 import { Router } from "express";
-import GeminiController from "../controllers/geminiController.js";
+import GeminiController from "../controllers/GeminiController.js";
 
 const router = Router()
   .get("/gemini/generateBandResume", GeminiController.generateBandResume)
